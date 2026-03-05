@@ -1,0 +1,34 @@
+.text-box {
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    padding: 10px;
+    align-items: center;
+    justify-self: center;
+    margin-top: 12px;
+    width: 100px;
+}
+
+.text-box input {
+  width: 100px;
+}
+
+.text-box:hover input, .text-box input:focus {
+    border-bottom: solid var(--input-toolbar-color) 1px;
+}
+
+.text-box:hover p, .text-box input:focus~p {
+    color: var(--input-toolbar-color);
+}
+
+.text-box p {
+    margin: -3px;
+    font-size: 10px;
+    align-self: flex-end;
+    font-style: italic;
+
+    color: var(--input-toolbar-unfocused-color);
+    margin-right: 10px;
+
+    transition: color 0.25s;
+}

@@ -1,0 +1,13 @@
+.pair-chooser {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    height: 30px;
+    align-items: center;
+}
+
+.pair-chooser select {
+    border: none;
+    outline: none;
+    margin-left: 20px;
+}
