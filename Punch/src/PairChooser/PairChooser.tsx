@@ -1,6 +1,7 @@
 import React from 'react'
 import TextBox from '../TextBox/TextBox'
 import './PairChooser.css'
+import { FIELD_TYPES } from '../configuration'
 
 interface PairChooserProps {
     label : string;
@@ -17,9 +18,9 @@ const PairChooser : React.FC<PairChooserProps> = (props : PairChooserProps) => {
           value={props.value}
           onChange={props.onChange}/>
         <select disabled={props.disabled}>
-            <option>hello1</option>
-            <option>hello2</option>
-            <option>hello3</option>
+            {FIELD_TYPES.map((type) => {
+              return <option>{type}</option>
+            })}
         </select>
     </div>
   )

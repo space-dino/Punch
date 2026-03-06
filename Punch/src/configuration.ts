@@ -14,3 +14,11 @@ export const DEFAULT_ENTITIES: Entity[] = [
     new Entity('Entity4', '3', DEFAULT_TYPES[2], { property5: 'value5', property6: 'value6', property7: 'value7', property8: 'value6', property9: 'value7' }),
     new Entity('Entity5', '3', DEFAULT_TYPES[0], { property5: 'value5', property6: 'value6', property7: 'value7' }),
 ]
+
+export const FIELD_TYPES: string[] = [
+    'Text',
+    'Number',
+    'Boolean',
+    'ID',
+    'Date'
+]
