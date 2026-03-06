@@ -29,7 +29,7 @@ function App() {
         </nav>
         
         <Sidebar/>
-        <IconDropdown/>
+        <IconDropdown label='env1' icon='🐒'/>
         
         <input className='search-bar'></input>
 
