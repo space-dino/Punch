@@ -1,5 +1,3 @@
-// Arrow.tsx
-
 import type { Node as NodeType } from './Node/Node.types'
 
 interface ArrowProps {

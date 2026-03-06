@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import './../App.css'
 import './ElementRow.css'
-import TextBox from '../TextBox/TextBox'
-import { Entity } from '../Objects/Entity';
+import TextBox from '../../TextBox/TextBox'
+import { Entity } from '../../Objects/Entity';
 import { NavLink } from 'react-router';
 
 interface ElementRowProps {

@@ -12,12 +12,13 @@ const nodeCenterOffset = { x: 0, y: 0 };
 const buildNodes = (entity: Entity): NodeType[] => {
   const cx = 200;
   const cy = 200;
-  const radius = 150;
+  const radius = 200;
 
   const fields = Object.entries(entity.properties);
 
   const childNodes: NodeType[] = fields.map(([key, value], i) => {
-    const angle = (2 * Math.PI * i) / fields.length - Math.PI / 2 + 90 * Math.PI / 180;
+    let angle = (2 * Math.PI * i) / fields.length - Math.PI / 2 + 45 * Math.PI / 180;
+
     return {
       id: key,
       label: `${key}: ${value}`,

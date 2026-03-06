@@ -10,6 +10,7 @@ import { DEFAULT_TYPES } from './context/configuration'
 import IconDropdown from './IconDropdown/IconDropdown'
 import EntityGraph from './EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
+import ButtonsBar from './ButtonsBar/ButtonsBar'
 
 const DEFAULT_ENTITIES: Entity[] = [
   new Entity('Entity1', '1', DEFAULT_TYPES[0], { property1: 'value1', property2: 'value2', property3: 'value3' }),
@@ -31,6 +32,7 @@ function App() {
         </nav>
         
         <Sidebar/>
+        <ButtonsBar/>
         <IconDropdown label='env1' icon='🐒'/>
         <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
           <Routes>

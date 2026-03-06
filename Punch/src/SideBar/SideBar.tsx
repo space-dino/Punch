@@ -26,7 +26,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           <NavLink to="/type-editor">+</NavLink>
         </div>
 
-        <div className='side-bar-icons'>
+        <div className='side-bar-icons' onClick={() => setOpen(prev => !prev)}>
           {types.map((type : EntityType) => (
             <p>{type.icon}</p>
           ))}

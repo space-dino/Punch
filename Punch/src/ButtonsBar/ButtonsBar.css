@@ -1,0 +1,11 @@
+.buttons-bar {
+    position: absolute;
+    right: var(--page-border-padding);
+    top: var(--page-border-padding);
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons-bar button {
+    margin: 10px;
+}

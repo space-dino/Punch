@@ -25,6 +25,7 @@
     width: 160px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .icon-dropdown__header p {
@@ -65,4 +66,13 @@
     margin: 0px;
     font-size: 14px;
     font-weight: 500;
+}
+
+.icon-dropdown .icon {
+    transition: rotate 0.25s ease;
+    rotate: 180deg;
+}
+
+.icon-dropdown--closed .icon {
+    rotate: 0deg;
 }

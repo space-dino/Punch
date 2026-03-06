@@ -9,6 +9,8 @@
 
     width: 160px;
     transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    background: var(--radial-gradient-shadow);
 }
 
 .side-bar--closed {
@@ -59,4 +61,5 @@
     flex-direction: column;
     width: 80px;
     align-items: center;
+    cursor: pointer;
 }
