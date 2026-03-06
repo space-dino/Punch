@@ -1,29 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Node from './Node/Node'
 import Arrow from './Arrow'
-import type { Node as NodeType } from './Node/Node.types'
 import './EntityGraph.css'
+import type { Node as NodeType } from './Node/Node.types'
+import { useEntities } from '../context/EntitiesContext'
+import type { Entity } from '../Objects/Entity'
+import { useParams } from 'react-router'
 
-const INITIAL_NODES: NodeType[] = [
-  { id: 'main', label: 'Main Entity', x: 160, y: 160 },
-  { id: '1',    label: 'Entity 1',    x: 80,  y: 80  },
-  { id: '2',    label: 'Entity 2',    x: 280, y: 80  },
-  { id: '3',    label: 'Entity 3',    x: 80,  y: 280 },
-  { id: '4',    label: 'Entity 4',    x: 280, y: 280 },
-]
+const buildNodes = (entity: Entity): NodeType[] => {
+  const cx = 200
+  const cy = 200
+  const radius = 130
 
-const MAIN_NODE_ID = 'main'
+  const fields = Object.entries(entity.properties)
+
+  const childNodes: NodeType[] = fields.map(([key, value], i) => {
+    const angle = (2 * Math.PI * i) / fields.length - Math.PI / 2
+    return {
+      id: key,
+      label: `${key}: ${value}`,
+      x: cx + radius * Math.cos(angle) - 50,
+      y: cy + radius * Math.sin(angle) - 18,
+    }
+  })
+
+  return [
+    { id: 'main', label: entity.name, x: cx - 50, y: cy - 18 },
+    ...childNodes,
+  ]
+}
 
 const EntityGraph = () => {
-  const [nodes, setNodes] = useState<NodeType[]>(INITIAL_NODES)
+  const { entities } = useEntities()
+  const params = useParams<{ id: string }>();
+  const selectedEntity = entities.find(e => e._id === params.id)
+
+  const [nodes, setNodes] = useState<NodeType[]>(
+    selectedEntity ? buildNodes(selectedEntity) : []
+  )
   const [offset, setOffset] = useState({ x: 0, y: 0 })
   const [canvasDragging, setCanvasDragging] = useState(false)
   const [canvasStart, setCanvasStart] = useState({ x: 0, y: 0 })
   const [draggingNode, setDraggingNode] = useState<string | null>(null)
   const [nodeStart, setNodeStart] = useState({ mx: 0, my: 0, nx: 0, ny: 0 })
 
-  const mainNode = nodes.find(n => n.id === MAIN_NODE_ID)
-  const childNodes = nodes.filter(n => n.id !== MAIN_NODE_ID)
+  useEffect(() => {
+    if (selectedEntity) setNodes(buildNodes(selectedEntity))
+  }, [selectedEntity])
+
+  const mainNode = nodes.find(n => n.id === 'main')
+  const childNodes = nodes.filter(n => n.id !== 'main')
 
   const onCanvasMouseDown = (e: React.MouseEvent) => {
     setCanvasDragging(true)
@@ -54,6 +80,8 @@ const EntityGraph = () => {
     setNodeStart({ mx: e.clientX, my: e.clientY, nx: node.x, ny: node.y })
   }
 
+  if (!selectedEntity) return <div className='entity-graph'>No entity selected</div>
+
   return (
     <div
       className='entity-graph'
@@ -68,26 +96,16 @@ const EntityGraph = () => {
         overflow: 'hidden',
       }}
     >
-      <svg
-        style={{
-          position: 'absolute',
-          top: 0, left: 0,
-          width: '100%', height: '100%',
-          pointerEvents: 'none',
-          overflow: 'visible',
-        }}
-      >
+      <svg style={{
+        position: 'absolute', top: 0, left: 0,
+        width: '100%', height: '100%',
+        pointerEvents: 'none', overflow: 'visible',
+      }}>
         {mainNode && childNodes.map(child => (
-          <Arrow
-            key={child.id}
-            from={mainNode}
-            to={child}
-            offset={offset}
-          />
+          <Arrow key={child.id} from={mainNode} to={child} offset={offset} />
         ))}
       </svg>
 
-      {/* Nodes */}
       {nodes.map(node => (
         <Node
           key={node.id}

@@ -24,7 +24,7 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
   return (
     <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
       <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
-      <NavLink to='/entity-editor'>{props.Entity.name}</NavLink>
+      <NavLink to={`/entity-editor/${props.Entity._id}`}>{props.Entity.name}</NavLink>
 
       <div className='fields'>
         {Object.entries(props.Entity.properties).map(([key, value]) => (

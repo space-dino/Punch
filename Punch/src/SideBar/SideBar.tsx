@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './SideBar.css'
-import { useTypes } from '../TypesContext/TypesContext'
+import { useTypes } from '../context/TypesContext'
 import type { EntityType } from '../Objects/EntityType';
 import { NavLink } from 'react-router';
 

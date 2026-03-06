@@ -1,7 +1,7 @@
 import React from 'react'
 import './TypeEditor.css'
 import PairChooser from '../PairChooser/PairChooser'
-import { useTypes } from '../TypesContext/TypesContext';
+import { useTypes } from '../context/TypesContext';
 
 interface TypeEditorProps {
 }
