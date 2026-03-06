@@ -1,7 +1,7 @@
  - add new types 
  - add new entities
  - table type filters
- - type - choose base type
+ - type - choose base type + maybe entity row should have base type icon
  - type - choose icon
 
  - DTOs - Entity should be related to type. THINK
@@ -29,4 +29,4 @@
 
  - graph - code not clean
  - props drilling
- - element row - name not correct. should be field row
+ - element row - name not correct. should be Entity row
