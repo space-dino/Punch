@@ -13,7 +13,7 @@ import ButtonsBar from './ButtonsBar/ButtonsBar'
 function App() {
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
-      <h1>Punch</h1>
+      <h1>PUNCH</h1>
 
       <BrowserRouter>
         <nav>

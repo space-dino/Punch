@@ -26,7 +26,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
 
   return (
     <div className='type-editor'>
-        <h2>Type Editor</h2>
+        <h2>{selectedType ? selectedType.name : 'New Type'}</h2>
         {Object.entries(selectedType !== undefined ? selectedType.baseProperties : []).map(([key, value]) => (
             <PairChooser 
                 key={key}
