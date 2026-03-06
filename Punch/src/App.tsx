@@ -6,17 +6,13 @@ import Table from './Table/Table'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
 import TypeEditor from './TypeEditor/TypeEditor'
 import { TypesProvider } from './context/TypesContext'
-import { DEFAULT_TYPES } from './context/configuration'
+import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './configuration'
 import IconDropdown from './IconDropdown/IconDropdown'
 import EntityGraph from './EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
 import ButtonsBar from './ButtonsBar/ButtonsBar'
 
-const DEFAULT_ENTITIES: Entity[] = [
-  new Entity('Entity1', '1', DEFAULT_TYPES[0], { property1: 'value1', property2: 'value2', property3: 'value3' }),
-  new Entity('Entity2', '2', DEFAULT_TYPES[1], { property3: 'value3', property4: 'value4' }),
-  new Entity('Entity3', '3', DEFAULT_TYPES[2], { property5: 'value5', property6: 'value6', property7: 'value7' }),
-]
+
 
 function App() {
   return (

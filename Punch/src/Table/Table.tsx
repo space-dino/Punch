@@ -1,6 +1,5 @@
 import React from 'react'
 import ElementRow from './ElementRow/ElementRow'
-import { Entity } from '../Objects/Entity'
 import './Table.css'
 import { useEntities } from '../context/EntitiesContext'
 
