@@ -1,0 +1,25 @@
+ - add new types 
+ - add new entities
+ - table type filters
+ - type - choose base type
+ - type - choose icon
+
+ - DTOs - Entity should be related to type. THINK
+        ^^^ Current version of DTOs contains CODE DUPLICATION!
+
+ - graph page refactor
+    - add linked field icon 
+    - arrows refactor
+    - make arrows go out right place (nexto right field)
+    - nodes refactor - node list, node choice
+
+ - new env page
+    - choose icon
+    - env context
+    - choose type
+    - invite people
+
+ - login page
+    - current account icon
+
+ - free text search
