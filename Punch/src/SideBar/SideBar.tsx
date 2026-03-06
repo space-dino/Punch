@@ -17,12 +17,20 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         {open ? '←' : '→'}
       </button>
 
-      <div className='side-bar__content'>
-        {types.map((type : EntityType) => (
-          <p>{type.name}</p>
-        ))}
+      <div className='side-bar-container'>
+        <div className='side-bar__content'>
+          {types.map((type : EntityType) => (
+            <p>{type.name}</p>
+          ))}
 
-        <NavLink to="/type-editor">+</NavLink>
+          <NavLink to="/type-editor">+</NavLink>
+        </div>
+
+        <div className='side-bar-icons'>
+          {types.map((type : EntityType) => (
+            <p>{type.icon}</p>
+          ))}
+        </div>
       </div>
     </div>
   )
