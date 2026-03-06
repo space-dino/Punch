@@ -20,7 +20,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
       <div className='side-bar-container'>
         <div className='side-bar__content'>
           {types.map((type : EntityType) => (
-            <p>{type.name}</p>
+            <NavLink to={`/type-editor/${type._id}`}>{type.name}</NavLink>
           ))}
 
           <NavLink to="/type-editor">+</NavLink>

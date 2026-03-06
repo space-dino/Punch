@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import './App.css'
-import { Entity } from './Objects/Entity'
 import Sidebar from './SideBar/SideBar'
 import Table from './Table/Table'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
@@ -12,13 +10,10 @@ import EntityGraph from './EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
 import ButtonsBar from './ButtonsBar/ButtonsBar'
 
-
-
 function App() {
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
       <h1>Punch</h1>
-
 
       <BrowserRouter>
         <nav>
@@ -34,6 +29,7 @@ function App() {
               <Table/>
             } />
             <Route path="/type-editor"       element={<TypeEditor/>} />
+            <Route path="/type-editor/:id"   element={<TypeEditor/>} />
             <Route path="/entity-editor"     element={<EntityGraph/>} />
             <Route path="/entity-editor/:id" element={<EntityGraph/>} />
             <Route path="*"                  element={<p>Error 404 Page not Found</p>} />

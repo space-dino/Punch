@@ -6,7 +6,7 @@ import { NavLink } from 'react-router';
 
 interface ElementRowProps {
   Entity : Entity;
-  setEntities: React.Dispatch<React.SetStateAction<Entity[]>>
+  setEntities: React.Dispatch<React.SetStateAction<Entity[]>>;
 }
 
 const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
@@ -17,7 +17,7 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
       e._id === props.Entity._id
         ? new Entity(e.name, e._id, e.type, { ...e.properties, [key]: newValue })
         : e
-    ))
+    ));
   }
 
   return (
