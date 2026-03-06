@@ -4,10 +4,21 @@
     align-items: center;
     margin: 4px;
     height: 28px;
-
     width: 100%;
-    justify-content: space-between;
+
     transition: background-color 0.25s;
+}
+
+.fields {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.element-row a {
+    margin-left: 0px;
 }
 
 #checked {

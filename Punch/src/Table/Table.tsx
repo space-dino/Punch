@@ -11,6 +11,8 @@ interface TableProps {
 const Table : React.FC<TableProps> = (props : TableProps) => {
   return (
     <div className='table'>
+      <input className='search-bar' placeholder='Search...'></input>
+
       {props.entities.map((entity) => (
         <ElementRow Entity={entity} setEntities={props.setEntities}/>
       ))}

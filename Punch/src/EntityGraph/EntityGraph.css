@@ -1,0 +1,14 @@
+.entity-graph {
+    width: 30em;
+    height: 30em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--field-color);
+    border: var(--input-toolbar-color) solid 1px;
+
+    background-image:
+        linear-gradient(to right, var(--input-toolbar-unfocused-color), 1px, transparent 1px),
+        linear-gradient(to bottom, var(--input-toolbar-unfocused-color), 1px, transparent 1px);
+    background-size: 40px 40px;
+}

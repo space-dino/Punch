@@ -3,6 +3,7 @@ import './../App.css'
 import './ElementRow.css'
 import TextBox from '../TextBox/TextBox'
 import { Entity } from '../Objects/Entity';
+import { NavLink } from 'react-router';
 
 interface ElementRowProps {
   Entity : Entity;
@@ -23,14 +24,18 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
   return (
     <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
       <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
-      {Object.entries(props.Entity.properties).map(([key, value]) => (
-        <TextBox
-          key={key}
-          label={key}
-          value={value}
-          onChange={(newValue) => handlePropertyChange(key, newValue)}
-        />
-      ))}
+      <NavLink to='/entity-editor'>{props.Entity.name}</NavLink>
+
+      <div className='fields'>
+        {Object.entries(props.Entity.properties).map(([key, value]) => (
+          <TextBox
+            key={key}
+            label={key}
+            value={value}
+            onChange={(newValue) => handlePropertyChange(key, newValue)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

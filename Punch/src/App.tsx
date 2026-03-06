@@ -8,6 +8,7 @@ import TypeEditor from './TypeEditor/TypeEditor'
 import { TypesProvider } from './TypesContext/TypesContext'
 import { DEFAULT_TYPES } from './TypesContext/configuration'
 import IconDropdown from './IconDropdown/IconDropdown'
+import EntityGraph from './EntityGraph/EntityGraph'
 
 const initialEntities: Entity[] = [
   new Entity('Entity1', '1', DEFAULT_TYPES[0], { property1: 'value1', property2: 'value2', property3: 'value3' }),
@@ -31,14 +32,13 @@ function App() {
         <Sidebar/>
         <IconDropdown label='env1' icon='🐒'/>
         
-        <input className='search-bar'></input>
-
         <Routes>
         <Route path="/" element={
             <Table entities={entities} setEntities={setEntities} />
           } />
-          <Route path="/type-editor"  element={<TypeEditor/>} />
-          <Route path="*"       element={<p>Error 404 Page not Found</p>} />
+          <Route path="/type-editor"    element={<TypeEditor/>} />
+          <Route path="/entity-editor"  element={<EntityGraph/>} />
+          <Route path="*"               element={<p>Error 404 Page not Found</p>} />
         </Routes>
       </BrowserRouter>
     </TypesProvider>
