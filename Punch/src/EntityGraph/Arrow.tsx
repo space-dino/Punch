@@ -12,9 +12,17 @@ const NODE_WIDTH = 100
 const NODE_HEIGHT = 150
 
 // Get all 4 edge midpoints of a node
-const getEdges = (node: NodeType, offset: { x: number; y: number }) => {
+const getEdges = (node: NodeType, offset: { x: number; y: number }, sidesOnly : boolean) => {
   const x = node.x + offset.x
   const y = node.y + offset.y
+
+  if (sidesOnly) {
+    return {
+      left:   { x: x,                   y: y + NODE_HEIGHT / 2 },
+      right:  { x: x + NODE_WIDTH,      y: y + NODE_HEIGHT / 2 },
+    }
+  }
+
   return {
     top:    { x: x + NODE_WIDTH / 2,  y: y },
     bottom: { x: x + NODE_WIDTH / 2,  y: y + NODE_HEIGHT },
@@ -32,8 +40,8 @@ const getClosestEdges = (
   to: NodeType,
   offset: { x: number; y: number }
 ) => {
-  const fromEdges = getEdges(from, offset)
-  const toEdges   = getEdges(to, offset)
+  const fromEdges = getEdges(from, offset, true);
+  const toEdges   = getEdges(to, offset, false);
 
   let minDist = Infinity
   let best = {
