@@ -23,3 +23,10 @@
     - current account icon
 
  - free text search
+
+
+ --------------------------------
+
+ - graph - code not clean
+ - props drilling
+ - element row - name not correct. should be field row
