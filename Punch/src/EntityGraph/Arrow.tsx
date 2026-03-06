@@ -1,4 +1,4 @@
-import type { Node } from '../Node/Node.types'
+import type { Node } from "./Node/Node.types";
 
 interface ArrowProps {
   from: Node
