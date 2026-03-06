@@ -7,6 +7,7 @@
   --input-color: black;
   --input-toolbar-color: gray;
   --input-toolbar-unfocused-color: rgb(220, 220, 220);
+  --page-border-padding: 20px;
 }
 
 input, select {
