@@ -1,4 +1,4 @@
-.side-bar {
+.icon-dropdown {
     position: absolute;
     left: 0px;
     top: 20%;
@@ -14,11 +14,11 @@
     max-height: 200px;
 }
 
-.side-bar--closed {
+.icon-dropdown--closed {
     width: 52px;
 }
 
-.side-bar__content {
+.icon-dropdown__content {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -31,13 +31,13 @@
     align-items: center;
 }
 
-.side-bar--closed .side-bar__content {
+.icon-dropdown--closed .icon-dropdown__content {
     opacity: 0;
     transform: translateX(-10px);
     pointer-events: none;
 }
 
-.side-bar p {
+.icon-dropdown p {
     margin: 0px;
     font-size: 14px;
     font-weight: 500;

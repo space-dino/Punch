@@ -4,10 +4,10 @@ import { useTypes } from '../TypesContext/TypesContext'
 import type { EntityType } from '../Objects/EntityType';
 import { NavLink } from 'react-router';
 
-interface SideBarProps {
+interface IconDropdownProps {
 }
 
-const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
+const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => {
   const [open, setOpen] = useState(true);
   const { types } = useTypes();
 
@@ -28,4 +28,4 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   )
 }
 
-export default SideBar
+export default IconDropdown
