@@ -1,15 +1,17 @@
 export class EntityType {
     name : string;
-    id : string;
+    _id : string;
     baseType : string;
     baseProperties : Record<string, string>;
     properties : Record<string, string>;
+    icon : string;
 
-    constructor(name: string, id: string, baseType: string, baseProperties: Record<string, string>, properties: Record<string, string>) {
+    constructor(name: string, _id: string, baseType: string, baseProperties: Record<string, string>, properties: Record<string, string>, icon: string) {
         this.name = name;
-        this.id = id;
+        this._id = _id;
         this.baseType = baseType;
         this.baseProperties = baseProperties;
         this.properties = properties;
+        this.icon = icon;
     }
 }

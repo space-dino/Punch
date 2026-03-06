@@ -6,12 +6,12 @@ import Table from './Table/Table'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
 import TypeEditor from './TypeEditor/TypeEditor'
 import { TypesProvider } from './TypesContext/TypesContext'
-import { DEFAULT_TYPES } from './TypesContext/TypesConfig'
+import { DEFAULT_TYPES } from './TypesContext/configuration'
 
 const initialEntities: Entity[] = [
-  new Entity('Entity1', '1', { property1: 'value1', property2: 'value2', property3: 'value3' }),
-  new Entity('Entity2', '2', { property3: 'value3', property4: 'value4' }),
-  new Entity('Entity3', '3', { property5: 'value5', property6: 'value6', property7: 'value7' }),
+  new Entity('Entity1', '1', DEFAULT_TYPES[0], { property1: 'value1', property2: 'value2', property3: 'value3' }),
+  new Entity('Entity2', '2', DEFAULT_TYPES[1], { property3: 'value3', property4: 'value4' }),
+  new Entity('Entity3', '3', DEFAULT_TYPES[2], { property5: 'value5', property6: 'value6', property7: 'value7' }),
 ]
 
 function App() {
