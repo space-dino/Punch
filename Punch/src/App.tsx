@@ -19,8 +19,6 @@ const DEFAULT_ENTITIES: Entity[] = [
 ]
 
 function App() {
-  const [entities, setEntities] = useState<Entity[]>(DEFAULT_ENTITIES)
-
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
       <h1>Punch</h1>
@@ -37,7 +35,7 @@ function App() {
         <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
           <Routes>
           <Route path="/" element={
-              <Table entities={entities} setEntities={setEntities} />
+              <Table/>
             } />
             <Route path="/type-editor"       element={<TypeEditor/>} />
             <Route path="/entity-editor"     element={<EntityGraph/>} />
