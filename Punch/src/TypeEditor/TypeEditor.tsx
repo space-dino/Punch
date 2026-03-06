@@ -17,6 +17,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 key={key}
                 label={key}
                 value={value}
+                disabled={true}
             />
         ))}
         <p>-----------------------------</p>
