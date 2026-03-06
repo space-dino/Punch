@@ -21,13 +21,13 @@ function App() {
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
       <h1>Punch</h1>
 
-      <Sidebar/>
 
       <BrowserRouter>
         <nav>
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
         </nav>
+        
+        <Sidebar/>
         
         <input className='search-bar'></input>
 
@@ -35,7 +35,7 @@ function App() {
         <Route path="/" element={
             <Table entities={entities} setEntities={setEntities} />
           } />
-          <Route path="/about"  element={<TypeEditor/>} />
+          <Route path="/type-editor"  element={<TypeEditor/>} />
           <Route path="*"       element={<p>Error 404 Page not Found</p>} />
         </Routes>
       </BrowserRouter>

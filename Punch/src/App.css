@@ -9,7 +9,7 @@
   --input-toolbar-unfocused-color: rgb(220, 220, 220);
 }
 
-input {
+input, select {
   border: solid transparent 1px;
   border-bottom: solid var(--input-toolbar-unfocused-color) 1px;
   outline: none;

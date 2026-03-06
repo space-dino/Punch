@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './SideBar.css'
 import { useTypes } from '../TypesContext/TypesContext'
 import type { EntityType } from '../Objects/EntityType';
+import { BrowserRouter, NavLink } from 'react-router';
 
 interface SideBarProps {
 }
@@ -20,7 +21,8 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         {types.map((type : EntityType) => (
           <p>{type.name}</p>
         ))}
-        <button>+</button>
+        
+        <NavLink to="/type-editor">+</NavLink>
       </div>
     </div>
   )

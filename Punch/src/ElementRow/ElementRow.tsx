@@ -15,7 +15,7 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
   const handlePropertyChange = (key: string, newValue: string) => {
     props.setEntities(prev => prev.map(e =>
       e._id === props.Entity._id
-        ? new Entity(e.name, e._id, { ...e.properties, [key]: newValue })
+        ? new Entity(e.name, e._id, e.type, { ...e.properties, [key]: newValue })
         : e
     ))
   }
