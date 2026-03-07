@@ -10,49 +10,48 @@ const NODE_WIDTH = 100
 const NODE_HEIGHT = 150
 
 // Get all 4 edge midpoints of a node
-const getEdges = (node: NodeType, offset: { x: number; y: number }, sidesOnly : boolean) => {
+const getEdges = (node: NodeType, offset: { x: number; y: number }) => {
   const x = node.x + offset.x
   const y = node.y + offset.y
 
-  if (sidesOnly) {
-    return {
-      left:   { x: x,                   y: y + NODE_HEIGHT / 2 },
-      right:  { x: x + NODE_WIDTH,      y: y + NODE_HEIGHT / 2 },
-    }
-  }
-
   return {
-    top:    { x: x + NODE_WIDTH / 2,  y: y },
-    bottom: { x: x + NODE_WIDTH / 2,  y: y + NODE_HEIGHT },
-    left:   { x: x,                   y: y + NODE_HEIGHT / 2 },
-    right:  { x: x + NODE_WIDTH,      y: y + NODE_HEIGHT / 2 },
+    top:    { x: x + NODE_WIDTH / 2,  y: y, weight: 1 },
+    bottom: { x: x + NODE_WIDTH / 2,  y: y + NODE_HEIGHT, weight: 1 },
+    left:   { x: x,                   y: y + NODE_HEIGHT / 2, weight: 1.3 },
+    right:  { x: x + NODE_WIDTH,      y: y + NODE_HEIGHT / 2, weight: 1.3 },
   }
 }
 
 const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2)
 
-// Find the closest pair of edges between two nodes
+const OPPOSITE: Record<string, string> = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+}
+
 const getClosestEdges = (
   from: NodeType,
   to: NodeType,
   offset: { x: number; y: number }
 ) => {
-  const fromEdges = getEdges(from, offset, true);
-  const toEdges   = getEdges(to, offset, false);
+  const fromEdges = getEdges(from, offset);
+  const toEdges   = getEdges(to, offset);
 
-  let minDist = Infinity
-  let best = {
-    start: fromEdges.right,
-    end:   toEdges.left,
-  }
+  let minDist = Infinity;
+  let best = { start: fromEdges.right, end: toEdges.left };
 
-  for (const [, fPoint] of Object.entries(fromEdges)) {
-    for (const [, tPoint] of Object.entries(toEdges)) {
-      const d = distance(fPoint, tPoint)
+  for (const [fKey, fPoint] of Object.entries(fromEdges)) {
+    for (const [tKey, tPoint] of Object.entries(toEdges)) {
+      const isOpposite = OPPOSITE[fKey] === tKey;
+      const oppositeBonus = isOpposite ? 10 : 1;
+
+      const d = distance(fPoint, tPoint) / (fPoint.weight * tPoint.weight * oppositeBonus);
       if (d < minDist) {
-        minDist = d
-        best = { start: fPoint, end: tPoint }
+        minDist = d;
+        best = { start: fPoint, end: tPoint };
       }
     }
   }
