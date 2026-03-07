@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Node.module.css'
+import './Node.css'
 import type { Node as NodeType } from './Node.types'
 
 interface NodeProps {
@@ -12,14 +12,16 @@ interface NodeProps {
 const Node: React.FC<NodeProps> = ({ node, offset, isDragging, onMouseDown }) => {
   return (
     <div
-      className={`${styles.node} ${isDragging ? styles.nodeDragging : ''}`}
-      onMouseDown={(e) => onMouseDown(e, node)}
+      className={`node ${isDragging ? 'node--dragging' : ''}`}
       style={{
         left: node.x + offset.x,
         top:  node.y + offset.y,
       }}
     >
-      {node.label}
+      <div className='node__handle' onMouseDown={(e) => onMouseDown(e, node)}>
+        {node.label}
+      </div>
+      <button>hello</button>
     </div>
   )
 }

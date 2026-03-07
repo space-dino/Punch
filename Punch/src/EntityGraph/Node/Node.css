@@ -1,6 +1,5 @@
 .node {
   position: absolute;
-  cursor: grab;
   background: #1e1e24;
   border: 1px solid #2a2a34;
   border-radius: 8px;
@@ -11,13 +10,21 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.25s, transform 0.25s;
   transform: translate(0);
+  cursor: default;
 
   width: 80px;
   height: 130px;
 }
 
-.nodeDragging {
+.node__handle {
+  cursor: grab;
+}
+
+.node__handle:active {
   cursor: grabbing;
+}
+
+.node--dragging {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
   transform: translate(0px, -10px);
 }
