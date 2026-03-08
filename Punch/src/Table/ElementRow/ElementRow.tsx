@@ -5,6 +5,7 @@ import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations';
 import { NavLink } from 'react-router';
 import configuration from '../../configuration.json';
 import { useTypes } from '../../context/TypesContext';
+import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance';
 
 interface ElementRowProps {
   Entity : EntityWithRelations;
@@ -18,8 +19,15 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
   const handlePropertyChange = (key: string, newValue: string) => {
     props.setEntities(prev => prev.map(e =>
       e.strongId === props.Entity.strongId
-        // ? new Entity(e.name, e.strongId, e.type, { ...e.properties, [key]: newValue })
-        ? new EntityWithRelations(e.strongId, e.baseType, { ...e.subTypes, [key]: newValue }, e.relations)
+        ? new EntityWithRelations(
+          e.strongId,
+          new EntityTypeInstance(
+            e.baseType.typeSchemaLabel,
+            { ...e.baseType.fieldValues, [key]: newValue }
+          ),
+          e.subTypes,
+          e.relations
+        )
         : e
     ));
   }

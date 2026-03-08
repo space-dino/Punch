@@ -27,7 +27,6 @@
 
 input, select {
   border: solid transparent 1px;
-  border-bottom: solid var(--input-toolbar-unfocused-color) 1px;
   outline: none;
   background-color: transparent;
   text-align: center;
@@ -35,6 +34,10 @@ input, select {
   color: var(--input-color);
   
   transition: border 0.25s;
+}
+
+input {
+  border-bottom: solid var(--input-toolbar-unfocused-color) 1px;
 }
 
 .search-bar {

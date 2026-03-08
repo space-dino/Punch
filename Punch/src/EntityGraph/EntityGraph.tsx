@@ -21,13 +21,14 @@ const buildNodes = (entity: EntityWithRelations): NodeType[] => {
     return {
       id: subtype.typeSchemaLabel,
       label: subtype.typeSchemaLabel,
+      data: subtype,
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
     }
   })
 
   return [
-    { id: 'main', label: entity.baseType.fieldValues[0], x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
+    { id: 'main', label: entity.strongId, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
     ...childNodes,
   ]
 }

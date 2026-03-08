@@ -1,4 +1,3 @@
-import { EntityBase } from "./DTOs/entity/EntityBase";
 import { EntityWithRelations } from "./DTOs/entity/EntityWithRelations";
 import { EntityTypeInstance } from "./DTOs/entity/entityType/EntityTypeInstance";
 import { EntityTypeSchema } from "./DTOs/entity/entityType/EntityTypeSchema";

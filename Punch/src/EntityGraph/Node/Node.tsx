@@ -19,7 +19,10 @@ const Node: React.FC<NodeProps> = ({ node, offset, isDragging, onMouseDown }) =>
       }}
     >
       <div className='node__handle' onMouseDown={(e) => onMouseDown(e, node)}>
-        {node.label}
+        <h3>{node.label}</h3>
+        {Object.entries(node.data.fieldValues).map(([key, value]) => (
+          <p key={key}>{key}: {String(value)}</p>
+        ))}
       </div>
       <button>hello</button>
     </div>

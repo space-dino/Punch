@@ -4,6 +4,7 @@ import PairChooser from '../PairChooser/PairChooser'
 import { useTypes } from '../context/TypesContext';
 import { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
 import { useParams } from 'react-router';
+import { Field } from '../DTOs/entity/entityType/field/Field';
 
 interface TypeEditorProps {
 }
@@ -18,7 +19,11 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
         if (selectedType !== undefined) {
             setTypes(prev => prev.map(e =>
                 e.label === selectedType.label
-                ? new EntityTypeSchema(e.label, e.icon, { ...e.typeFields, [key]: newValue })
+                ? new EntityTypeSchema(
+                    e.label,
+                    e.icon,
+                    e.typeFields.map(field => field.name === key ? new Field(newValue, field.type) : field)
+                    )
                 : e
             ))
         }
@@ -32,7 +37,8 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 key={key}
                 label={field.name}
                 value={field.name}
-                disabled={true}
+                disabled={false}
+                onChange={(newValue) => handlePropertyChange(field.name, newValue)}
             />
         ))}
     </div>

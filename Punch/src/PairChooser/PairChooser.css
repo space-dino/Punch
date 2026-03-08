@@ -4,10 +4,5 @@
     justify-self: center;
     height: 30px;
     align-items: center;
-}
-
-.pair-chooser select {
-    border: none;
-    outline: none;
-    margin-left: 20px;
+    gap: 20px;
 }
