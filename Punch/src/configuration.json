@@ -1,0 +1,7 @@
+{
+    "urls" : {
+        "typesUrl" : "/types",
+        "environmentsUrl" : "/environments",
+        "entitiesUrl" : "/entities"
+    }
+}

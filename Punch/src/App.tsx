@@ -4,11 +4,12 @@ import Table from './Table/Table'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
 import TypeEditor from './TypeEditor/TypeEditor'
 import { TypesProvider } from './context/TypesContext'
-import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './configuration'
+import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './dataConfig'
 import IconDropdown from './IconDropdown/IconDropdown'
 import EntityGraph from './EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
 import ButtonsBar from './ButtonsBar/ButtonsBar'
+import configuration from './configuration.json'
 
 function App() {
   return (
@@ -28,10 +29,11 @@ function App() {
           <Route path="/" element={
               <Table/>
             } />
-            <Route path="/type-editor"       element={<TypeEditor/>} />
-            <Route path="/type-editor/:id"   element={<TypeEditor/>} />
-            <Route path="/entity-editor"     element={<EntityGraph/>} />
-            <Route path="/entity-editor/:id" element={<EntityGraph/>} />
+            <Route path={configuration.urls.typesUrl}       element={<TypeEditor/>} />
+            <Route path={`${configuration.urls.typesUrl}/:id`}   element={<TypeEditor/>} />
+            <Route path={configuration.urls.entitiesUrl}     element={<EntityGraph/>} />
+            <Route path={`${configuration.urls.entitiesUrl}/:id`} element={<EntityGraph/>} />
+            <Route path={configuration.urls.environmentsUrl}     element={<EntityGraph/>} />
             <Route path="*"                  element={<p>Error 404 Page not Found</p>} />
           </Routes>
         </EntitiesProvider>

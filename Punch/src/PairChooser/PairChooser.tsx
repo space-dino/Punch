@@ -1,7 +1,7 @@
 import React from 'react'
 import TextBox from '../TextBox/TextBox'
 import './PairChooser.css'
-import { FIELD_TYPES } from '../configuration'
+import { FIELD_TYPES } from '../dataConfig'
 
 interface PairChooserProps {
     label : string;

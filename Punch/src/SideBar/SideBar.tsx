@@ -3,6 +3,7 @@ import './SideBar.css'
 import { useTypes } from '../context/TypesContext'
 import type { EntityType } from '../Objects/EntityType';
 import { NavLink } from 'react-router';
+import configuration from '../configuration.json';
 
 interface SideBarProps {
 }
@@ -20,10 +21,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
       <div className='side-bar-container'>
         <div className='side-bar__content'>
           {types.map((type : EntityType) => (
-            <NavLink to={`/type-editor/${type._id}`}>{type.name}</NavLink>
+            <NavLink to={`${configuration.urls.typesUrl}/${type._id}`}>{type.name}</NavLink>
           ))}
 
-          <NavLink to="/type-editor">+</NavLink>
+          <NavLink to={configuration.urls.typesUrl}>+</NavLink>
         </div>
 
         <div className='side-bar-icons' onClick={() => setOpen(prev => !prev)}>
