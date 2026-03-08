@@ -19,5 +19,5 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    box-shadow: inset 0 0 100px 30px var(--input-toolbar-color);
+    box-shadow: inset 0 0 60px 0 var(--input-toolbar-color);
 }

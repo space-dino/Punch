@@ -3,6 +3,7 @@ import './IconDropdown.css'
 import { useTypes } from '../context/TypesContext'
 import type { EntityType } from '../Objects/EntityType';
 import { NavLink } from 'react-router';
+import configuration from '../configuration.json';
 
 interface IconDropdownProps {
   label : string;
@@ -23,10 +24,10 @@ const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => 
 
       <div className='icon-dropdown__content'>
         {types.map((type : EntityType) => (
-          <p>{type.name}</p>
+          <NavLink to={`${configuration.urls.environmentsUrl}/${type._id}`}>{type.name}</NavLink>
         ))}
 
-        <NavLink to="/env-editor">+</NavLink>
+        <NavLink to={configuration.urls.environmentsUrl}>+</NavLink>
       </div>
     </div>
   )

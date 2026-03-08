@@ -7,7 +7,7 @@ import { useEntities } from '../context/EntitiesContext'
 import type { Entity } from '../Objects/Entity'
 import { useParams } from 'react-router'
 
-const nodeCenterOffset = { x: 0, y: 0 };
+const nodeCenterOffset = { x: 0, y: 30 };
 
 const buildNodes = (entity: Entity): NodeType[] => {
   const cx = 200;
