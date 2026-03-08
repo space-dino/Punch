@@ -15,14 +15,14 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     const params = useParams<{ id: string }>();
     const selectedType = types.find(e => e.label === params.id);
 
-    const handlePropertyChange = (key: string, newValue: string) => {
+    const handlePropertyChange = (key: string, newField: Field) => {
         if (selectedType !== undefined) {
             setTypes(prev => prev.map(e =>
                 e.label === selectedType.label
                 ? new EntityTypeSchema(
                     e.label,
                     e.icon,
-                    e.typeFields.map(field => field.name === key ? new Field(newValue, field.type) : field)
+                    e.typeFields.map(field => field.name === key ? newField : field)
                     )
                 : e
             ))
@@ -35,10 +35,10 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
         {Object.entries(selectedType !== undefined ? selectedType.typeFields : []).map(([key, field]) => (
             <PairChooser 
                 key={key}
-                label={field.name}
-                value={field.name}
+                label='Property Name'
+                field={field}
                 disabled={false}
-                onChange={(newValue) => handlePropertyChange(field.name, newValue)}
+                onChange={(newField) => handlePropertyChange(field.name, newField)}
             />
         ))}
     </div>
