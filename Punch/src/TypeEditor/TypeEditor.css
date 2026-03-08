@@ -1,3 +1,14 @@
 .type-editor {
     padding: 0px;
+
+    width: 400px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    justify-self: center;
+
+    background: var(--radial-gradient-shadow);
 }

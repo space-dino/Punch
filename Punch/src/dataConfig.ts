@@ -19,6 +19,28 @@ export const DEFAULT_TYPES: EntityTypeSchema[] = [
     ]),
 ]
 
+export const BASE_TYPES: EntityTypeSchema[] = [
+    new EntityTypeSchema('Person', '🙈', [
+        new Field('name', 'string'),
+        new Field('id', 'number'),
+        new Field('birthdate', 'date'),
+    ]),
+    new EntityTypeSchema('Organization', '🙈', [
+        new Field('name', 'string'),
+        new Field('id', 'number'),
+        new Field('description', 'string'),
+    ]),
+    new EntityTypeSchema('Location', '🙈', [
+        new Field('x', 'number'),
+        new Field('y', 'number'),
+        new Field('id', 'number'),
+    ]),
+    new EntityTypeSchema('Education', '🙈', [
+        new Field('name', 'string'),
+        new Field('id', 'number'),
+    ]),
+]
+
 export const DEFAULT_ENTITIES: EntityWithRelations[] = [
     new EntityWithRelations('Student1', new EntityTypeInstance('student', { School: 'High School', Year: 2020, Grade: 90 }), [], []),
     new EntityWithRelations('Teacher1', new EntityTypeInstance('teacher', { School: 'High School', Subject: 'Math' }), [], []),

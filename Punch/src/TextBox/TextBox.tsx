@@ -12,7 +12,7 @@ const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
   return (
     <div className={'text-box'}>
         <input type='text'
-          className={'text-box-input' + (props.disabled ? '--disabled' : '')}
+          className={'text-box-input'}
           disabled={props.disabled}
           onChange={(e) => props.onChange?.(e.target.value)}
           value={props.value}

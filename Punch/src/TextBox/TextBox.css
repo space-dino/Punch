@@ -32,12 +32,3 @@
 
     transition: color 0.25s;
 }
-
-.text-box-input--disabled {
-    border-bottom: solid var(--input-toolbar-unfocused-color) 1px;
-    background-color: transparent;
-    color: var(--input-toolbar-color);
-    font-style: italic;
-
-    transition: color 0.25s;
-}
