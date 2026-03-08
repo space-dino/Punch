@@ -11,6 +11,7 @@ import { EntitiesProvider } from './context/EntitiesContext'
 import ButtonsBar from './ButtonsBar/ButtonsBar'
 import configuration from './configuration.json'
 import EnvironmentEditor from './EnvironmentEditor/EnvironmentEditor'
+import Login from './Login/Login'
 
 function App() {
   return (
@@ -26,15 +27,15 @@ function App() {
         <ButtonsBar/>
 
         <div className='dropdowns-bar'>
-          <IconDropdown label='env1' icon='🐒'/>
-          <IconDropdown label='env2' icon='🦍'/>
+          <IconDropdown label='User1' icon='🐒' url={configuration.urls.loginUrl}/>
+          <IconDropdown label='Env1' icon='🦍' url={configuration.urls.environmentsUrl}/>
         </div>
 
         <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
           <Routes>
-          <Route path="/" element={
-              <Table/>
-            } />
+            <Route path="/"                                           element={<Table/>} />
+            <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
+            <Route path={`${configuration.urls.loginUrl}/:id`}        element={<Login/>} />
             <Route path={configuration.urls.typesUrl}                 element={<TypeEditor/>} />
             <Route path={`${configuration.urls.typesUrl}/:id`}        element={<TypeEditor/>} />
             <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />

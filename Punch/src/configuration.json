@@ -2,6 +2,7 @@
     "urls" : {
         "typesUrl" : "/types",
         "environmentsUrl" : "/environments",
-        "entitiesUrl" : "/entities"
+        "entitiesUrl" : "/entities",
+        "loginUrl" : "/login"
     }
 }
