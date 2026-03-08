@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './TypeEditor.css'
 import PairChooser from '../PairChooser/PairChooser'
 import { useTypes } from '../context/TypesContext';
@@ -13,7 +13,8 @@ interface TypeEditorProps {
 const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     const { types, setTypes } = useTypes();
 
-    const [selectedBaseType, setSelectedBaseType] = React.useState<string>(BASE_TYPES[0].label);
+    const [draft, setDraft] = useState<Field>(new Field('', 'string'));
+    const [selectedBaseType, setSelectedBaseType] = useState<string>(BASE_TYPES[0].label);
     const params = useParams<{ id: string }>();
     const selectedType = types.find(e => e.label === params.id);
 
@@ -28,6 +29,21 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                     )
                 : e
             ))
+        }
+    }
+
+    const addNewField = () => {
+        if (draft.name.trim() !== '' && selectedType !== undefined) {
+            setTypes(prev => prev.map(e =>
+                e.label === selectedType.label
+                ? new EntityTypeSchema(
+                    e.label,
+                    e.icon,
+                    [...e.typeFields, draft]
+                    )
+                : e
+            ))
+            setDraft(new Field('', 'string'));
         }
     }
 
@@ -47,7 +63,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 disabled={true}
             />
         ))}
-        ------------------
+        <div className='separator'></div>
         {Object.entries(selectedType !== undefined ? selectedType.typeFields : []).map(([key, field]) => (
             <PairChooser 
                 key={key}
@@ -57,6 +73,19 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 onChange={(newField) => handlePropertyChange(field.name, newField)}
             />
         ))}
+        <div className='separator'></div>
+        <div className='new-field-container'>
+            <PairChooser
+                key='new'
+                label='New Property'
+                field={draft}
+                disabled={false}
+                onChange={(newField) => setDraft(newField)}
+                onEnter={addNewField}
+            />
+            <button className={`new-field-button${draft.name.trim() === '' ? '--disabled' : ''}`}
+                onClick={addNewField}>+</button>
+        </div>
     </div>
   )
 }
