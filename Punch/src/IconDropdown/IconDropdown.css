@@ -1,7 +1,15 @@
-.icon-dropdown {
+.dropdowns-bar {
     position: absolute;
     left: var(--page-border-padding);
     top: var(--page-border-padding);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.icon-dropdown {
     display: flex;
     flex-direction: column;
     align-items: flex-start;;

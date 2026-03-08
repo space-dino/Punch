@@ -24,7 +24,12 @@ function App() {
         
         <Sidebar/>
         <ButtonsBar/>
-        <IconDropdown label='env1' icon='🐒'/>
+
+        <div className='dropdowns-bar'>
+          <IconDropdown label='env1' icon='🐒'/>
+          <IconDropdown label='env2' icon='🦍'/>
+        </div>
+
         <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
           <Routes>
           <Route path="/" element={
