@@ -4,16 +4,16 @@ import { EntityTypeSchema } from "./DTOs/entity/entityType/EntityTypeSchema";
 import { Field } from "./DTOs/entity/entityType/field/Field";
 
 export const DEFAULT_TYPES: EntityTypeSchema[] = [
-    new EntityTypeSchema('student', '🙈', [
+    new EntityTypeSchema('Student', '🙈', [
         new Field('School', 'string'),
         new Field('Year', 'number'),
         new Field('Grade', 'number'),
     ]),
-    new EntityTypeSchema('teacher', '🦆', [
+    new EntityTypeSchema('Teacher', '🦆', [
         new Field('School', 'string'),
         new Field('Subject', 'number'),
     ]),
-    new EntityTypeSchema('course', '🍇', [
+    new EntityTypeSchema('Course', '🍇', [
         new Field('Subject', 'string'),
         new Field('Year', 'number'),
     ]),
@@ -42,7 +42,7 @@ export const BASE_TYPES: EntityTypeSchema[] = [
 ]
 
 export const DEFAULT_ENTITIES: EntityWithRelations[] = [
-    new EntityWithRelations('Student1', new EntityTypeInstance('student', { School: 'High School', Year: 2020, Grade: 90 }), [], []),
-    new EntityWithRelations('Teacher1', new EntityTypeInstance('teacher', { School: 'High School', Subject: 'Math' }), [], []),
-    new EntityWithRelations('Course1', new EntityTypeInstance('course', { Subject: 'Math', Year: 2020 }), [], []),
+    new EntityWithRelations('Student1', new EntityTypeInstance('Student', { School: 'High School', Year: 2020, Grade: 90 }), [], []),
+    new EntityWithRelations('Teacher1', new EntityTypeInstance('Teacher', { School: 'High School', Subject: 'Math' }), [], []),
+    new EntityWithRelations('Course1', new EntityTypeInstance('Course', { Subject: 'Math', Year: 2020 }), [], []),
 ]

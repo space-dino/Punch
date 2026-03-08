@@ -69,3 +69,7 @@ h1 {
   margin-bottom: 0em;
   margin-top: -1.5em;
 }
+
+h2 {
+  font-style: italic;
+}

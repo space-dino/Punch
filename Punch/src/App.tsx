@@ -8,7 +8,6 @@ import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './dataConfig'
 import IconDropdown from './IconDropdown/IconDropdown'
 import EntityGraph from './EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
-import ButtonsBar from './ButtonsBar/ButtonsBar'
 import configuration from './configuration.json'
 import EnvironmentEditor from './EnvironmentEditor/EnvironmentEditor'
 import Login from './Login/Login'
@@ -24,7 +23,6 @@ function App() {
         </nav>
         
         <Sidebar/>
-        <ButtonsBar/>
 
         <div className='dropdowns-bar'>
           <IconDropdown label='User1' icon='🐒' url={configuration.urls.loginUrl}/>
