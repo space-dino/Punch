@@ -73,7 +73,6 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 onChange={(newField) => handlePropertyChange(field.name, newField)}
             />
         ))}
-        <div className='separator'></div>
         <div className='new-field-container'>
             <PairChooser
                 key='new'

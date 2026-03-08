@@ -13,23 +13,24 @@ interface PairChooserProps {
 }
 
 const PairChooser: React.FC<PairChooserProps> = (props) => {
-  const { field } = props
-
-  const commit = () => props.onEnter?.(field);
+  const commit = () => props.onEnter?.(props.field);
 
   return (
     <div className="pair-chooser">
+      {props.onEnter === undefined && !props.disabled &&
+      <button className='delete-field-button'>X</button>}
+
       <TextBox
         disabled={props.disabled}
         label={props.label}
-        value={field.name}
-        onChange={(newValue) => props.onChange?.(new Field(newValue, field.type))}
+        value={props.field.name}
+        onChange={(newValue) => props.onChange?.(new Field(newValue, props.field.type))}
         onKeyDown={(e) => { if (e.key === 'Enter') commit() }}
       />
       <select
         disabled={props.disabled}
-        value={field.type}
-        onChange={(e) => props.onChange?.(new Field(field.name, e.target.value as DataType))}
+        value={props.field.type}
+        onChange={(e) => props.onChange?.(new Field(props.field.name, e.target.value as DataType))}
         onKeyDown={(e) => { if (e.key === 'Enter') commit() }}
         onBlur={commit}
       >
