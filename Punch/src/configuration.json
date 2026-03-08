@@ -4,5 +4,11 @@
         "environmentsUrl" : "/environments",
         "entitiesUrl" : "/entities",
         "loginUrl" : "/login"
-    }
+    },
+    "dataTypes" : [
+        "string",
+        "number",
+        "date",
+        "boolean"
+    ]
 }

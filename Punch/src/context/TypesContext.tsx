@@ -1,20 +1,20 @@
 import { createContext, useContext, useState } from 'react'
-import type { EntityType } from '../Objects/EntityType'
+import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema'
 
 interface TypesContextType {
-  types: EntityType[]
-  setTypes: React.Dispatch<React.SetStateAction<EntityType[]>>
+  types: EntityTypeSchema[]
+  setTypes: React.Dispatch<React.SetStateAction<EntityTypeSchema[]>>
 }
 
 const TypesContext = createContext<TypesContextType | null>(null)
 
 interface TypesProviderProps {
-    defaultTypes: EntityType[];
+    defaultTypes: EntityTypeSchema[];
   children: React.ReactNode;
 }
 
 export function TypesProvider({ children, defaultTypes }: TypesProviderProps) {
-  const [types, setTypes] = useState<EntityType[]>(defaultTypes)
+  const [types, setTypes] = useState<EntityTypeSchema[]>(defaultTypes)
 
   return (
     <TypesContext.Provider value={{ types, setTypes }}>

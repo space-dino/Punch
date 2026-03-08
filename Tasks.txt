@@ -31,3 +31,4 @@
  - props drilling
  - element row - name not correct. should be Entity row
  - entity field editing DUPLICATION bug
+ - types are written in cofig--- ichh

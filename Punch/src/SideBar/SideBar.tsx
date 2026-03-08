@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './SideBar.css'
 import { useTypes } from '../context/TypesContext'
-import type { EntityType } from '../Objects/EntityType';
+import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
 import configuration from '../configuration.json';
 
@@ -20,15 +20,15 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
 
       <div className='side-bar-container'>
         <div className='side-bar__content'>
-          {types.map((type : EntityType) => (
-            <NavLink to={`${configuration.urls.typesUrl}/${type._id}`}>{type.name}</NavLink>
+          {types.map((type : EntityTypeSchema) => (
+            <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
 
           <NavLink to={configuration.urls.typesUrl}>+</NavLink>
         </div>
 
         <div className='side-bar-icons' onClick={() => setOpen(prev => !prev)}>
-          {types.map((type : EntityType) => (
+          {types.map((type : EntityTypeSchema) => (
             <p>{type.icon}</p>
           ))}
         </div>

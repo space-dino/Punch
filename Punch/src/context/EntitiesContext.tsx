@@ -1,20 +1,20 @@
 import { createContext, useContext, useState } from 'react'
-import type { Entity } from '../Objects/Entity'
+import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
 
 interface EntitiesContextType {
-  entities: Entity[]
-  setEntities: React.Dispatch<React.SetStateAction<Entity[]>>
+  entities: EntityWithRelations[]
+  setEntities: React.Dispatch<React.SetStateAction<EntityWithRelations[]>>
 }
 
 const EntitiesContext = createContext<EntitiesContextType | null>(null)
 
 interface EntitiesProviderProps {
   children: React.ReactNode
-  defaultEntities: Entity[]
+  defaultEntities: EntityWithRelations[]
 }
 
 export function EntitiesProvider({ children, defaultEntities }: EntitiesProviderProps) {
-  const [entities, setEntities] = useState<Entity[]>(defaultEntities)
+  const [entities, setEntities] = useState<EntityWithRelations[]>(defaultEntities)
 
   return (
     <EntitiesContext.Provider value={{ entities, setEntities }}>

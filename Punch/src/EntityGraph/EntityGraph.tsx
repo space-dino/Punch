@@ -4,31 +4,30 @@ import Arrow from './Arrow'
 import './EntityGraph.css'
 import type { Node as NodeType } from './Node/Node.types'
 import { useEntities } from '../context/EntitiesContext'
-import type { Entity } from '../Objects/Entity'
+import type { EntityBase } from '../DTOs/entity/EntityBase'
+import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
 import { useParams } from 'react-router'
 
 const nodeCenterOffset = { x: 0, y: 30 };
 
-const buildNodes = (entity: Entity): NodeType[] => {
+const buildNodes = (entity: EntityWithRelations): NodeType[] => {
   const cx = 200;
   const cy = 200;
   const radius = 200;
 
-  const fields = Object.entries(entity.properties);
-
-  const childNodes: NodeType[] = fields.map(([key, value], i) => {
-    let angle = (2 * Math.PI * i) / fields.length - Math.PI / 2 + 45 * Math.PI / 180;
+  const childNodes: NodeType[] = entity.subTypes.map((subtype, i) => {
+    let angle = (2 * Math.PI * i) / entity.subTypes.length - Math.PI / 2 + 45 * Math.PI / 180;
 
     return {
-      id: key,
-      label: `${key}: ${value}`,
+      id: subtype.typeSchemaLabel,
+      label: subtype.typeSchemaLabel,
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
     }
   })
 
   return [
-    { id: 'main', label: entity.name, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
+    { id: 'main', label: entity.baseType.fieldValues[0], x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
     ...childNodes,
   ]
 }
@@ -36,7 +35,7 @@ const buildNodes = (entity: Entity): NodeType[] => {
 const EntityGraph = () => {
   const { entities } = useEntities();
   const params = useParams<{ id: string }>();
-  const selectedEntity = entities.find(e => e._id === params.id);
+  const selectedEntity = entities.find(e => e.strongId === params.id);
 
   const [nodes, setNodes] = useState<NodeType[]>(
     selectedEntity ? buildNodes(selectedEntity) : []

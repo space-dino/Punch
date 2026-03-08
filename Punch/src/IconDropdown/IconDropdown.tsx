@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './IconDropdown.css'
 import { useTypes } from '../context/TypesContext'
-import type { EntityType } from '../Objects/EntityType';
+import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
 
 interface IconDropdownProps {
@@ -22,8 +22,8 @@ const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => 
       </div>
 
       <div className='icon-dropdown__content'>
-        {types.map((type : EntityType) => (
-          <NavLink to={`${props.url}/${type._id}`}>{type.name}</NavLink>
+        {types.map((type : EntityTypeSchema) => (
+          <NavLink to={`${props.url}/${type.label}`}>{type.label}</NavLink>
         ))}
 
         <NavLink to={props.url}>+</NavLink>

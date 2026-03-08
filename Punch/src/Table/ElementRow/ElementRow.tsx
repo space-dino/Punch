@@ -1,34 +1,39 @@
 import React, { useState } from 'react'
 import './ElementRow.css'
 import TextBox from '../../TextBox/TextBox'
-import { Entity } from '../../Objects/Entity';
+import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations';
 import { NavLink } from 'react-router';
 import configuration from '../../configuration.json';
+import { useTypes } from '../../context/TypesContext';
 
 interface ElementRowProps {
-  Entity : Entity;
-  setEntities: React.Dispatch<React.SetStateAction<Entity[]>>;
+  Entity : EntityWithRelations;
+  setEntities: React.Dispatch<React.SetStateAction<EntityWithRelations[]>>;
 }
 
 const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { types } = useTypes();
 
   const handlePropertyChange = (key: string, newValue: string) => {
     props.setEntities(prev => prev.map(e =>
-      e._id === props.Entity._id
-        ? new Entity(e.name, e._id, e.type, { ...e.properties, [key]: newValue })
+      e.strongId === props.Entity.strongId
+        // ? new Entity(e.name, e.strongId, e.type, { ...e.properties, [key]: newValue })
+        ? new EntityWithRelations(e.strongId, e.baseType, { ...e.subTypes, [key]: newValue }, e.relations)
         : e
     ));
   }
 
+  const typeSchema = types.find((type) => type.label === props.Entity.baseType.typeSchemaLabel);
+
   return (
     <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
       <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
-      <p>{props.Entity.type.icon}</p>
-      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity._id}`}>{props.Entity.name}</NavLink>
+      <p>{typeSchema !== undefined ? typeSchema.icon : "TypeNotFound"}</p>
+      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.strongId}`}>{props.Entity.strongId}</NavLink>
 
       <div className='fields'>
-        {Object.entries(props.Entity.properties).map(([key, value]) => (
+        {Object.entries(props.Entity.baseType.fieldValues).map(([key, value]) => (
           <TextBox
             key={key}
             label={key}
