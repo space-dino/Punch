@@ -38,7 +38,7 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
       <div className='table-actions-bar'>
         <input className='search-bar' placeholder='Search...'></input>
         
-        <MultiSelect/>
+        <MultiSelect options={['1', '2', '3']}/>
       </div>
 
       <div className='table'>  
