@@ -22,6 +22,7 @@
 }
 
 .horizontal-select .horizontal-select-option:not(:last-child)::after {
+    font-style: normal;
     content: '/';
     margin-left: 20px;
     color: var(--input-toolbar-color);

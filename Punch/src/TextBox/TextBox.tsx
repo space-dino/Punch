@@ -3,6 +3,7 @@ import './TextBox.css'
 
 interface TextBoxProps {
   label: string
+  name?: string
   value?: string
   disabled?: boolean
   type?: 'text' | 'password'
@@ -19,6 +20,7 @@ const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
           onChange={(e) => props.onChange?.(e.target.value)}
           onKeyDown={(e) => props.onKeyDown?.(e)}
           value={props.value}
+          name={props.name}
           placeholder={props.label}></input>
         <p>{props.label}</p>
     </div>

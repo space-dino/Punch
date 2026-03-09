@@ -17,9 +17,8 @@
 }
 
 .login {
-    background-color: #f0f0f0;
     padding: 20px;
-    height: 350px;
+    height: 300px;
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -15,6 +15,9 @@ import Login from './Login/Login'
 function App() {
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
+      <title>Punch</title>
+      <link rel="icon" href="/icon.png" />
+
       <h1>PUNCH</h1>
 
       <BrowserRouter>
