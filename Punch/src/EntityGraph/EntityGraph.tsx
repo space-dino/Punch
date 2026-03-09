@@ -4,7 +4,6 @@ import Arrow from './Arrow'
 import './EntityGraph.css'
 import type { Node as NodeType } from './Node/Node.types'
 import { useEntities } from '../context/EntitiesContext'
-import type { EntityBase } from '../DTOs/entity/EntityBase'
 import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
 import { useParams } from 'react-router'
 
@@ -28,7 +27,7 @@ const buildNodes = (entity: EntityWithRelations): NodeType[] => {
   })
 
   return [
-    { id: 'main', label: entity.strongId, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
+    { id: 'main', label: entity.entityId, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
     ...childNodes,
   ]
 }
@@ -36,7 +35,7 @@ const buildNodes = (entity: EntityWithRelations): NodeType[] => {
 const EntityGraph = () => {
   const { entities } = useEntities();
   const params = useParams<{ id: string }>();
-  const selectedEntity = entities.find(e => e.strongId === params.id);
+  const selectedEntity = entities.find(e => e.entityId === params.id);
 
   const [nodes, setNodes] = useState<NodeType[]>(
     selectedEntity ? buildNodes(selectedEntity) : []

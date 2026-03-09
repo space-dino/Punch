@@ -18,9 +18,9 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
 
   const handlePropertyChange = (key: string, newValue: string) => {
     props.setEntities(prev => prev.map(e =>
-      e.strongId === props.Entity.strongId
+      e.entityId === props.Entity.entityId
         ? new EntityWithRelations(
-          e.strongId,
+          e.entityId,
           new EntityTypeInstance(
             e.baseType.typeSchemaLabel,
             { ...e.baseType.fieldValues, [key]: newValue }
@@ -38,7 +38,7 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
     <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
       <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
       <p>{typeSchema !== undefined ? typeSchema.icon : "TypeNotFound"}</p>
-      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.strongId}`}>{props.Entity.strongId}</NavLink>
+      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{'<OPEN>'}</NavLink>
 
       <div className='fields'>
         {Object.entries(props.Entity.baseType.fieldValues).map(([key, value]) => (

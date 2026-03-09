@@ -66,9 +66,13 @@ select:disabled, input:disabled {
 
 h1 {
   font-family: 'oi';
-  font-size: 6em;
-  margin-bottom: 0em;
-  margin-top: -1.5em;
+  font-size: 5em;
+  position: absolute;
+  margin-top: 40px;
+  pointer-events: none;
+  left: 30%;
+  width: 40%;
+  top: 0;
 }
 
 h2 {

@@ -3,4 +3,10 @@
     flex-direction: column;
     align-items: center;
     background: var(--radial-gradient-shadow);
+
+    max-height: 20em;
+    padding: 20px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
 }

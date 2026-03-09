@@ -25,23 +25,22 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
     fetch("https://perkily-unsanguineous-roman.ngrok-free.dev/environments/tenant_google", requestOptions)
       .then((response) => response.json())
       .then((data: EntityWithRelations[]) => {
-        console.log(data);
         setEntities(data);
-        alert(data.length);
       })
       .catch((error) => console.error(error))
   }, []);
 
   return (
-    <div className='table'>
+    <>
       <ButtonsBar/>
-
       <input className='search-bar' placeholder='Search...'></input>
 
-      {entities.map((entity) => (
-        <ElementRow Entity={entity} setEntities={setEntities}/>
-      ))}
-    </div>
+      <div className='table'>  
+        {entities.length > 0 ? entities.map((entity) => (
+          <ElementRow Entity={entity} setEntities={setEntities}/>
+        )) : 'No Data Here );'}
+      </div>
+    </>
   )
 }
 
