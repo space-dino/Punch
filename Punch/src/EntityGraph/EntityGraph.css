@@ -6,7 +6,7 @@
     align-items: center;
     background-color: transparent;
     border: var(--input-toolbar-color) solid 1px;
-    backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(50px) saturate(250%) brightness(110%);
 
     background-image:
         linear-gradient(45deg, transparent 0 50%, var(--input-toolbar-unfocused-color) 49% 51%, transparent 51% 100%),

@@ -12,8 +12,8 @@
   transform: translate(0);
   cursor: default;
 
-  width: 80px;
-  height: 130px;
+  width: 180px;
+  height: 180px;
 
   z-index: 1;
 }

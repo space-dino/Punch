@@ -38,7 +38,7 @@ const ElementRow : React.FC<ElementRowProps> = (props : ElementRowProps) => {
     <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
       <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
       <p>{typeSchema !== undefined ? typeSchema.icon : "TypeNotFound"}</p>
-      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{'<OPEN>'}</NavLink>
+      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
 
       <div className='fields'>
         {Object.entries(props.Entity.baseType.fieldValues).map(([key, value]) => (

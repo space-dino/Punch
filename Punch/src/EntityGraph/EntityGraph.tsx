@@ -7,19 +7,19 @@ import { useEntities } from '../context/EntitiesContext'
 import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
 import { useParams } from 'react-router'
 
-const nodeCenterOffset = { x: 0, y: 30 };
+const nodeCenterOffset = { x: 50, y: 50 };
 
 const buildNodes = (entity: EntityWithRelations): NodeType[] => {
   const cx = 200;
   const cy = 200;
-  const radius = 200;
+  const radius = 250;
 
   const childNodes: NodeType[] = entity.subTypes.map((subtype, i) => {
     let angle = (2 * Math.PI * i) / entity.subTypes.length - Math.PI / 2 + 45 * Math.PI / 180;
 
     return {
       id: subtype.typeSchemaLabel,
-      label: subtype.fieldValues[0],
+      label: subtype.typeSchemaLabel,
       data: subtype,
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
