@@ -5,11 +5,13 @@
     margin: 4px;
     height: 28px;
     width: 100%;
+    gap: 20px;
 
     transition: background-color 0.25s;
 }
 
 .fields {
+    gap: 20px;
     width: 100%;
     display: flex;
     flex-direction: row;

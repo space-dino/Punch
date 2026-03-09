@@ -22,7 +22,7 @@ const postJSON = (endpoint: string, body: object) => {
 const Login = () => {
   const [mode, setMode] = React.useState<string>('Login');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 

@@ -16,7 +16,7 @@ function App() {
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES}>
       <title>Punch</title>
-      <link rel="icon" href="/icon.png" />
+      <link rel="icon" href="/icon.png"/>
 
       <h1>PUNCH</h1>
 
@@ -32,7 +32,7 @@ function App() {
           <IconDropdown label='Env1' icon='🦍' url={configuration.urls.environmentsUrl}/>
         </div>
 
-        <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
+        <EntitiesProvider defaultEntities={[]}>
           <Routes>
             <Route path="/"                                           element={<Table/>} />
             <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
