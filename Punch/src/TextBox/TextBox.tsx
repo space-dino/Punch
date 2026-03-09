@@ -19,7 +19,7 @@ const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
           onChange={(e) => props.onChange?.(e.target.value)}
           onKeyDown={(e) => props.onKeyDown?.(e)}
           value={props.value}
-          placeholder='Enter text here...'></input>
+          placeholder={props.label}></input>
         <p>{props.label}</p>
     </div>
   )
