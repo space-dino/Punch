@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './SideBar.css'
 import { useTypes } from '../context/TypesContext'
 import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
@@ -10,7 +10,26 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const [open, setOpen] = useState(true);
-  const { types } = useTypes();
+  const { types, setTypes } = useTypes();
+
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("ngrok-skip-browser-warning", "true");
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow" as const
+    };
+
+    fetch("https://perkily-unsanguineous-roman.ngrok-free.dev/environments/tenant_google/schemas", requestOptions)
+      .then((response) => response.json())
+      .then((data: EntityTypeSchema[]) => {
+        setTypes(data);
+      })
+      .catch((error) => console.error(error))
+  }, []);
 
   return (
     <div className={`side-bar ${open ? 'side-bar--open' : 'side-bar--closed'}`}>

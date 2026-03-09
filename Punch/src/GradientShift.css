@@ -1,0 +1,66 @@
+@property --overlay-1 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: yellow;
+}
+@property --overlay-2 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: green;
+}
+@property --x1 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 20%;
+}
+@property --y1 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 20%;
+}
+@property --x2 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 80%;
+}
+@property --y2 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 70%;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 60% at var(--x1) var(--y1), color(from var(--overlay-1) xyz x y z / 0.10), transparent),
+    radial-gradient(ellipse 80% 70% at var(--x2) var(--y2), color(from var(--overlay-2) xyz x y z / 0.15), transparent);
+  animation:
+    17s linear infinite alternate colors,
+    20s linear infinite alternate blob1,
+    24s linear infinite alternate blob2;
+}
+
+/* color shift */
+@keyframes colors {
+  from { --overlay-1: yellow; --overlay-2: green;  }
+  to   { --overlay-1: rgb(202, 53, 202); --overlay-2: rgb(46, 46, 191); }
+}
+
+/* blob 1 moves around */
+@keyframes blob1 {
+  0%   { --x1: 20%; --y1: 20%; }
+  25%  { --x1: 70%; --y1: 10%; }
+  50%  { --x1: 80%; --y1: 60%; }
+  75%  { --x1: 30%; --y1: 80%; }
+  100% { --x1: 10%; --y1: 40%; }
+}
+
+/* blob 2 moves independently */
+@keyframes blob2 {
+  0%   { --x2: 80%; --y2: 70%; }
+  25%  { --x2: 20%; --y2: 80%; }
+  50%  { --x2: 10%; --y2: 30%; }
+  75%  { --x2: 60%; --y2: 10%; }
+  100% { --x2: 90%; --y2: 50%; }
+}

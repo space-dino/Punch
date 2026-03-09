@@ -35,3 +35,5 @@
  - pair chooser is disgusting
  - change signup to register
  - login --- ichh
+ - title and home button on table page
+ - default entities - remove from app
