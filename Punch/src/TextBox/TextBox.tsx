@@ -3,8 +3,9 @@ import './TextBox.css'
 
 interface TextBoxProps {
   label: string
-  value: string
+  value?: string
   disabled?: boolean
+  type?: 'text' | 'password'
   onChange?: (newValue: string) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
@@ -12,7 +13,7 @@ interface TextBoxProps {
 const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
   return (
     <div className={'text-box'}>
-        <input type='text'
+        <input type={props.type || 'text'}
           className={'text-box-input'}
           disabled={props.disabled}
           onChange={(e) => props.onChange?.(e.target.value)}

@@ -1,0 +1,27 @@
+.horizontal-select {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.horizontal-select .horizontal-select-option {
+    height: 30px;
+    text-justify: center;
+    text-align: center;
+    padding: 0 10px;
+    border:none;
+    background-color: transparent;
+    color: var(--input-toolbar-color);
+    transition: color 0.25s;
+}
+
+.horizontal-select .horizontal-select-option.selected {
+    color: var(--selected-field-color);
+}
+
+.horizontal-select .horizontal-select-option:not(:last-child)::after {
+    content: '/';
+    margin-left: 20px;
+    color: var(--input-toolbar-color);
+    pointer-events: none;
+}
