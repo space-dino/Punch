@@ -76,7 +76,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
         <div className='new-field-container'>
             <PairChooser
                 key='new'
-                label='New Property'
+                label='New Property Name'
                 field={draft}
                 disabled={false}
                 onChange={(newField) => setDraft(newField)}
