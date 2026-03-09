@@ -4,6 +4,7 @@ import './Table.css'
 import { useEntities } from '../context/EntitiesContext'
 import ButtonsBar from '../ButtonsBar/ButtonsBar'
 import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
+import MultiSelect from '../MultiSelect/MultiSelect'
 
 interface TableProps {
 }
@@ -33,7 +34,12 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
   return (
     <>
       <ButtonsBar/>
-      <input className='search-bar' placeholder='Search...'></input>
+      
+      <div className='table-actions-bar'>
+        <input className='search-bar' placeholder='Search...'></input>
+        
+        <MultiSelect/>
+      </div>
 
       <div className='table'>  
         {entities.length > 0 ? entities.map((entity) => (
