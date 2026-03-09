@@ -51,3 +51,8 @@
     margin-bottom: 10px;
     border-bottom: solid var(--input-toolbar-color) 1px;
 }
+
+.pair-chooser .new-field-empty {
+    color: var(--input-toolbar-color);
+    font-style: italic;
+}

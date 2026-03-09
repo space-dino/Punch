@@ -33,7 +33,8 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     }
 
     const addNewField = () => {
-        if (draft.name.trim() !== '' && selectedType !== undefined) {
+        if (draft.name.trim() !== '' && selectedType !== undefined
+         && types.find(e => e.label === selectedType.label)?.typeFields.find(f => f.name === draft.name) === undefined) {
             setTypes(prev => prev.map(e =>
                 e.label === selectedType.label
                 ? new EntityTypeSchema(
@@ -44,6 +45,20 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 : e
             ))
             setDraft(new Field('', 'string'));
+        }
+    }
+
+    const removeField = (key: string) => {
+        if (selectedType !== undefined) {
+            setTypes(prev => prev.map(e =>
+                e.label === selectedType.label
+                ? new EntityTypeSchema(
+                    e.label,
+                    e.icon,
+                    e.typeFields.filter(f => f.name !== key)
+                    )
+                : e
+            ))
         }
     }
 
@@ -71,6 +86,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 field={field}
                 disabled={false}
                 onChange={(newField) => handlePropertyChange(field.name, newField)}
+                onRemove={() => removeField(field.name)}
             />
         ))}
         <div className='new-field-container'>
@@ -81,6 +97,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 disabled={false}
                 onChange={(newField) => setDraft(newField)}
                 onEnter={addNewField}
+                className={draft.name.trim() !== '' ? 'new-field-filled' : 'new-field-empty'}
             />
             <button className={`new-field-button${draft.name.trim() === '' ? '--disabled' : ''}`}
                 onClick={addNewField}>+</button>
