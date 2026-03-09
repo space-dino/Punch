@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
 
-    if (mode === 'Sign Up') {
+    if (mode === 'Register') {
       const register = new RegisterRequest(
         data.get('email') as string,
         data.get('firstName') as string,
@@ -65,14 +65,14 @@ const Login = () => {
   return (
     <div className='login'>
       <HorizontalSelect
-        options={['Login', 'Sign Up']}
+        options={['Login', 'Register']}
         onSelectOption={(option: React.SetStateAction<string>) => setMode(option)}
       />
       <form onSubmit={handleSubmit}>
         <TextBox label='Email' name='email' />
         <TextBox label='Password' name='password' type='password' />
 
-        <div className={`signup-only-container${mode === 'Sign Up' ? '' : ' disabled'}`}>
+        <div className={`register-only-container${mode === 'Register' ? '' : ' disabled'}`}>
           <TextBox label='First Name' name='firstName' />
           <TextBox label='Last Name' name='lastName' />
         </div>

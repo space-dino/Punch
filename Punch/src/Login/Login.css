@@ -1,9 +1,9 @@
-.signup-only-container {
+.register-only-container {
     transition: opacity 0.15s;
     height: 100px;
 }
 
-.signup-only-container.disabled {
+.register-only-container.disabled {
     opacity: 0;
     pointer-events: none;
 }
