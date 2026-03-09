@@ -6,7 +6,7 @@
     align-items: center;
     gap: 20px;
 
-    padding: left 30px, right 30px;
+    padding: 0 20px;
     position: relative;
 }
 
@@ -21,6 +21,7 @@
     color: var(--input-toolbar-unfocused-color);
     opacity: 0;
     pointer-events: none;
+    padding: 0;
 
     transition: color 0.25s, opacity 0.25s;
     border: none;
