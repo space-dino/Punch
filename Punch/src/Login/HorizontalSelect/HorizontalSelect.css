@@ -13,10 +13,12 @@
     background-color: transparent;
     color: var(--input-toolbar-color);
     transition: color 0.25s;
+    font-style: italic;
 }
 
 .horizontal-select .horizontal-select-option.selected {
     color: var(--selected-field-color);
+    font-style: normal;
 }
 
 .horizontal-select .horizontal-select-option:not(:last-child)::after {
