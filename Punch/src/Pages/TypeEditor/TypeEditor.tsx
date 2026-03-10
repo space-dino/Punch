@@ -5,16 +5,15 @@ import { useTypes } from '../../context/TypesContext';
 import { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { useParams } from 'react-router';
 import { Field } from '../../DTOs/entity/entityType/field/Field';
-import { BASE_TYPES } from '../../dataConfig';
 
 interface TypeEditorProps {
 }
 
 const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
-    const { types, setTypes } = useTypes();
+    const { types, setTypes, baseTypes } = useTypes();
 
     const [draft, setDraft] = useState<Field>(new Field('', 'string'));
-    const [selectedBaseType, setSelectedBaseType] = useState<string>(BASE_TYPES[0].label);
+    const [selectedBaseType, setSelectedBaseType] = useState<string>(baseTypes[0].label);
     const params = useParams<{ id: string }>();
     const selectedType = types.find(e => e.label === params.id);
 
@@ -66,11 +65,11 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     <div className='type-editor'>
         <h2>{selectedType ? selectedType.label : 'New Type'}</h2>
         <select className='basetype-select' value={selectedBaseType} onChange={(e) => setSelectedBaseType(e.target.value)}>
-            {BASE_TYPES.map((baseType) => {
+            {baseTypes.map((baseType) => {
                 return <option>{baseType.label}</option>
             })}
         </select>
-        {Object.entries(BASE_TYPES.find((t) => t.label === selectedBaseType)?.typeFields || []).map(([key, field]) => (
+        {Object.entries(baseTypes.find((t) => t.label === selectedBaseType)?.typeFields || []).map(([key, field]) => (
             <PairChooser 
                 key={key}
                 label='Base Property Name'

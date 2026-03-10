@@ -5,17 +5,18 @@ import Table from './Pages/Table/Table'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
 import TypeEditor from './Pages/TypeEditor/TypeEditor'
 import { TypesProvider } from './context/TypesContext'
-import { DEFAULT_TYPES } from './dataConfig'
+import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './dataConfig'
 import IconDropdown from './Components/IconDropdown/IconDropdown'
 import EntityGraph from './Pages/EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
 import configuration from './configuration.json'
 import EnvironmentEditor from './Pages/EnvironmentEditor/EnvironmentEditor'
 import Login from './Pages/Login/Login'
+import { BASE_TYPES } from './dataConfig';
 
 function App() {
   return (
-    <TypesProvider defaultTypes={DEFAULT_TYPES}>
+    <TypesProvider defaultTypes={DEFAULT_TYPES} defaultBaseTypes={BASE_TYPES}>
       <title>Punch</title>
       <link rel="icon" href="/icon.png"/>
 
@@ -33,7 +34,7 @@ function App() {
           <IconDropdown label='Env1' icon='🦍' url={configuration.urls.environmentsUrl}/>
         </div>
 
-        <EntitiesProvider defaultEntities={[]}>
+        <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
           <Routes>
             <Route path="/"                                           element={<Table/>} />
             <Route path={configuration.urls.loginUrl}                 element={<Login/>} />

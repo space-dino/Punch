@@ -10,7 +10,13 @@ export const getJSON = <T>(baseUrl: string, endpoint: string): Promise<T> => {
     method: 'GET',
     headers: getHeaders(),
     redirect: 'follow' as const,
-  }).then((response) => response.json());
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`)
+      }
+      return response.json()
+    })
 };
 
 export const postJSON = (baseUrl: string, endpoint: string, body: object): Promise<string> => {
