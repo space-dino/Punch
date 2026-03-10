@@ -56,3 +56,15 @@
     color: var(--input-toolbar-color);
     font-style: italic;
 }
+
+.type-editor__header input {
+    font-size: 24px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--title-color);
+    width: 200px;
+}
+
+.type-editor__header {
+    padding: 20px;
+}

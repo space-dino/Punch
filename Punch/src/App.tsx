@@ -13,14 +13,14 @@ import configuration from './configuration.json'
 import EnvironmentEditor from './Pages/EnvironmentEditor/EnvironmentEditor'
 import Login from './Pages/Login/Login'
 import { BASE_TYPES } from './dataConfig';
+import TitleBar from './Components/TitleBar/TitleBar'
 
 function App() {
   return (
     <TypesProvider defaultTypes={DEFAULT_TYPES} defaultBaseTypes={BASE_TYPES}>
       <title>Punch</title>
       <link rel="icon" href="/icon.png"/>
-
-      <h1>PUNCH</h1>
+      <TitleBar/>
 
       <BrowserRouter>
         <nav>

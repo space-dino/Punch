@@ -5,6 +5,7 @@ import { useTypes } from '../../context/TypesContext';
 import { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { useNavigate, useParams } from 'react-router';
 import { Field } from '../../DTOs/entity/entityType/field/Field';
+import TextBox from '../../Components/TextBox/TextBox';
 
 interface TypeEditorProps {
 }
@@ -69,7 +70,10 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
 
   return (
     <div className='type-editor'>
-        <h2>{selectedType ? selectedType.label : 'New Type'}</h2>
+        <div className='type-editor__header'>
+            <h2>{selectedType ? selectedType.label : 'New Type'}</h2>
+            <TextBox label='Type name' value={selectedType?.label}/>
+        </div>
         <select className='basetype-select' value={selectedBaseType} onChange={(e) => setSelectedBaseType(e.target.value)}>
             {baseTypes.map((baseType) => {
                 return <option>{baseType.label}</option>
