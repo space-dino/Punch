@@ -2,3 +2,13 @@
     display: flex;
     flex-direction: column;
 }
+
+.multiselect__content {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+.multiselect__content--disabled {
+    opacity: 0;
+}
