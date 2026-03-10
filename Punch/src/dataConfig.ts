@@ -42,7 +42,7 @@ export const BASE_TYPES: EntityTypeSchema[] = [
 ]
 
 export const DEFAULT_ENTITIES: EntityWithRelations[] = [
-    new EntityWithRelations('Student1', new EntityTypeInstance('Student', { School: 'High School', Year: 2020, Grade: 90 }), [], []),
+    new EntityWithRelations('Student1', new EntityTypeInstance('Student', { School: 'High School', Year: 2020, Grade: 90 }), [new EntityTypeInstance('aehtjry', { School: 'High School', Year: 2020, Grade: 90 })], []),
     new EntityWithRelations('Teacher1', new EntityTypeInstance('Teacher', { School: 'High School', Subject: 'Math' }), [], []),
     new EntityWithRelations('Course1', new EntityTypeInstance('Course', { Subject: 'Math', Year: 2020 }), [], []),
 ]

@@ -4,7 +4,7 @@ import Arrow from './Arrow'
 import './EntityGraph.css'
 import type { Node as NodeType } from './Node/Node.types'
 import { useEntities } from '../../context/EntitiesContext'
-import type { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
+import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import { useParams } from 'react-router'
 
 const nodeCenterOffset = { x: 50, y: 50 };
