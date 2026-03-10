@@ -22,18 +22,19 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
   );
 
   return (
-    <div className='element-row' id={isChecked ? 'checked' : 'unchecked'}>
-      <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
-      <p>{baseTypeSchema !== undefined ? baseTypeSchema.icon : "TypeNotFound"}</p>
+    <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
+      <div className='entity-row-main'>
+        <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
+        <p>{baseTypeSchema !== undefined ? baseTypeSchema.icon : "TypeNotFound"}</p>
 
-      {subTypesSchema.map((subtype) => {
-        return <p>{subtype.icon}</p>
-      })}
+        {subTypesSchema.map((subtype) => {
+          return <p>{subtype.icon}</p>
+        })}
 
-      <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
-      
-      <FieldsList Entity={props.Entity} setEntities={props.setEntities}/>
-
+        <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
+        
+        <FieldsList Entity={props.Entity} setEntities={props.setEntities}/>
+      </div>
     </div>
   )
 }

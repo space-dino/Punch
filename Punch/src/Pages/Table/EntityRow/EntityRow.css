@@ -1,4 +1,4 @@
-.element-row {
+.entity-row-main {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -6,27 +6,17 @@
     height: 28px;
     width: 100%;
     gap: 20px;
-
-    transition: background-color 0.25s;
 }
 
-.fields {
-    gap: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.element-row a {
+.entity-row-main a {
     margin-left: 0px;
 }
 
-#checked {
-    background-color: rgb(225, 247, 255);
+.entity-row {
+    transition: background-color 0.25s;
+    width: 100%;
 }
 
-#unchecked {
-    background-color: transparent;
+.entity-row.selected {
+    background-color: rgb(225, 247, 255);
 }

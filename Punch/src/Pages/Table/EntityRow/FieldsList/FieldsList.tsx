@@ -2,6 +2,7 @@ import React from 'react'
 import TextBox from '../../../../Components/TextBox/TextBox'
 import { EntityWithRelations } from '../../../../DTOs/entity/EntityWithRelations';
 import { EntityTypeInstance } from '../../../../DTOs/entity/entityType/EntityTypeInstance';
+import './FieldsList.css'
 
 interface FieldsListProps {
   Entity : EntityWithRelations;
