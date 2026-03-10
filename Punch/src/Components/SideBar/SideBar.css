@@ -23,13 +23,13 @@
     transition: opacity 0.2s ease, transform 0.2s ease, width 0.25s ease;
 
     width: 100%;
+    padding: 0;
+    margin-top: 60px;
     
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
 }
 
 .side-bar--closed .side-bar__content {
@@ -54,6 +54,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 200px;
+
+    padding: 10px;
 }
 
 .side-bar-icons {
@@ -62,4 +64,6 @@
     width: 80px;
     align-items: center;
     cursor: pointer;
+    padding: 0;
+    line-height: 24px;
 }
