@@ -38,4 +38,4 @@
  - title and home button on table page
  - default entities - remove from app
  - add generic communicator
- 
+ - config urls baseurls is a MESS

@@ -4,6 +4,7 @@ import { useTypes } from '../../context/TypesContext'
 import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
 import configuration from '../../configuration.json';
+import { getJSON } from '../../api';
 
 interface SideBarProps {
 }
@@ -13,22 +14,9 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const { types, setTypes } = useTypes();
 
   useEffect(() => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("ngrok-skip-browser-warning", "true");
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow" as const
-    };
-
-    fetch("https://perkily-unsanguineous-roman.ngrok-free.dev/environments/tenant_google/schemas", requestOptions)
-      .then((response) => response.json())
-      .then((data: EntityTypeSchema[]) => {
-        setTypes(data);
-      })
-      .catch((error) => console.error(error))
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT + configuration.urls.schemasUrl)
+      .then((data) => setTypes(data))
+      .catch(console.error);
   }, []);
 
   return (

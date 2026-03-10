@@ -4,20 +4,8 @@ import HorizontalSelect from './HorizontalSelect/HorizontalSelect'
 import './Login.css'
 import { RegisterRequest } from '../../DTOs/login/register';
 import { LoginRequest } from '../../DTOs/login/login';
-
-const BASE_URL = 'https://barbara-waugh-anaphylactically.ngrok-free.dev';
-
-const postJSON = (endpoint: string, body: object) => {
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-
-  return fetch(`${BASE_URL}${endpoint}`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body),
-    redirect: 'follow' as const,
-  });
-};
+import configuration from "../../configuration.json"
+import { postJSON } from '../../api';
 
 const Login = () => {
   const [mode, setMode] = React.useState<string>('Login');
@@ -34,15 +22,9 @@ const Login = () => {
         data.get('password') as string
       );
 
-      postJSON('/auth/register', {
-        email:     register.email,
-        firstName: register.firstName,
-        lastName:  register.lastName,
-        password:  register.password,
-      })
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      postJSON(configuration.baseUrls.auth, configuration.urls.registerUrl, register)
+        .then(console.log)
+        .catch(console.error);
 
       alert('New user registered');
 
@@ -52,13 +34,9 @@ const Login = () => {
         data.get('password') as string
       );
 
-      postJSON('/auth/login', {
-        username: login.username,
-        password: login.password,
-      })
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
+      postJSON(configuration.baseUrls.auth, configuration.urls.loginUrl, login)
+        .then(console.log)
+        .catch(console.error);
     }
   };
 

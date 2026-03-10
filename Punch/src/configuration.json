@@ -3,12 +3,19 @@
         "typesUrl" : "/types",
         "environmentsUrl" : "/environments",
         "entitiesUrl" : "/entities",
-        "loginUrl" : "/login"
+        "loginUrl" : "/login",
+        "schemasUrl" : "/schemas",
+        "registerUrl" : "/register"
+    },
+    "baseUrls" : {
+        "auth" : "https://barbara-waugh-anaphylactically.ngrok-free.dev/auth",
+        "data" : "https://perkily-unsanguineous-roman.ngrok-free.dev"
     },
     "dataTypes" : [
         "string",
         "number",
         "date",
         "boolean"
-    ]
+    ],
+    "DEBUG_TENANT" : "/tenant_google"
 }

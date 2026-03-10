@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ElementRow from './ElementRow/ElementRow'
 import './Table.css'
 import { useEntities } from '../../context/EntitiesContext'
 import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
 import type { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import MultiSelect from '../../Components/MultiSelect/MultiSelect'
+import configuration from '../../configuration.json'
+import { getJSON } from '../../api'
 
 interface TableProps {
 }
@@ -13,22 +15,9 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
   const { entities, setEntities } = useEntities();
 
   useEffect(() => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("ngrok-skip-browser-warning", "true");
-
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow" as const
-    };
-
-    fetch("https://perkily-unsanguineous-roman.ngrok-free.dev/environments/tenant_google", requestOptions)
-      .then((response) => response.json())
-      .then((data: EntityWithRelations[]) => {
-        setEntities(data);
-      })
-      .catch((error) => console.error(error))
+    getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+      .then((data) => setEntities(data))
+      .catch(console.error);
   }, []);
 
   return (
