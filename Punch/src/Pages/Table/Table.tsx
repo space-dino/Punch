@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ElementRow from './ElementRow/ElementRow'
+import EntityRow from './EntityRow/EntityRow'
 import './Table.css'
 import { useEntities } from '../../context/EntitiesContext'
 import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
@@ -32,7 +32,7 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
 
       <div className='table'>  
         {entities.length > 0 ? entities.map((entity) => (
-          <ElementRow Entity={entity} setEntities={setEntities}/>
+          <EntityRow Entity={entity} setEntities={setEntities}/>
         )) : 'No Data Here );'}
       </div>
     </>
