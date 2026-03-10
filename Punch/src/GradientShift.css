@@ -29,9 +29,13 @@
   initial-value: 70%;
 }
 
+:root {
+  --background-color: rgb(255, 249, 236);
+}
+
 body {
   min-height: 100dvh;
-  background-color: var(--bg);
+  background-color: var(--background-color);
   background-image:
     radial-gradient(ellipse 70% 60% at var(--x1) var(--y1), color(from var(--overlay-1) xyz x y z / 0.2), transparent),
     radial-gradient(ellipse 80% 70% at var(--x2) var(--y2), color(from var(--overlay-2) xyz x y z / 0.15), transparent);
