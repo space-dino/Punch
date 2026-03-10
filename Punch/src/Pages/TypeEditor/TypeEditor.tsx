@@ -3,7 +3,7 @@ import './TypeEditor.css'
 import PairChooser from '../../Components/PairChooser/PairChooser'
 import { useTypes } from '../../context/TypesContext';
 import { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Field } from '../../DTOs/entity/entityType/field/Field';
 
 interface TypeEditorProps {
@@ -11,6 +11,7 @@ interface TypeEditorProps {
 
 const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     const { types, setTypes, baseTypes } = useTypes();
+    const navigate = useNavigate();
 
     const [draft, setDraft] = useState<Field>(new Field('', 'string'));
     const [selectedBaseType, setSelectedBaseType] = useState<string>(baseTypes[0].label);
@@ -32,20 +33,25 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     }
 
     const addNewField = () => {
-        if (draft.name.trim() !== '' && selectedType !== undefined
-         && types.find(e => e.label === selectedType.label)?.typeFields.find(f => f.name === draft.name) === undefined) {
+        const isDuplicate = selectedType?.typeFields.find(f => f.name === draft.name) !== undefined;
+
+        if (draft.name.trim() === '' || isDuplicate) return;
+
+        if (selectedType !== undefined) {
+            // editing existing type
             setTypes(prev => prev.map(e =>
-                e.label === selectedType.label
-                ? new EntityTypeSchema(
-                    e.label,
-                    e.icon,
-                    [...e.typeFields, draft]
-                    )
+            e.label === selectedType.label
+                ? new EntityTypeSchema(e.label, e.icon, [...e.typeFields, draft])
                 : e
-            ))
-            setDraft(new Field('', 'string'));
+            ));
+        } else {
+            // creating new type — add it to types with the new field
+            setTypes(prev => [...prev, new EntityTypeSchema(params.id ?? 'new', '', [draft])]);
+            navigate("./new");
         }
-    }
+
+        setDraft(new Field('', 'string'));
+    };
 
     const removeField = (key: string) => {
         if (selectedType !== undefined) {
