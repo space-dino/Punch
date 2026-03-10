@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './SideBar.css'
-import { useTypes } from '../context/TypesContext'
-import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
+import { useTypes } from '../../context/TypesContext'
+import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
-import configuration from '../configuration.json';
+import configuration from '../../configuration.json';
 
 interface SideBarProps {
 }

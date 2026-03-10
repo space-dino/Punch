@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './TypeEditor.css'
-import PairChooser from '../PairChooser/PairChooser'
-import { useTypes } from '../context/TypesContext';
-import { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
+import PairChooser from '../../Components/PairChooser/PairChooser'
+import { useTypes } from '../../context/TypesContext';
+import { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { useParams } from 'react-router';
-import { Field } from '../DTOs/entity/entityType/field/Field';
-import { BASE_TYPES } from '../dataConfig';
+import { Field } from '../../DTOs/entity/entityType/field/Field';
+import { BASE_TYPES } from '../../dataConfig';
 
 interface TypeEditorProps {
 }

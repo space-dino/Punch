@@ -1,4 +1,4 @@
-import type { EntityTypeInstance } from "../../DTOs/entity/entityType/EntityTypeInstance";
+import type { EntityTypeInstance } from "../../../DTOs/entity/entityType/EntityTypeInstance";
 
 export interface Node {
   id: string;

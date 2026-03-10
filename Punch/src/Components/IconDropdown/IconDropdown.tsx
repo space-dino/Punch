@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './IconDropdown.css'
-import { useTypes } from '../context/TypesContext'
-import type { EntityTypeSchema } from '../DTOs/entity/entityType/EntityTypeSchema';
+import { useTypes } from '../../context/TypesContext'
+import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
 
 interface IconDropdownProps {

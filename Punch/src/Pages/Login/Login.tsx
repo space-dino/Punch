@@ -1,9 +1,9 @@
 import React from 'react'
-import TextBox from '../TextBox/TextBox'
+import TextBox from '../../Components/TextBox/TextBox'
 import HorizontalSelect from './HorizontalSelect/HorizontalSelect'
 import './Login.css'
-import { RegisterRequest } from '../DTOs/login/register';
-import { LoginRequest } from '../DTOs/login/login';
+import { RegisterRequest } from '../../DTOs/login/register';
+import { LoginRequest } from '../../DTOs/login/login';
 
 const BASE_URL = 'https://barbara-waugh-anaphylactically.ngrok-free.dev';
 

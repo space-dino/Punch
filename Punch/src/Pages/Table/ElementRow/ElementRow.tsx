@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './ElementRow.css'
-import TextBox from '../../TextBox/TextBox'
-import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations';
+import TextBox from '../../../Components/TextBox/TextBox'
+import { EntityWithRelations } from '../../../DTOs/entity/EntityWithRelations';
 import { NavLink } from 'react-router';
-import configuration from '../../configuration.json';
-import { useTypes } from '../../context/TypesContext';
-import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance';
+import configuration from '../../../configuration.json';
+import { useTypes } from '../../../context/TypesContext';
+import { EntityTypeInstance } from '../../../DTOs/entity/entityType/EntityTypeInstance';
 
 interface ElementRowProps {
   Entity : EntityWithRelations;

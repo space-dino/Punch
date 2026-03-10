@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ElementRow from './ElementRow/ElementRow'
 import './Table.css'
-import { useEntities } from '../context/EntitiesContext'
-import ButtonsBar from '../ButtonsBar/ButtonsBar'
-import type { EntityWithRelations } from '../DTOs/entity/EntityWithRelations'
-import MultiSelect from '../MultiSelect/MultiSelect'
+import { useEntities } from '../../context/EntitiesContext'
+import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
+import type { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
+import MultiSelect from '../../Components/MultiSelect/MultiSelect'
 
 interface TableProps {
 }

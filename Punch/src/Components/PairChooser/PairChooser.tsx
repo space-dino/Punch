@@ -1,8 +1,8 @@
 import React from 'react'
 import TextBox from '../TextBox/TextBox'
 import './PairChooser.css'
-import configuration from '../configuration.json'
-import { type DataType, Field } from '../DTOs/entity/entityType/field/Field';
+import configuration from '../../configuration.json'
+import { type DataType, Field } from '../../DTOs/entity/entityType/field/Field';
 
 interface PairChooserProps {
   label: string;
