@@ -11,11 +11,14 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const [open, setOpen] = useState(true);
-  const { types, setTypes } = useTypes();
+  const { types, setTypes, baseTypes, setBaseTypes } = useTypes();
 
   useEffect(() => {
     getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT + configuration.urls.schemasUrl)
       .then((data) => setTypes(data))
+      .catch(console.error);
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typesUrl + configuration.urls.baseSchemasUrl)
+      .then((data) => setBaseTypes(data))
       .catch(console.error);
   }, []);
 

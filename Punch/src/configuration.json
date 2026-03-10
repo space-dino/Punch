@@ -1,10 +1,11 @@
 {
     "urls" : {
-        "typesUrl" : "/types",
+        "typesUrl" : "/typeSchemas",
         "environmentsUrl" : "/environments",
         "entitiesUrl" : "/entities",
         "loginUrl" : "/login",
         "schemasUrl" : "/schemas",
+        "baseSchemasUrl" : "/baseSchemas",
         "registerUrl" : "/register"
     },
     "baseUrls" : {
