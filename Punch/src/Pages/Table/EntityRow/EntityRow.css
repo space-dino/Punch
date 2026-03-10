@@ -1,22 +1,28 @@
-.entity-row-main {
+.entity-row {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    margin: 4px;
-    height: 28px;
+    align-items: flex-start;
     width: 100%;
     gap: 20px;
+    transition: background-color 0.25s;
 }
 
-.entity-row-main a {
+.entity-row__fields a {
     margin-left: 0px;
 }
 
-.entity-row {
-    transition: background-color 0.25s;
+.entity-row__fields {
     width: 100%;
 }
 
 .entity-row.selected {
     background-color: rgb(225, 247, 255);
+}
+
+.entity-row__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+    margin-top: 10px;
 }

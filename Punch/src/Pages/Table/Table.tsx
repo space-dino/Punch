@@ -32,7 +32,7 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
 
       <div className='table'>  
         {entities.length > 0 ? entities.map((entity) => (
-          <EntityRow Entity={entity} setEntities={setEntities}/>
+          <EntityRow Entity={entity}/>
         )) : 'No Data Here );'}
       </div>
     </>

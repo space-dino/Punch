@@ -2,13 +2,13 @@ import React from 'react'
 import './TextBox.css'
 
 interface TextBoxProps {
-  label: string
-  name?: string
-  value?: string
-  disabled?: boolean
-  type?: 'text' | 'password'
-  onChange?: (newValue: string) => void
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+  label: string;
+  name?: string;
+  value?: string;
+  disabled?: boolean;
+  type?: 'text' | 'password';
+  onChange?: (newValue: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
