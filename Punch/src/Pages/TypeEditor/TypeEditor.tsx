@@ -15,9 +15,11 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
     const navigate = useNavigate();
 
     const [draft, setDraft] = useState<Field>(new Field('', 'string'));
+    const [typeName, setTypeName] = useState('');
+
     const [selectedBaseType, setSelectedBaseType] = useState<string>(baseTypes[0].label);
     const params = useParams<{ id: string }>();
-    const selectedType = types.find(e => e.label === params.id);
+    const selectedType = types.find(e => e.label === params.id) ?? baseTypes.find(e => e.label === params.id);
 
     const handlePropertyChange = (key: string, newField: Field) => {
         if (selectedType !== undefined) {
@@ -47,8 +49,8 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
             ));
         } else {
             // creating new type — add it to types with the new field
-            setTypes(prev => [...prev, new EntityTypeSchema(params.id ?? 'new', '', [draft])]);
-            navigate("./new");
+            setTypes(prev => [...prev, new EntityTypeSchema(typeName, 'new', [draft])]);
+            navigate(`./${typeName}`);
         }
 
         setDraft(new Field('', 'string'));
@@ -71,8 +73,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
   return (
     <div className='type-editor'>
         <div className='type-editor__header'>
-            <h2>{selectedType ? selectedType.label : 'New Type'}</h2>
-            <TextBox label='Type name' value={selectedType?.label}/>
+            <TextBox label='Type name' value={selectedType?.label} onChange={(e) => setTypeName(e)}/>
         </div>
         <select className='basetype-select' value={selectedBaseType} onChange={(e) => setSelectedBaseType(e.target.value)}>
             {baseTypes.map((baseType) => {
@@ -80,7 +81,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
             })}
         </select>
         {Object.entries(baseTypes.find((t) => t.label === selectedBaseType)?.typeFields || []).map(([key, field]) => (
-            <PairChooser 
+            <PairChooser
                 key={key}
                 label='Base Property Name'
                 field={field}
