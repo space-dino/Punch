@@ -14,7 +14,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const { types, setTypes, baseTypes, setBaseTypes } = useTypes();
 
   useEffect(() => {
-    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT + configuration.urls.schemasUrl)
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typesUrl + configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
       .then((data) => setTypes(data))
       .catch(console.error);
     getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typesUrl + configuration.urls.baseSchemasUrl)
@@ -30,6 +30,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
 
       <div className='side-bar-container'>
         <div className='side-bar__content'>
+          {baseTypes.map((type : EntityTypeSchema) => (
+            <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
+          ))}
+
           {types.map((type : EntityTypeSchema) => (
             <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
@@ -38,6 +42,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         </div>
 
         <div className='side-bar-icons' onClick={() => setOpen(prev => !prev)}>
+          {baseTypes.map((type : EntityTypeSchema) => (
+            <p>{type.icon}</p>
+          ))}
+          
           {types.map((type : EntityTypeSchema) => (
             <p>{type.icon}</p>
           ))}
