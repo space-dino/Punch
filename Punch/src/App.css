@@ -5,13 +5,14 @@
   text-align: center;
 
   --input-color: black;
-  --input-toolbar-color: gray;
-  --input-toolbar-unfocused-color: rgb(193, 193, 193);
+  --input-toolbar-color: rgb(162, 148, 130);;
+  --input-toolbar-unfocused-color: rgb(210, 210, 210);
   --warm-shadow-color: rgb(255, 180, 80);
   --field-color: whitesmoke;
   --selected-field-color: rgb(255, 145, 0);
   --title-color: #232940;
   --title-shadow-color: rgb(67, 78, 145);
+  --table-line-color: rgb(162, 148, 130);
 
   --page-border-padding: 20px;
   --radial-gradient-shadow: radial-gradient(ellipse 70% 90% at center, rgba(255, 180, 80, 0.18) 0%, transparent 70%);

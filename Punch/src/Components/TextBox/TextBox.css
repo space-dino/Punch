@@ -5,11 +5,11 @@
     align-items: center;
     justify-self: center;
     margin-top: 12px;
-    width: 100px;
+    width: 100%;
 }
 
 .text-box input {
-  width: 100px;
+  width: 100%;
 }
 
 .text-box:hover input, .text-box input:focus {

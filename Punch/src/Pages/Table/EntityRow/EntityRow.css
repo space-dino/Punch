@@ -10,7 +10,7 @@
 }
 
 .entity-row:not(:last-child) {
-    border-bottom: 1px solid var(--input-toolbar-unfocused-color);
+    border-bottom: 1px solid var(--table-line-color);
     margin-top: -4px;
     padding-bottom: 4px;
 }
