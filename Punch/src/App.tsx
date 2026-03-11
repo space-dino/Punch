@@ -14,48 +14,51 @@ import EnvironmentEditor from './Pages/EnvironmentEditor/EnvironmentEditor'
 import Login from './Pages/Login/Login'
 import { BASE_TYPES } from './dataConfig';
 import TitleBar from './Components/TitleBar/TitleBar'
+import { LoginProvider } from './context/LoginContext'
 
 function App() {
   return (
-    <TypesProvider defaultTypes={DEFAULT_TYPES} defaultBaseTypes={BASE_TYPES}>
-      <title>Punch</title>
-      <link rel="icon" href="/icon.png"/>
-      <TitleBar/>
+    <LoginProvider>
+      <TypesProvider defaultTypes={DEFAULT_TYPES} defaultBaseTypes={BASE_TYPES}>
+        <title>Punch</title>
+        <link rel="icon" href="/icon.png"/>
+        <TitleBar/>
 
-      <BrowserRouter>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-        </nav>
-        
-        <Sidebar/>
+        <BrowserRouter>
+          <nav>
+            <NavLink to="/">Home</NavLink>
+          </nav>
+          
+          <Sidebar/>
 
-        <div className='dropdowns-bar'>
-          <IconDropdown label='User1' icon='🐒'
-            options={[
-              {label: 'Sign Out', url: configuration.urls.loginUrl}
-            ]}/>
-          <IconDropdown label='Env1' icon='🦍'
-            options={[
-              {label: 'Sign Out', url: configuration.urls.environmentsUrl}
-            ]}/>
-        </div>
+          <div className='dropdowns-bar'>
+            <IconDropdown label='User1' icon='🐒'
+              options={[
+                {label: 'Sign Out', url: configuration.urls.loginUrl}
+              ]}/>
+            <IconDropdown label='Env1' icon='🦍'
+              options={[
+                {label: 'Sign Out', url: configuration.urls.environmentsUrl}
+              ]}/>
+          </div>
 
-        <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
-          <Routes>
-            <Route path="/"                                           element={<Table/>} />
-            <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
-            <Route path={`${configuration.urls.loginUrl}/:id`}        element={<Login/>} />
-            <Route path={configuration.urls.typesUrl}                 element={<TypeEditor/>} />
-            <Route path={`${configuration.urls.typesUrl}/:id`}        element={<TypeEditor/>} />
-            <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />
-            <Route path={`${configuration.urls.entitiesUrl}/:id`}     element={<EntityGraph/>} />
-            <Route path={configuration.urls.environmentsUrl}          element={<EnvironmentEditor/>} />
-            <Route path={`${configuration.urls.environmentsUrl}/:id`} element={<EnvironmentEditor/>} />
-            <Route path="*"                                           element={<p>Error 404 Page not Found</p>} />
-          </Routes>
-        </EntitiesProvider>
-      </BrowserRouter>
-    </TypesProvider>
+          <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
+            <Routes>
+              <Route path="/"                                           element={<Table/>} />
+              <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
+              <Route path={`${configuration.urls.loginUrl}/:id`}        element={<Login/>} />
+              <Route path={configuration.urls.typesUrl}                 element={<TypeEditor/>} />
+              <Route path={`${configuration.urls.typesUrl}/:id`}        element={<TypeEditor/>} />
+              <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />
+              <Route path={`${configuration.urls.entitiesUrl}/:id`}     element={<EntityGraph/>} />
+              <Route path={configuration.urls.environmentsUrl}          element={<EnvironmentEditor/>} />
+              <Route path={`${configuration.urls.environmentsUrl}/:id`} element={<EnvironmentEditor/>} />
+              <Route path="*"                                           element={<p>Error 404 Page not Found</p>} />
+            </Routes>
+          </EntitiesProvider>
+        </BrowserRouter>
+      </TypesProvider>
+    </LoginProvider>
   )
 }
 
