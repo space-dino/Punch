@@ -21,11 +21,11 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
   useEffect(() => {
     if (login === undefined) {
       navigate(configuration.urls.loginUrl);
+    } else {
+      getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+        .then((data) => setEntities(data))
+        .catch(console.error);
     }
-
-    getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
-      .then((data) => setEntities(data))
-      .catch(console.error);
   }, []);
 
   return (
@@ -39,7 +39,7 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
       </div>
 
       <div className='table'>  
-        {entities.length > 0 ? entities.map((entity) => (
+        {(login !== undefined && entities.length > 0) ? entities.map((entity) => (
           <EntityRow Entity={entity}/>
         )) : 'No Data Here );'}
       </div>

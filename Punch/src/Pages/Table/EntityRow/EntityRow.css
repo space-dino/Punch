@@ -9,6 +9,12 @@
     position: relative;
 }
 
+.entity-row:not(:last-child) {
+    border-bottom: 1px solid var(--input-toolbar-unfocused-color);
+    margin-top: -4px;
+    padding-bottom: 4px;
+}
+
 .entity-row__fields a {
     margin-left: 0px;
 }
