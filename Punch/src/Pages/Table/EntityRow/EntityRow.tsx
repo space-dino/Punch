@@ -46,10 +46,10 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
         <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
 
         <div className={`subtype-icons-row ${isOpen ? ' open' : ''}`}>
+          {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}
           {subTypesSchemas.map((subtype) => {
             return <p>{subtype.icon}</p>
           })}
-          {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}
         </div>
 
         <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>

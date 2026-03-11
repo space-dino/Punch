@@ -63,14 +63,14 @@
 
 .subtype-icons-row {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
     gap: 4px;
 
     position: absolute;
     left: -60px;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .subtype-icons-row p {
