@@ -6,20 +6,25 @@ import type { Node as NodeType } from './Node/Node.types'
 import { useEntities } from '../../context/EntitiesContext'
 import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import { useParams } from 'react-router'
+import { useTypes } from '../../context/TypesContext'
+import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema'
 
 const nodeCenterOffset = { x: 50, y: 50 };
 
-const buildNodes = (entity: EntityWithRelations): NodeType[] => {
+const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], types: EntityTypeSchema[]): NodeType[] => {
   const cx = 200;
   const cy = 200;
   const radius = 250;
 
+  const baseTypeSchema : EntityTypeSchema | undefined = baseTypes.find((type) => type.label === entity.baseType.typeSchemaLabel);
+  
   const childNodes: NodeType[] = entity.subTypes.map((subtype, i) => {
     let angle = (2 * Math.PI * i) / entity.subTypes.length - Math.PI / 2 + 45 * Math.PI / 180;
+    const subTypeSchema : EntityTypeSchema | undefined = types.find((type) => type.label === subtype.typeSchemaLabel);
 
     return {
       id: subtype.typeSchemaLabel,
-      label: subtype.typeSchemaLabel,
+      label: subtype.typeSchemaLabel + subTypeSchema?.icon,
       data: subtype,
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
@@ -27,18 +32,20 @@ const buildNodes = (entity: EntityWithRelations): NodeType[] => {
   })
 
   return [
-    { id: 'main', label: entity.baseType.typeSchemaLabel, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
+    { id: 'main', label: entity.baseType.typeSchemaLabel + baseTypeSchema?.icon, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
     ...childNodes,
   ]
 }
 
 const EntityGraph = () => {
   const { entities } = useEntities();
+  const { types, baseTypes } = useTypes();
+
   const params = useParams<{ id: string }>();
   const selectedEntity = entities.find(e => e.entityId === params.id);
 
   const [nodes, setNodes] = useState<NodeType[]>(
-    selectedEntity ? buildNodes(selectedEntity) : []
+    selectedEntity ? buildNodes(selectedEntity, baseTypes, types) : []
   );
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [canvasDragging, setCanvasDragging] = useState(false);
@@ -47,7 +54,7 @@ const EntityGraph = () => {
   const [nodeStart, setNodeStart] = useState({ mx: 0, my: 0, nx: 0, ny: 0 });
 
   useEffect(() => {
-    if (selectedEntity) setNodes(buildNodes(selectedEntity))
+    if (selectedEntity) setNodes(buildNodes(selectedEntity, baseTypes, types))
   }, [selectedEntity]);
 
   const mainNode = nodes.find(n => n.id === 'main');

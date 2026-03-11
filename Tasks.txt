@@ -39,7 +39,7 @@
  - default entities - remove from app
  - add generic communicator
  - config urls baseurls is a MESS
-
+ - ICONS IN GRAPH NODE IS SUPER DISGUSTING
 
  ----------------------------------
 
