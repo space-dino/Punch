@@ -5,6 +5,8 @@
     width: 100%;
     gap: 20px;
     transition: background-color 0.25s;
+
+    position: relative;
 }
 
 .entity-row__fields a {
@@ -25,6 +27,10 @@
     align-items: center;
     height: 20px;
     margin-top: 10px;
+
+    position: relative;
+    padding-left: 100px;
+    flex-shrink: 0;
 }
 
 .entity-row__content {
@@ -40,4 +46,32 @@
   max-height: 0;
   visibility: hidden;
   transition: max-height 0.25s ease-in-out, visibility 0.25s ease-in-out;
+}
+
+.entity-row__header .open-button {
+    background-color: transparent;
+    width: 23px;
+    padding: 0;
+    transition: rotate 0.25s;
+    rotate: 90deg;
+}
+
+.entity-row__header .open-button.open {
+    rotate: 180deg;
+}
+
+.subtype-icons-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    position: absolute;
+    left: -60px;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.subtype-icons-row.open {
+    /* CONTINUE HERE */
 }

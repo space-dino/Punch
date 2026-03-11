@@ -45,22 +45,22 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
       <div className='entity-row__header'>
         <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
 
-        <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? 'v' : '^'}</button>
-        <p>{baseTypeSchema !== undefined ? baseTypeSchema.icon : "TypeNotFound"}</p>
-
-        {subTypesSchemas.map((subtype) => {
-          return <p>{subtype.icon}</p>
-        })}
+        <div className={`subtype-icons-row ${isOpen ? 'open' : ''}`}>
+          {subTypesSchemas.map((subtype) => {
+            return <p>{subtype.icon}</p>
+          })}
+          {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}
+        </div>
 
         <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
       </div>
         
       <div className='entity-row__fields'>
-        <FieldsList EntityType={props.Entity.baseType}/>
+        <FieldsList EntityType={props.Entity.baseType} EntityTypeSchema={baseTypeSchema}/>
       
         <div className={`entity-row__content${!isOpen ? '--disabled' : ''}`}>
           {props.Entity.subTypes.map((subtype) => {
-            return <FieldsList EntityType={subtype}/>
+            return <FieldsList EntityType={subtype} EntityTypeSchema={subTypesSchemas.find((schema) => schema.label === subtype.typeSchemaLabel)}/>
           })}
         </div>
 
