@@ -14,7 +14,7 @@ const nodeCenterOffset = { x: 50, y: 50 };
 const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], types: EntityTypeSchema[]): NodeType[] => {
   const cx = 200;
   const cy = 200;
-  const radius = 250;
+  const radius = 300;
 
   const baseTypeSchema : EntityTypeSchema | undefined = baseTypes.find((type) => type.label === entity.baseType.typeSchemaLabel);
   

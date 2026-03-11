@@ -6,23 +6,24 @@ import type { EntityTypeSchema } from '../../../../DTOs/entity/entityType/Entity
 import configuration from '../../../../configuration.json'
 
 interface FieldsListProps {
-  EntityType : EntityTypeInstance;
-  EntityTypeSchema? : EntityTypeSchema;
-//   onChange : (newValue : string) => void;
+  EntityType: EntityTypeInstance
+  EntityTypeSchema?: EntityTypeSchema
+  onChange?: (key: string, newValue: string) => void
 }
 
-const FieldsList : React.FC<FieldsListProps> = (props : FieldsListProps) => {
+const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange }) => {
   return (
     <div className='fields-list'>
-      <p>{props.EntityTypeSchema?.icon}</p>
+      <p>{EntityTypeSchema?.icon}</p>
       <div className='fields'>
-        {Object.entries(props.EntityType.fieldValues)
+        {Object.entries(EntityType.fieldValues)
           .filter(([key]) => !configuration.tableFilter.includes(key))
           .map(([key, value]) => (
             <TextBox
               key={key}
               label={key}
               value={value}
+              onChange={(newValue) => onChange?.(key, newValue)}
             />
           ))
         }

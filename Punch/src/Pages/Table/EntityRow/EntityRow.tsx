@@ -40,6 +40,23 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
     ));
   }
 
+  const handleSubTypePropertyChange = (typeSchemaLabel: string, key: string, newValue: string) => {
+    setEntities(prev => prev.map(e =>
+      e.entityId === props.Entity.entityId
+        ? new EntityWithRelations(
+            e.entityId,
+            e.baseType,
+            e.subTypes.map(sub =>
+              sub.typeSchemaLabel === typeSchemaLabel
+                ? new EntityTypeInstance(sub.typeSchemaLabel, { ...sub.fieldValues, [key]: newValue })
+                : sub
+            ),
+            e.relations
+          )
+        : e
+    ))
+  }
+
   return (
     <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
       <div className='entity-row__header'>
@@ -56,12 +73,21 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
       </div>
         
       <div className='entity-row__fields'>
-        <FieldsList EntityType={props.Entity.baseType} EntityTypeSchema={baseTypeSchema}/>
-      
+        <FieldsList
+          EntityType={props.Entity.baseType}
+          EntityTypeSchema={baseTypeSchema}
+          onChange={(key, newValue) => handlePropertyChange(key, newValue)}
+        />
+
         <div className={`entity-row__content${!isOpen ? '--disabled' : ''}`}>
-          {props.Entity.subTypes.map((subtype) => {
-            return <FieldsList EntityType={subtype} EntityTypeSchema={subTypesSchemas.find((schema) => schema.label === subtype.typeSchemaLabel)}/>
-          })}
+          {props.Entity.subTypes.map((subtype) => (
+            <FieldsList
+              key={subtype.typeSchemaLabel}
+              EntityType={subtype}
+              EntityTypeSchema={subTypesSchemas.find((schema) => schema.label === subtype.typeSchemaLabel)}
+              onChange={(key, newValue) => handleSubTypePropertyChange(subtype.typeSchemaLabel, key, newValue)}
+            />
+          ))}
         </div>
 
       </div>
