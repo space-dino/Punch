@@ -27,11 +27,24 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 e.label === selectedType.label
                 ? new EntityTypeSchema(
                     e.label,
+                    e.baseLabel,
                     e.icon,
                     e.typeFields.map(field => field.name === key ? newField : field)
                     )
                 : e
             ))
+        }
+    }
+
+    const handleBaseTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        if (selectedType !== undefined) {
+            setTypes(prev => prev.map(t =>
+            t.label === selectedType.label
+                ? new EntityTypeSchema(t.label, e.target.value, t.icon, t.typeFields)
+                : t
+            ))
+        } else {
+            setSelectedBaseType(e.target.value)
         }
     }
 
@@ -44,12 +57,12 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
             // editing existing type
             setTypes(prev => prev.map(e =>
             e.label === selectedType.label
-                ? new EntityTypeSchema(e.label, e.icon, [...e.typeFields, draft])
+                ? new EntityTypeSchema(e.label, e.baseLabel, e.icon, [...e.typeFields, draft])
                 : e
             ));
         } else {
             // creating new type — add it to types with the new field
-            setTypes(prev => [...prev, new EntityTypeSchema(typeName, 'new', [draft])]);
+            setTypes(prev => [...prev, new EntityTypeSchema(typeName, selectedBaseType, 'new', [draft])]);
             navigate(`./${typeName}`);
         }
 
@@ -62,6 +75,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 e.label === selectedType.label
                 ? new EntityTypeSchema(
                     e.label,
+                    e.baseLabel,
                     e.icon,
                     e.typeFields.filter(f => f.name !== key)
                     )
@@ -75,12 +89,12 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
         <div className='type-editor__header'>
             <TextBox label='Type name' value={selectedType?.label} onChange={(e) => setTypeName(e)}/>
         </div>
-        <select className='basetype-select' value={selectedBaseType} onChange={(e) => setSelectedBaseType(e.target.value)}>
+        {selectedType?.baseLabel && <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
             {baseTypes.map((baseType) => {
                 return <option>{baseType.label}</option>
             })}
-        </select>
-        {Object.entries(baseTypes.find((t) => t.label === selectedBaseType)?.typeFields || []).map(([key, field]) => (
+        </select>}
+        {selectedType?.baseLabel && Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || []).map(([key, field]) => (
             <PairChooser
                 key={key}
                 label='Base Property Name'
@@ -94,7 +108,7 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
                 key={key}
                 label='Property Name'
                 field={field}
-                disabled={false}
+                disabled={selectedType?.baseLabel ? false : true}
                 onChange={(newField) => handlePropertyChange(field.name, newField)}
                 onRemove={() => removeField(field.name)}
             />
