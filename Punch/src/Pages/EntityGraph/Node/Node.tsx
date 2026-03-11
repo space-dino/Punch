@@ -1,6 +1,7 @@
 import React from 'react'
 import './Node.css'
 import type { Node as NodeType } from './Node.types'
+import configuration from '../../../configuration.json'
 
 interface NodeProps {
   node: NodeType
@@ -22,8 +23,22 @@ const Node: React.FC<NodeProps> = ({ node, offset, isDragging, onMouseDown }) =>
         <h3>{node.label}</h3>
       </div>
       
-      {Object.entries(node.data.fieldValues).map(([key, value]) => (
-        <p key={key}>{key}: {String(value)}</p>
+      <div className='node__content'>
+        {Object.entries(node.data.fieldValues)
+          .filter(([key]) => !configuration.tableFilter.includes(key))
+          .map(([key, value]) => (
+            <>
+              <p className='field-name' key={`${key}-name`}>{key}</p>
+              <p className='field-value' key={`${key}-value`}>{String(value)}</p>
+            </>
+          ))
+        }
+      </div>
+
+      {Object.entries(node.data.fieldValues)
+        .filter(([key]) => configuration.tableFilter.includes(key))
+        .map(([key, value]) => (
+          <p className='filtered' key={key}>{key}: <b>{String(value)}</b></p>
       ))}
     </div>
   )

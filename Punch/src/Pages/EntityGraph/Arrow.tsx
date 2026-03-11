@@ -6,7 +6,7 @@ interface ArrowProps {
   offset: { x: number; y: number }
 }
 
-const NODE_WIDTH = 200
+const NODE_WIDTH = 240
 const NODE_HEIGHT = 200
 
 // Get all 4 edge midpoints of a node
