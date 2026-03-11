@@ -30,8 +30,14 @@ function App() {
         <Sidebar/>
 
         <div className='dropdowns-bar'>
-          <IconDropdown label='User1' icon='🐒' url={configuration.urls.loginUrl}/>
-          <IconDropdown label='Env1' icon='🦍' url={configuration.urls.environmentsUrl}/>
+          <IconDropdown label='User1' icon='🐒'
+            options={[
+              {label: 'Sign Out', url: configuration.urls.loginUrl}
+            ]}/>
+          <IconDropdown label='Env1' icon='🦍'
+            options={[
+              {label: 'Sign Out', url: configuration.urls.environmentsUrl}
+            ]}/>
         </div>
 
         <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>

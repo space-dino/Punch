@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './IconDropdown.css'
-import { useTypes } from '../../context/TypesContext'
-import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
 import { NavLink } from 'react-router';
 
 interface IconDropdownProps {
   label : string;
   icon : string;
-  url : string;
+  options : {label: string, url: string}[];
 }
 
 const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => {
-  const { types } = useTypes();
-
   return (
     <div className='icon-dropdown'>
       <div className='icon-dropdown__header'>
@@ -22,11 +18,9 @@ const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => 
       </div>
 
       <div className='icon-dropdown__content'>
-        {types.map((type : EntityTypeSchema) => (
-          <NavLink to={`${props.url}/${type.label}`}>{type.label}</NavLink>
+        {props.options.map((option : {label: string, url: string}) => (
+          <NavLink to={option.url}>{option.label}</NavLink>
         ))}
-
-        <NavLink to={props.url}>+</NavLink>
       </div>
     </div>
   )
