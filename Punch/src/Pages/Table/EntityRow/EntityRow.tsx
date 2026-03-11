@@ -15,6 +15,7 @@ interface EntitytRowProps {
 
 const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { types, baseTypes } = useTypes();
   const { setEntities } = useEntities();
 
@@ -43,6 +44,8 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
     <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
       <div className='entity-row__header'>
         <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
+
+        <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? 'v' : '^'}</button>
         <p>{baseTypeSchema !== undefined ? baseTypeSchema.icon : "TypeNotFound"}</p>
 
         {subTypesSchemas.map((subtype) => {
@@ -55,7 +58,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
       <div className='entity-row__fields'>
         <FieldsList EntityType={props.Entity.baseType}/>
       
-        <div className='entity-row__content'>
+        <div className={`entity-row__content${!isOpen ? '--disabled' : ''}`}>
           {props.Entity.subTypes.map((subtype) => {
             return <FieldsList EntityType={subtype}/>
           })}

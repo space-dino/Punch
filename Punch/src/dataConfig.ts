@@ -4,38 +4,38 @@ import { EntityTypeSchema } from "./DTOs/entity/entityType/EntityTypeSchema";
 import { Field } from "./DTOs/entity/entityType/field/Field";
 
 export const DEFAULT_TYPES: EntityTypeSchema[] = [
-    new EntityTypeSchema('Student', '🙈', [
+    new EntityTypeSchema('Student', '🙈', 'Person',[
         new Field('School', 'string'),
         new Field('Year', 'number'),
         new Field('Grade', 'number'),
     ]),
-    new EntityTypeSchema('Teacher', '🦆', [
+    new EntityTypeSchema('Teacher', '🦆', 'Person',[
         new Field('School', 'string'),
         new Field('Subject', 'number'),
     ]),
-    new EntityTypeSchema('Course', '🍇', [
+    new EntityTypeSchema('Course', '🍇', 'Education', [
         new Field('Subject', 'string'),
         new Field('Year', 'number'),
     ]),
 ]
 
 export const BASE_TYPES: EntityTypeSchema[] = [
-    new EntityTypeSchema('Person', '🙈', [
+    new EntityTypeSchema('Person', '🙈', '', [
         new Field('name', 'string'),
         new Field('id', 'number'),
         new Field('birthdate', 'date'),
     ]),
-    new EntityTypeSchema('Organization', '🙈', [
+    new EntityTypeSchema('Organization', '🙈', '', [
         new Field('name', 'string'),
         new Field('id', 'number'),
         new Field('description', 'string'),
     ]),
-    new EntityTypeSchema('Location', '🙈', [
+    new EntityTypeSchema('Location', '🙈', '', [
         new Field('x', 'number'),
         new Field('y', 'number'),
         new Field('id', 'number'),
     ]),
-    new EntityTypeSchema('Education', '🙈', [
+    new EntityTypeSchema('Education', '🙈', '', [
         new Field('name', 'string'),
         new Field('id', 'number'),
     ]),

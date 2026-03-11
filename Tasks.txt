@@ -39,3 +39,11 @@
  - default entities - remove from app
  - add generic communicator
  - config urls baseurls is a MESS
+
+
+ ----------------------------------
+
+ - post users
+ - login
+ - edit & create entities
+ - type locks
