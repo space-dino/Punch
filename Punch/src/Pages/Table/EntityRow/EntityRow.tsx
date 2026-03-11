@@ -45,7 +45,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
       <div className='entity-row__header'>
         <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
 
-        <div className={`subtype-icons-row ${isOpen ? 'open' : ''}`}>
+        <div className={`subtype-icons-row ${isOpen ? ' open' : ''}`}>
           {subTypesSchemas.map((subtype) => {
             return <p>{subtype.icon}</p>
           })}
