@@ -5,11 +5,12 @@
     background: var(--radial-gradient-shadow);
 
     max-height: 25em;
+    max-width: 70em;
     padding: 20px;
 
     overflow-x: hidden;
     overflow-y: auto;
-    margin-right: 100px;
+    margin-right: 50px;
 }
 
 .table-actions-bar {

@@ -3,6 +3,7 @@ import TextBox from '../../../../Components/TextBox/TextBox'
 import { EntityTypeInstance } from '../../../../DTOs/entity/entityType/EntityTypeInstance';
 import './FieldsList.css'
 import type { EntityTypeSchema } from '../../../../DTOs/entity/entityType/EntityTypeSchema';
+import configuration from '../../../../configuration.json'
 
 interface FieldsListProps {
   EntityType : EntityTypeInstance;
@@ -15,14 +16,16 @@ const FieldsList : React.FC<FieldsListProps> = (props : FieldsListProps) => {
     <div className='fields-list'>
       <p>{props.EntityTypeSchema?.icon}</p>
       <div className='fields'>
-          {Object.entries(props.EntityType.fieldValues).map(([key, value]) => (
-              <TextBox
+        {Object.entries(props.EntityType.fieldValues)
+          .filter(([key]) => !configuration.tableFilter.includes(key))
+          .map(([key, value]) => (
+            <TextBox
               key={key}
               label={key}
               value={value}
-              // onChange={(newValue) => props.onChange(newValue)}
-              />
-          ))}
+            />
+          ))
+        }
       </div>
     </div>
   )

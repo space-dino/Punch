@@ -10,6 +10,8 @@
 
 .text-box input {
   width: 100%;
+  min-width: 100px;
+  font-style: italic;
 }
 
 .text-box:hover input, .text-box input:focus {

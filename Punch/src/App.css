@@ -13,6 +13,7 @@
   --title-color: #232940;
   --title-shadow-color: rgb(67, 78, 145);
   --table-line-color: rgb(162, 148, 130);
+  --table-subtype-line-color: rgb(187, 168, 143);
 
   --page-border-padding: 20px;
   --radial-gradient-shadow: radial-gradient(ellipse 70% 90% at center, rgba(255, 180, 80, 0.18) 0%, transparent 70%);

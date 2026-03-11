@@ -17,5 +17,9 @@
         "date",
         "boolean"
     ],
+    "tableFilter" : [
+        "entity_id",
+        "org_id"
+    ],
     "DEBUG_TENANT" : "/tenant_google"
 }
