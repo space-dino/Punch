@@ -19,11 +19,14 @@ export const getJSON = <T>(baseUrl: string, endpoint: string): Promise<T> => {
     })
 };
 
-export const postJSON = (baseUrl: string, endpoint: string, body: object): Promise<string> => {
+export const postJSON = (baseUrl: string, endpoint: string, body: object): Promise<{ status: number, body: string }> => {
   return fetch(`${baseUrl}${endpoint}`, {
     method: 'POST',
     headers: getHeaders(),
     body: JSON.stringify(body),
     redirect: 'follow' as const,
-  }).then((response) => response.text());
-};
+  }).then(async (response) => ({
+    status: response.status,
+    body: await response.text(),
+  }))
+}

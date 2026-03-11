@@ -6,7 +6,6 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
 import TypeEditor from './Pages/TypeEditor/TypeEditor'
 import { TypesProvider } from './context/TypesContext'
 import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './dataConfig'
-import IconDropdown from './Components/IconDropdown/IconDropdown'
 import EntityGraph from './Pages/EntityGraph/EntityGraph'
 import { EntitiesProvider } from './context/EntitiesContext'
 import configuration from './configuration.json'
@@ -15,6 +14,7 @@ import Login from './Pages/Login/Login'
 import { BASE_TYPES } from './dataConfig';
 import TitleBar from './Components/TitleBar/TitleBar'
 import { LoginProvider } from './context/LoginContext'
+import TopBar from './Components/TopBar/TopBar'
 
 function App() {
   return (
@@ -30,17 +30,7 @@ function App() {
           </nav>
           
           <Sidebar/>
-
-          <div className='dropdowns-bar'>
-            <IconDropdown label='User1' icon='🐒'
-              options={[
-                {label: 'Sign Out', url: configuration.urls.loginUrl}
-              ]}/>
-            <IconDropdown label='Env1' icon='🦍'
-              options={[
-                {label: 'Sign Out', url: configuration.urls.environmentsUrl}
-              ]}/>
-          </div>
+          <TopBar/>
 
           <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
             <Routes>

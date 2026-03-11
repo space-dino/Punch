@@ -1,11 +1,12 @@
 .register-only-container {
-    transition: opacity 0.15s;
+    transition: opacity 0.15s, visibility 0.15s;
     height: 100px;
 }
 
 .register-only-container.disabled {
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .login-submit-button {

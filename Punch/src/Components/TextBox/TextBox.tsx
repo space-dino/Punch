@@ -6,6 +6,7 @@ interface TextBoxProps {
   name?: string;
   value?: string;
   disabled?: boolean;
+  required?: boolean;
   type?: 'text' | 'password';
   onChange?: (newValue: string) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -21,6 +22,7 @@ const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
           onKeyDown={(e) => props.onKeyDown?.(e)}
           value={props.value}
           name={props.name}
+          required={props.required}
           placeholder={props.label}></input>
         <p>{props.label}</p>
     </div>
