@@ -30,14 +30,25 @@
     left: 0em;
     top: 0em;
     background: var(--radial-gradient-shadow);
+
+    text-shadow:
+        var(--title-shadow-color) 2px 2px 0,
+        var(--title-shadow-color) -2px -2px 0,
+        var(--title-shadow-color) -2px 2px 0,
+        var(--title-shadow-color) 2px -2px 0,
+        var(--title-shadow-color) 0 0 10px;
 }
 
 .title-bar img {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.75em;
+    height: 1.75em;
     z-index: 2;
     position: absolute;
-    left: 1.5em;
-    top: 0.8em;
-    filter: drop-shadow(var(--title-shadow-color) 3px 0 0) drop-shadow(var(--title-shadow-color) -2px 0 0) drop-shadow(var(--title-shadow-color) 0 3px 0) drop-shadow(var(--title-shadow-color) 0 -2px 0);
+    left: 1.4em;
+    top: 0.7em;
+    filter:
+        drop-shadow(var(--title-shadow-color) 2px 0 0)
+        drop-shadow(var(--title-shadow-color) -1px 0 0)
+        drop-shadow(var(--title-shadow-color) 0 2px 0)
+        drop-shadow(var(--title-shadow-color) 0 -1px 0);
 }

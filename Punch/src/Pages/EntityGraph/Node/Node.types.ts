@@ -9,4 +9,5 @@ export interface Node {
   y: number;
   width: number;
   height: number;
+  relationId?: string;
 }

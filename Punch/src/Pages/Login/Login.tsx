@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextBox from '../../Components/TextBox/TextBox'
 import HorizontalSelect from './HorizontalSelect/HorizontalSelect'
 import './Login.css'
@@ -10,12 +10,25 @@ import { useLogin } from '../../context/LoginContext';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
-  const [mode, setMode] = React.useState<string>('Login');
+  const [mode, setMode] = useState<string>('Login');
   const { setLogin } = useLogin();
   const navigate = useNavigate();
+  const [wrong, setWrong] = useState<boolean>(false);
+  
+  const [passwords, setPasswords] = useState({
+    password: '',
+    confirmPassword: '',
+  })
+
+  const handlePasswordsChange = (field: string) => (value: string) => {
+    setPasswords(prev => ({ ...prev, [field]: value }))
+  }
+
+  const passwordsMatch = passwords.password === passwords.confirmPassword;
 
   useEffect(() => {
     setLogin(undefined);
+    setWrong(false);
   }, []);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -47,6 +60,8 @@ const Login = () => {
         if (status === 201) {
           setLogin(login);
           navigate('/');
+        } else if (status === 401) {
+          setWrong(true);
         }
       })
       .catch(console.error)
@@ -61,14 +76,32 @@ const Login = () => {
       />
       <form onSubmit={handleSubmit}>
         <TextBox label='Email' name='email' required={true} />
-        <TextBox label='Password' name='password' type='password' required={true} />
+        <TextBox
+          label='Password'
+          name='password'
+          type='password'
+          required={true}
+          value={passwords.password}
+          onChange={handlePasswordsChange('password')}
+        />
 
         <div className={`register-only-container${mode === 'Register' ? '' : ' disabled'}`}>
+          <TextBox
+            label='Confirm Password'
+            name='confirmPassword'
+            type='password'
+            required={mode === 'Register'}
+            value={passwords.confirmPassword}
+            onChange={handlePasswordsChange('confirmPassword')}
+          />
           <TextBox label='First Name' name='firstName' required={mode === 'Register'} />
           <TextBox label='Last Name' name='lastName' required={mode === 'Register'} />
         </div>
 
-        <button className='login-submit-button' type='submit'>{mode}</button>
+        <p className={`error ${(mode === 'Register' && !passwordsMatch && passwords.confirmPassword !== '') ? '' : 'disabled'}`}>
+          {wrong ? 'Wrong Password' : 'Passwords do not match'}
+        </p>
+        <button className='login-submit-button' type='submit' disabled={(!passwordsMatch && mode === 'Register')}>{mode}</button>
       </form>
     </div>
   );

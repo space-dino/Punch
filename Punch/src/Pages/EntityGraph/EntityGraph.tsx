@@ -38,13 +38,28 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
     let angle = (2 * Math.PI * (i + entity.subTypes.length)) / childsAmount - Math.PI / 2 + 45 * Math.PI / 180;
 
     return {
-      id: relation.type + relation.target.entityId,
-      label: relation.type + ' ' + relation.target.baseType.typeSchemaLabel,
+      id: relation.target.entityId,
+      label: relation.type,
       data: relation,
-      x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
-      y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
+      x: cx + radius * 0.8 * Math.cos(angle) - nodeCenterOffset.x,
+      y: cy + radius * 0.8 * Math.sin(angle) - nodeCenterOffset.y,
       width: 160,
-      height: 160,
+      height: 100,
+    }
+  })
+
+  const relationTargets: NodeType[] = entity.relations.map((relation, i) => {
+    let angle = (2 * Math.PI * (i + entity.subTypes.length)) / childsAmount - Math.PI / 2 + 45 * Math.PI / 180;
+
+    return {
+      id: 'relationTarget' + relation.target.entityId,
+      label: relation.target.baseType.typeSchemaLabel,
+      data: relation.target.baseType,
+      x: cx + radius * 1.5 * Math.cos(angle) - nodeCenterOffset.x,
+      y: cy + radius * 1.5 * Math.sin(angle) - nodeCenterOffset.y,
+      width: 240,
+      height: 200,
+      relationId: relation.target.entityId
     }
   })
 
@@ -56,7 +71,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       y: cy - nodeCenterOffset.y,
       width: 240,
       height: 200 },
-    ...subtypes, ...relations
+    ...subtypes, ...relationTargets
   ]
 }
 
@@ -81,7 +96,8 @@ const EntityGraph = () => {
   }, [selectedEntity]);
 
   const mainNode = nodes.find(n => n.id === 'main');
-  const childNodes = nodes.filter(n => n.id !== 'main');
+  const relationTargetNodes = nodes.filter(n => n.id.includes('relationTarget'));
+  const childNodes = nodes.filter(n => n.id !== 'main' && !n.id.includes('relationTarget'));
 
   const onCanvasMouseDown = (e: React.MouseEvent) => {
     setCanvasDragging(true)
@@ -144,6 +160,9 @@ const EntityGraph = () => {
       }}>
         {mainNode && childNodes.map(child => (
           <Arrow key={child.id} from={mainNode} to={child} offset={offset} />
+        ))}
+        {mainNode && relationTargetNodes.map(target => (
+          <Arrow key={target.id} from={mainNode} to={target} offset={offset} label={target.relationId} />
         ))}
       </svg>
 

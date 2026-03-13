@@ -1,9 +1,10 @@
 import type { Node as NodeType } from './Node/Node.types'
 
 interface ArrowProps {
-  from: NodeType
-  to: NodeType
-  offset: { x: number; y: number }
+  from: NodeType;
+  to: NodeType;
+  label?: string;
+  offset: { x: number; y: number };
 }
 
 // Get all 4 edge midpoints of a node
@@ -56,34 +57,40 @@ const getClosestEdges = (
   return best
 }
 
-const Arrow: React.FC<ArrowProps> = ({ from, to, offset }) => {
+const Arrow: React.FC<ArrowProps> = ({ from, to, offset, label }) => {
   const { start, end } = getClosestEdges(from, to, offset)
+  const pathId = `arrow-${from.id}-${to.id}`  // unique id per arrow
 
   const cx = (start.x + end.x) / 2
   const cy = (start.y + end.y) / 2 - 30
 
+  const d = `M ${start.x} ${start.y} Q ${cx} ${cy} ${end.x} ${end.y}`
+
   return (
     <g>
       <defs>
-        <marker
-          id="arrowhead"
-          markerWidth="8"
-          markerHeight="8"
-          refX="6"
-          refY="3"
-          orient="auto"
-        >
-          <path d="M0,0 L0,6 L8,3 z" fill="#e85d4a" opacity={0.7} />
+        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#e85d4a" opacity={1} />
         </marker>
       </defs>
+
       <path
-        d={`M ${start.x} ${start.y} Q ${cx} ${cy} ${end.x} ${end.y}`}
+        id={pathId}
+        d={d}
         fill="none"
         stroke="#e85d4a"
-        strokeWidth={1.5}
-        strokeOpacity={0.4}
+        strokeWidth={2}
+        strokeOpacity={1}
         markerEnd="url(#arrowhead)"
       />
+
+      {label && (
+        <text dy={-6} fontSize={10} fill="#e85d4a">
+          <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle">
+            {label}
+          </textPath>
+        </text>
+      )}
     </g>
   )
 }

@@ -34,6 +34,8 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
 
+          <div className='separator'></div>
+
           {types.map((type : EntityTypeSchema) => (
             <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
