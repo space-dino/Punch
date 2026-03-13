@@ -27,13 +27,31 @@ const Login = () => {
 
   const passwordsMatch = passwords.password === passwords.confirmPassword;
 
+  const login = (data : FormData) => {
+      const loginRequest = new LoginRequest(
+        data.get('email') as string,
+        data.get('password') as string
+      );
+      
+      postJSON(configuration.baseUrls.auth, configuration.urls.loginUrl, loginRequest)
+      .then(({ status }) => {
+        if (status === 201) {
+          setLogin(loginRequest);
+          navigate('/');
+        } else if (status === 401) {
+          setWrong(true);
+        }
+      })
+      .catch(console.error)
+  }
+
   useEffect(() => {
     setLogin(undefined);
   }, []);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    const data : FormData = new FormData(e.currentTarget);
 
     if (mode === 'Register') {
       const register = new RegisterRequest(
@@ -44,27 +62,14 @@ const Login = () => {
       );
 
     postJSON(configuration.baseUrls.auth, configuration.urls.registerUrl, register)
-      .then(({ status, body }) => {
-        alert('status:' + status);
-        console.log('body:', body);
-      })
-      .catch(console.error)
-    } else {
-      const login = new LoginRequest(
-        data.get('email') as string,
-        data.get('password') as string
-      );
-      
-      postJSON(configuration.baseUrls.auth, configuration.urls.loginUrl, login)
       .then(({ status }) => {
         if (status === 201) {
-          setLogin(login);
-          navigate('/');
-        } else if (status === 401) {
-          setWrong(true);
+          login(data);
         }
       })
       .catch(console.error)
+    } else {
+      login(data);
     }
   };
 
