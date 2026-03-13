@@ -97,7 +97,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
   return (
     <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
       <div className='entity-row__header'>
-        <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>
+        {!props.onDraftChange && <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>}
 
         <div className={`subtype-icons-row ${isOpen ? ' open' : ''}`}>
           {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}

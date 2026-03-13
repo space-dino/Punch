@@ -5,7 +5,7 @@ import { useEntities } from '../../context/EntitiesContext'
 import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
 import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import configuration from '../../configuration.json'
-import { getJSON } from '../../api'
+import { getJSON, postJSON } from '../../api'
 import { useLogin } from '../../context/LoginContext'
 import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
 import { useTypes } from '../../context/TypesContext'
@@ -26,8 +26,7 @@ const defaultDraft = () => {
 
 const Table: React.FC<TableProps> = () => {
   const { entities, setEntities } = useEntities();
-  const { login } = useLogin();
-  const { types, baseTypes } = useTypes();
+  const { baseTypes } = useTypes();
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
 
@@ -35,11 +34,18 @@ const Table: React.FC<TableProps> = () => {
     getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
       .then((data) => setEntities(data))
       .catch(console.error)
-  }, [draft])
+  }, [])
 
   const handleAddDraft = () => {
     setEntities(prev => [...prev, draft]);
     setDraft(defaultDraft());
+
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId, draft.baseType, 'POST')
+      .then(({ status, body }) => {
+        alert('status:' + status);
+        console.log('body:', body);
+      })
+      .catch(console.error)
   }
 
   return (
@@ -51,12 +57,14 @@ const Table: React.FC<TableProps> = () => {
       </div>
 
       <div className='new-entity-row'>
-        {<select className='basetype-select' value={draft.baseType.typeSchemaLabel} onChange={(e) => 
-          {draft.baseType = new EntityTypeInstance(e.target.value, {})}}>
+        {<select className='basetype-select' value={draft.baseType.typeSchemaLabel} 
+          onChange={(e) => setDraft(new EntityWithRelations(
+            draft.entityId,
+            new EntityTypeInstance(e.target.value, { entity_id: draft.entityId }),
+            draft.subTypes,
+            draft.relations
+          ))}>
           {baseTypes.map((baseType) => {
-              return <option>{baseType.label}</option>
-          })}
-          {types.map((baseType) => {
               return <option>{baseType.label}</option>
           })}
         </select>}
