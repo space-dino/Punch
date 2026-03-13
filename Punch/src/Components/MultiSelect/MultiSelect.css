@@ -12,3 +12,7 @@
 .multiselect__content--disabled {
     opacity: 0;
 }
+
+.multiselect__content--disabled input {
+    pointer-events: none;
+}

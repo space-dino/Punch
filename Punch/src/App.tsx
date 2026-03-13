@@ -37,8 +37,8 @@ function App() {
               <Route path="/"                                           element={<Table/>} />
               <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
               <Route path={`${configuration.urls.loginUrl}/:id`}        element={<Login/>} />
-              <Route path={configuration.urls.typesUrl}                 element={<TypeEditor/>} />
-              <Route path={`${configuration.urls.typesUrl}/:id`}        element={<TypeEditor/>} />
+              <Route path={configuration.urls.typeSchemasUrl}                 element={<TypeEditor/>} />
+              <Route path={`${configuration.urls.typeSchemasUrl}/:id`}        element={<TypeEditor/>} />
               <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />
               <Route path={`${configuration.urls.entitiesUrl}/:id`}     element={<EntityGraph/>} />
               <Route path={configuration.urls.environmentsUrl}          element={<EnvironmentEditor/>} />
