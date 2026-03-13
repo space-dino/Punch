@@ -11,7 +11,7 @@
     },
     "baseUrls" : {
         "auth" : "https://barbara-waugh-anaphylactically.ngrok-free.dev/auth",
-        "data" : "https://perkily-unsanguineous-roman.ngrok-free.dev/"
+        "data" : "https://barbara-waugh-anaphylactically.ngrok-free.dev"
     },
     "dataTypes" : [
         "string",
@@ -23,5 +23,6 @@
         "entity_id",
         "org_id"
     ],
+    "debugMode" : "false",
     "DEBUG_TENANT" : "/tenant_google"
 }

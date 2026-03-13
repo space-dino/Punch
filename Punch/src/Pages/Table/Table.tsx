@@ -6,7 +6,6 @@ import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
 import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import configuration from '../../configuration.json'
 import { getJSON } from '../../api'
-import { useNavigate } from 'react-router'
 import { useLogin } from '../../context/LoginContext'
 import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
 import { useTypes } from '../../context/TypesContext'
@@ -49,7 +48,6 @@ const Table: React.FC<TableProps> = () => {
 
       <div className='table-actions-bar'>
         <input className='search-bar' placeholder='Search...' />
-        {/* <MultiSelect options={['1', '2', '3']} /> */}
       </div>
 
       <div className='new-entity-row'>
@@ -67,7 +65,7 @@ const Table: React.FC<TableProps> = () => {
       </div>
 
       <div className='table'>
-        {(login !== undefined && entities.length > 0)
+        {(entities.length > 0)
           ? entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} />)
           : 'No Data Here );'
         }

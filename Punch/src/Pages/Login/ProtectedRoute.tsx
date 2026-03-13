@@ -5,7 +5,7 @@ import configuration from '../../configuration.json'
 const ProtectedRoute = () => {
   const { login } = useLogin()
 
-  if (login === undefined) {
+  if (login === undefined && configuration.debugMode !== 'true') {
     return <Navigate to={configuration.urls.loginUrl} replace />
   }
 

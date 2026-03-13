@@ -38,7 +38,7 @@ const Login = () => {
         if (status === 201) {
           setLogin(loginRequest);
           navigate('/');
-        } else if (status === 401) {
+        } else {
           setWrong(true);
         }
       })
@@ -109,7 +109,7 @@ const Login = () => {
               ? '' 
               : 'disabled'
           }`}>
-            {mode === 'Register' ? 'Passwords do not match' : (wrong ? 'Wrong Password' : '')}
+            {mode === 'Register' ? 'Passwords do not match' : (wrong ? 'Wrong Password Or Username' : '')}
           </p>
         <button className='login-submit-button' type='submit' disabled={(!passwordsMatch && mode === 'Register')}>{mode}</button>
       </form>
