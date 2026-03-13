@@ -13,6 +13,7 @@ import { UpdatedEntity } from '../../../DTOs/entity/UpdatedEntity';
 
 interface EntitytRowProps {
   Entity : EntityWithRelations;
+  onDraftChange?: (updated: EntityWithRelations) => void;
 }
 
 const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
@@ -26,20 +27,26 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
     props.Entity.subTypes.some((subType) => subType.typeSchemaLabel === type.label)
   );
 
-  const handlePropertyChange = (key: string, newValue: string) => {
-    setEntities(prev => prev.map(e =>
-      e.entityId === props.Entity.entityId
-        ? new EntityWithRelations(
-          e.entityId,
-          new EntityTypeInstance(
-            e.baseType.typeSchemaLabel,
-            { ...e.baseType.fieldValues, [key]: newValue }
-          ),
-          e.subTypes,
-          e.relations
-        )
-        : e
-    ));
+ const handlePropertyChange = (key: string, newValue: string) => {
+    if (props.onDraftChange) {
+      props.onDraftChange(new EntityWithRelations(
+        props.Entity.entityId,
+        new EntityTypeInstance(props.Entity.baseType.typeSchemaLabel, { ...props.Entity.baseType.fieldValues, [key]: newValue }),
+        props.Entity.subTypes,
+        props.Entity.relations
+      ))
+    } else {
+      setEntities(prev => prev.map(e =>
+        e.entityId === props.Entity.entityId
+          ? new EntityWithRelations(
+              e.entityId,
+              new EntityTypeInstance(e.baseType.typeSchemaLabel, { ...e.baseType.fieldValues, [key]: newValue }),
+              e.subTypes,
+              e.relations
+            )
+          : e
+      ))
+    }
   }
 
   const sendPropertyChange = (key: string, newValue: string) => {

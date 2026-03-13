@@ -14,40 +14,58 @@ import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInsta
 interface TableProps {
 }
 
-const Table : React.FC<TableProps> = (props : TableProps) => {
-  const { entities, setEntities } = useEntities();
-  const { login } = useLogin();
-  const navigate = useNavigate();
+const defaultDraft = () => {
+  const id = crypto.randomUUID();
 
-  const defaultEntity = new EntityWithRelations("123", new EntityTypeInstance("Person", {}), [], []);
-  const [draft, setDraft] = useState<EntityWithRelations>(defaultEntity)
+  return new EntityWithRelations(
+    id,
+    new EntityTypeInstance("Person", {"entity_id" : id}),
+    [],
+    []
+  )
+}
+
+const Table: React.FC<TableProps> = () => {
+  const { entities, setEntities } = useEntities()
+  const { login } = useLogin()
+  const navigate = useNavigate()
+
+  const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft())
 
   useEffect(() => {
     if (login === undefined) {
-      navigate(configuration.urls.loginUrl);
+      navigate(configuration.urls.loginUrl)
     } else {
       getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
         .then((data) => setEntities(data))
-        .catch(console.error);
+        .catch(console.error)
     }
-  }, []);
+  }, [])
+
+  const handleAddDraft = () => {
+    setEntities(prev => [...prev, draft]);
+    setDraft(defaultDraft());
+  }
 
   return (
     <>
-      <ButtonsBar/>
-      
+      <ButtonsBar />
+
       <div className='table-actions-bar'>
-        <input className='search-bar' placeholder='Search...'></input>
-        
-        <MultiSelect options={['1', '2', '3']}/>
+        <input className='search-bar' placeholder='Search...' />
+        <MultiSelect options={['1', '2', '3']} />
       </div>
 
-      <EntityRow Entity={draft}/>
+      <div className='new-entity-row'>
+        <EntityRow Entity={draft} onDraftChange={setDraft} />
+        <button onClick={handleAddDraft}>+</button>
+      </div>
 
-      <div className='table'>  
-        {(login !== undefined && entities.length > 0) ? entities.map((entity) => (
-          <EntityRow Entity={entity}/>
-        )) : 'No Data Here );'}
+      <div className='table'>
+        {(login !== undefined && entities.length > 0)
+          ? entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} />)
+          : 'No Data Here );'
+        }
       </div>
     </>
   )

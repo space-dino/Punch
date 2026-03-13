@@ -24,3 +24,8 @@
     position: absolute;
     right: 0;
 }
+
+.new-entity-row {
+    display: flex;
+    flex-direction: row;
+}
