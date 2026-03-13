@@ -27,7 +27,7 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
       <p>{EntityTypeSchema?.icon}</p>
       <div className='fields'>
         {Object.entries(EntityType.fieldValues)
-          .filter(([key]) => !configuration.tableFilter.includes(key))
+          .filter(([key, value]) => !configuration.tableFilter.includes(key) && value !== '')
           .map(([key, value]) => (
             <TextBox
               key={key}
@@ -44,7 +44,7 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
         <div className='unadded-fields'>
           {EntityTypeSchema?.typeFields
             .filter((field) => !configuration.tableFilter.includes(field.name))
-            .filter((field) => !Object.entries(EntityType.fieldValues).find(([key]) => field.name === key))
+            .filter((field) => !Object.entries(EntityType.fieldValues).find(([key, value]) => field.name === key && value !== ''))
             .map((field) => (
               <TextBox
                 key={field.name}
