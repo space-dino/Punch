@@ -9,6 +9,7 @@ export const getJSON = <T>(baseUrl: string, endpoint: string): Promise<T> => {
   return fetch(`${baseUrl}${endpoint}`, {
     method: 'GET',
     headers: getHeaders(),
+    credentials: 'include',
     redirect: 'follow' as const,
   })
     .then((response) => {
@@ -23,6 +24,7 @@ export const postJSON = (baseUrl: string, endpoint: string, body: object, method
   return fetch(`${baseUrl}${endpoint}`, {
     method: method ?? 'POST',
     headers: getHeaders(),
+    credentials: 'include',
     body: JSON.stringify(body),
     redirect: 'follow' as const,
   }).then(async (response) => ({

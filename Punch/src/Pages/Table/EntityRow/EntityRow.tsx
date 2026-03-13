@@ -77,6 +77,20 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
     }, delay);
   }
 
+  const addSubtype = () => {
+    setEntities(prev => prev.map(e =>
+      e.entityId === props.Entity.entityId
+        ? new EntityWithRelations(
+            e.entityId,
+            e.baseType,
+            [...e.subTypes, new EntityTypeInstance("Student", {})],
+            e.relations
+          )
+        : e
+    ))
+    setIsOpen(true);
+  }
+
   const handleSubTypePropertyChange = (typeSchemaLabel: string, key: string, newValue: string) => {
     setEntities(prev => prev.map(e =>
       e.entityId === props.Entity.entityId
@@ -101,6 +115,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
 
         <div className={`subtype-icons-row ${isOpen ? ' open' : ''}`}>
           {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}
+          <button className='add-subtype-button' onClick={addSubtype}>+</button>
           {subTypesSchemas.map((subtype) => {
             return <p>{subtype.icon}</p>
           })}

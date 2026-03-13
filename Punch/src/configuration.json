@@ -23,6 +23,6 @@
         "entity_id",
         "org_id"
     ],
-    "debugMode" : "false",
+    "debugMode" : "true",
     "DEBUG_TENANT" : "/tenant_google"
 }
