@@ -4,12 +4,12 @@ import './Table.css'
 import { useEntities } from '../../context/EntitiesContext'
 import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
 import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
-import MultiSelect from '../../Components/MultiSelect/MultiSelect'
 import configuration from '../../configuration.json'
 import { getJSON } from '../../api'
 import { useNavigate } from 'react-router'
 import { useLogin } from '../../context/LoginContext'
 import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
+import { useTypes } from '../../context/TypesContext'
 
 interface TableProps {
 }
@@ -26,21 +26,17 @@ const defaultDraft = () => {
 }
 
 const Table: React.FC<TableProps> = () => {
-  const { entities, setEntities } = useEntities()
-  const { login } = useLogin()
-  const navigate = useNavigate()
+  const { entities, setEntities } = useEntities();
+  const { login } = useLogin();
+  const { types, baseTypes } = useTypes();
 
-  const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft())
+  const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
 
   useEffect(() => {
-    if (login === undefined) {
-      navigate(configuration.urls.loginUrl)
-    } else {
-      getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
-        .then((data) => setEntities(data))
-        .catch(console.error)
-    }
-  }, [])
+    getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+      .then((data) => setEntities(data))
+      .catch(console.error)
+  }, [draft])
 
   const handleAddDraft = () => {
     setEntities(prev => [...prev, draft]);
@@ -57,6 +53,15 @@ const Table: React.FC<TableProps> = () => {
       </div>
 
       <div className='new-entity-row'>
+        {<select className='basetype-select' value={draft.baseType.typeSchemaLabel} onChange={(e) => 
+          {draft.baseType = new EntityTypeInstance(e.target.value, {})}}>
+          {baseTypes.map((baseType) => {
+              return <option>{baseType.label}</option>
+          })}
+          {types.map((baseType) => {
+              return <option>{baseType.label}</option>
+          })}
+        </select>}
         <EntityRow Entity={draft} onDraftChange={setDraft} />
         <button onClick={handleAddDraft}>+</button>
       </div>

@@ -15,6 +15,7 @@ import { BASE_TYPES } from './dataConfig';
 import TitleBar from './Components/TitleBar/TitleBar'
 import { LoginProvider } from './context/LoginContext'
 import TopBar from './Components/TopBar/TopBar'
+import ProtectedRoute from './Pages/Login/ProtectedRoute'
 
 function App() {
   return (
@@ -34,16 +35,18 @@ function App() {
 
           <EntitiesProvider defaultEntities={DEFAULT_ENTITIES}>
             <Routes>
-              <Route path="/"                                           element={<Table/>} />
               <Route path={configuration.urls.loginUrl}                 element={<Login/>} />
-              <Route path={`${configuration.urls.loginUrl}/:id`}        element={<Login/>} />
-              <Route path={configuration.urls.typeSchemasUrl}                 element={<TypeEditor/>} />
-              <Route path={`${configuration.urls.typeSchemasUrl}/:id`}        element={<TypeEditor/>} />
-              <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />
-              <Route path={`${configuration.urls.entitiesUrl}/:id`}     element={<EntityGraph/>} />
-              <Route path={configuration.urls.environmentsUrl}          element={<EnvironmentEditor/>} />
-              <Route path={`${configuration.urls.environmentsUrl}/:id`} element={<EnvironmentEditor/>} />
-              <Route path="*"                                           element={<p>Error 404 Page not Found</p>} />
+              
+              <Route element={<ProtectedRoute />}>
+                <Route path="/"                                           element={<Table/>} />
+                <Route path={configuration.urls.typeSchemasUrl}           element={<TypeEditor/>} />
+                <Route path={`${configuration.urls.typeSchemasUrl}/:id`}  element={<TypeEditor/>} />
+                <Route path={configuration.urls.entitiesUrl}              element={<EntityGraph/>} />
+                <Route path={`${configuration.urls.entitiesUrl}/:id`}     element={<EntityGraph/>} />
+                <Route path={configuration.urls.environmentsUrl}          element={<EnvironmentEditor/>} />
+                <Route path={`${configuration.urls.environmentsUrl}/:id`} element={<EnvironmentEditor/>} />
+                <Route path="*"                                           element={<p>Error 404 Page not Found</p>} />
+              </Route>
             </Routes>
           </EntitiesProvider>
         </BrowserRouter>
