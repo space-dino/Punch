@@ -43,7 +43,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
   }
 
   const sendPropertyChange = (key: string, newValue: string) => {
-    const baseEntity = new UpdatedEntity({newValue, key});
+    const baseEntity = new UpdatedEntity({key, newValue});
     baseEntity !== undefined ? postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + "/" + props.Entity.entityId, baseEntity, 'PUT')
       .then(({ status, body }) => {
         alert('status:' + status);

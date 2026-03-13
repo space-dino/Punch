@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextBox from '../../../../Components/TextBox/TextBox'
 import { EntityTypeInstance } from '../../../../DTOs/entity/entityType/EntityTypeInstance';
 import './FieldsList.css'
@@ -12,6 +12,16 @@ interface FieldsListProps {
 }
 
 const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange }) => {
+  const [focusedField, setFocusedField] = useState<string | null>(null)
+
+  const focusRef = (el: HTMLInputElement | null, key: string) => {
+    if (el && focusedField === key) {
+      el.focus()
+      // move cursor to end
+      el.setSelectionRange(el.value.length, el.value.length)
+    }
+  }
+
   return (
     <div className='fields-list'>
       <p>{EntityTypeSchema?.icon}</p>
@@ -23,22 +33,31 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
               key={key}
               label={key}
               value={value}
+              inputRef={(el) => focusRef(el, key)}
+              onFocus={() => setFocusedField(key)}
+              onBlur={() => setFocusedField(null)}
               onChange={(newValue) => onChange?.(key, newValue)}
             />
           ))
         }
 
-        {EntityTypeSchema?.typeFields
-          .filter((field) => !configuration.tableFilter.includes(field.name))
-          .map((field) => (
-            <TextBox
-              key={field.name}
-              label={field.name}
-              value={''}
-              onChange={(newValue) => onChange?.(field.name, newValue)}
-            />
-          ))
-        }
+        <div className='unadded-fields'>
+          {EntityTypeSchema?.typeFields
+            .filter((field) => !configuration.tableFilter.includes(field.name))
+            .filter((field) => !Object.entries(EntityType.fieldValues).find(([key]) => field.name === key))
+            .map((field) => (
+              <TextBox
+                key={field.name}
+                label={field.name}
+                value={''}
+                inputRef={(el) => focusRef(el, field.name)}
+                onFocus={() => setFocusedField(field.name)}
+                onBlur={() => setFocusedField(null)}
+                onChange={(newValue) => onChange?.(field.name, newValue)}
+              />
+            ))
+          }
+        </div>
       </div>
     </div>
   )

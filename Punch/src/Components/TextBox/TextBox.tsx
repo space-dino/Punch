@@ -1,30 +1,23 @@
 import React from 'react'
 import './TextBox.css'
 
-interface TextBoxProps {
-  label: string;
-  name?: string;
-  value?: string;
-  disabled?: boolean;
-  required?: boolean;
-  type?: 'text' | 'password';
-  onChange?: (newValue: string) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+interface TextBoxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  label: string
+  inputRef?: (el: HTMLInputElement | null) => void
+  onChange?: (newValue: string) => void
 }
 
-const TextBox : React.FC<TextBoxProps> = (props : TextBoxProps) => {
+const TextBox: React.FC<TextBoxProps> = ({ label, inputRef, onChange, ...rest }) => {
   return (
-    <div className={'text-box'}>
-        <input type={props.type || 'text'}
-          className={'text-box-input'}
-          disabled={props.disabled}
-          onChange={(e) => props.onChange?.(e.target.value)}
-          onKeyDown={(e) => props.onKeyDown?.(e)}
-          value={props.value}
-          name={props.name}
-          required={props.required}
-          placeholder={props.label}></input>
-        <p>{props.label}</p>
+    <div className='text-box'>
+      <input
+        ref={inputRef}
+        className='text-box-input'
+        placeholder={label}
+        onChange={(e) => onChange?.(e.target.value)}
+        {...rest}
+      />
+      <p>{label}</p>
     </div>
   )
 }

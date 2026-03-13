@@ -10,8 +10,9 @@
 
 .text-box input {
   width: 100%;
-  min-width: 100px;
+  min-width: 90px;
   font-style: italic;
+  font-size: 13px;
 }
 
 .text-box:hover input, .text-box input:focus {
@@ -38,3 +39,9 @@
 .text-box input:placeholder-shown + p {
     opacity: 0;
 }
+
+/* .text-box:has(input:placeholder-shown) {
+    padding: 0;
+    max-width: 100px;
+    margin: 0;
+} */

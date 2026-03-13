@@ -16,3 +16,10 @@
     gap: 20px;
     height: 35px;
 }
+
+.unadded-fields:has(.text-box) {
+    max-height: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
