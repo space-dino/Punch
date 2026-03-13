@@ -47,6 +47,8 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           {baseTypes.map((type : EntityTypeSchema) => (
             <p>{type.icon}</p>
           ))}
+
+          <div className='separator'></div>
           
           {types.map((type : EntityTypeSchema) => (
             <p>{type.icon}</p>

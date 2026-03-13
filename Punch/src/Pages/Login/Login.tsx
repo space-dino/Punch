@@ -21,6 +21,7 @@ const Login = () => {
   })
 
   const handlePasswordsChange = (field: string) => (value: string) => {
+    setWrong(false);
     setPasswords(prev => ({ ...prev, [field]: value }))
   }
 
@@ -28,7 +29,6 @@ const Login = () => {
 
   useEffect(() => {
     setLogin(undefined);
-    setWrong(false);
   }, []);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -98,9 +98,14 @@ const Login = () => {
           <TextBox label='Last Name' name='lastName' required={mode === 'Register'} />
         </div>
 
-        <p className={`error ${(mode === 'Register' && !passwordsMatch && passwords.confirmPassword !== '') ? '' : 'disabled'}`}>
-          {wrong ? 'Wrong Password' : 'Passwords do not match'}
-        </p>
+        <p className={`error ${
+            (mode === 'Register' && !passwordsMatch && passwords.confirmPassword !== '')
+            || wrong
+              ? '' 
+              : 'disabled'
+          }`}>
+            {mode === 'Register' ? 'Passwords do not match' : (wrong ? 'Wrong Password' : '')}
+          </p>
         <button className='login-submit-button' type='submit' disabled={(!passwordsMatch && mode === 'Register')}>{mode}</button>
       </form>
     </div>
