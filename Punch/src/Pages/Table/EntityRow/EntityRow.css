@@ -52,7 +52,7 @@
   transition: max-height 0.25s, visibility 0.25s, opacity 0.25s;
 }
 
-.entity-row__header .open-button {
+.entity-row button {
     background-color: transparent;
     width: 23px;
     padding: 0;
@@ -60,7 +60,11 @@
     rotate: 90deg;
 }
 
-.entity-row__header .open-button.open {
+.entity-row__header .add-subtype-button-closed {
+    color: var(--input-toolbar-color);
+}
+
+.subtype-icons-row.open .open-button.open {
     rotate: 180deg;
 }
 
@@ -88,4 +92,12 @@
     border-top: 1px solid var(--table-subtype-line-color);
     margin-top: 0px;
     margin-bottom: 4px;
+}
+
+.add-new-subtype-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    height: 20px;
 }

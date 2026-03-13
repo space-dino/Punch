@@ -113,9 +113,9 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
       <div className='entity-row__header'>
         {!props.onDraftChange && <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>}
 
-        <div className={`subtype-icons-row ${isOpen ? ' open' : ''}`}>
-          {subTypesSchemas.length > 0 && <button className={`open-button${isOpen ? ' open' : ''}`} onClick={() => setIsOpen(!isOpen)}>^</button>}
-          <button className='add-subtype-button' onClick={addSubtype}>+</button>
+        <div className={`subtype-icons-row ${isOpen ? 'open' : ''}`}>
+          <button className={`open-button ${subTypesSchemas.length > 0 ? 'open' : 'add'}`} onClick={() => setIsOpen(!isOpen)}>{subTypesSchemas.length > 0 ? '^' : '+'}</button>
+          
           {subTypesSchemas.map((subtype) => {
             return <p>{subtype.icon}</p>
           })}
@@ -140,6 +140,15 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
               onChange={(key, newValue) => handleSubTypePropertyChange(subtype.typeSchemaLabel, key, newValue)}
             />
           ))}
+
+          <div className='add-new-subtype-bar'>
+            <button className='add-subtype-button' onClick={addSubtype}>+</button>
+            {<select className='basetype-select' value={types[0].label}>
+              {types.map((type) => {
+                  return <option>{type.label}</option>
+              })}
+            </select>}
+          </div>
         </div>
 
       </div>

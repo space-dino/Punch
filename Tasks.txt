@@ -47,3 +47,4 @@
  - login
  - edit & create entities
  - type locks
+ - Entityrow is disgusting. need to split
