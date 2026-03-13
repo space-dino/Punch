@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import EntityRow from './EntityRow/EntityRow'
 import './Table.css'
 import { useEntities } from '../../context/EntitiesContext'
 import ButtonsBar from '../../Components/ButtonsBar/ButtonsBar'
-import type { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
+import { EntityWithRelations } from '../../DTOs/entity/EntityWithRelations'
 import MultiSelect from '../../Components/MultiSelect/MultiSelect'
 import configuration from '../../configuration.json'
 import { getJSON } from '../../api'
 import { useNavigate } from 'react-router'
 import { useLogin } from '../../context/LoginContext'
+import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
 
 interface TableProps {
 }
@@ -17,6 +18,9 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
   const { entities, setEntities } = useEntities();
   const { login } = useLogin();
   const navigate = useNavigate();
+
+  const defaultEntity = new EntityWithRelations("123", new EntityTypeInstance("Person", {}), [], []);
+  const [draft, setDraft] = useState<EntityWithRelations>(defaultEntity)
 
   useEffect(() => {
     if (login === undefined) {
@@ -37,6 +41,8 @@ const Table : React.FC<TableProps> = (props : TableProps) => {
         
         <MultiSelect options={['1', '2', '3']}/>
       </div>
+
+      <EntityRow Entity={draft}/>
 
       <div className='table'>  
         {(login !== undefined && entities.length > 0) ? entities.map((entity) => (

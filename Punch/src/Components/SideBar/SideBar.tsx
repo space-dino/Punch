@@ -14,10 +14,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const { types, setTypes, baseTypes, setBaseTypes } = useTypes();
 
   useEffect(() => {
-    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typesUrl + configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
       .then((data) => setTypes(data))
       .catch(console.error);
-    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typesUrl + configuration.urls.baseSchemasUrl)
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.baseSchemasUrl)
       .then((data) => setBaseTypes(data))
       .catch(console.error);
   }, []);
@@ -31,16 +31,16 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
       <div className='side-bar-container'>
         <div className='side-bar__content'>
           {baseTypes.map((type : EntityTypeSchema) => (
-            <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
+            <NavLink to={`${configuration.urls.typeSchemasUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
 
           <div className='separator'></div>
 
           {types.map((type : EntityTypeSchema) => (
-            <NavLink to={`${configuration.urls.typesUrl}/${type.label}`}>{type.label}</NavLink>
+            <NavLink to={`${configuration.urls.typeSchemasUrl}/${type.label}`}>{type.label}</NavLink>
           ))}
 
-          <NavLink to={configuration.urls.typesUrl}>+</NavLink>
+          <NavLink to={configuration.urls.typeSchemasUrl}>+</NavLink>
         </div>
 
         <div className='side-bar-icons' onClick={() => setOpen(prev => !prev)}>

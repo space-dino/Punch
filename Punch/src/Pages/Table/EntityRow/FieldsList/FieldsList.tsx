@@ -27,6 +27,18 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
             />
           ))
         }
+
+        {EntityTypeSchema?.typeFields
+          .filter((field) => !configuration.tableFilter.includes(field.name))
+          .map((field) => (
+            <TextBox
+              key={field.name}
+              label={field.name}
+              value={''}
+              onChange={(newValue) => onChange?.(field.name, newValue)}
+            />
+          ))
+        }
       </div>
     </div>
   )

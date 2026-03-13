@@ -19,9 +19,9 @@ export const getJSON = <T>(baseUrl: string, endpoint: string): Promise<T> => {
     })
 };
 
-export const postJSON = (baseUrl: string, endpoint: string, body: object): Promise<{ status: number, body: string }> => {
+export const postJSON = (baseUrl: string, endpoint: string, body: object, method?: string): Promise<{ status: number, body: string }> => {
   return fetch(`${baseUrl}${endpoint}`, {
-    method: 'POST',
+    method: method ?? 'POST',
     headers: getHeaders(),
     body: JSON.stringify(body),
     redirect: 'follow' as const,

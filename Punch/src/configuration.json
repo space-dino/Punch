@@ -1,11 +1,13 @@
 {
     "urls" : {
-        "typesUrl" : "/typeSchemas",
+        "typeSchemasUrl" : "/typeSchemas",
         "environmentsUrl" : "/environments",
         "entitiesUrl" : "/entities",
         "loginUrl" : "/login",
         "baseSchemasUrl" : "/baseSchemas",
-        "registerUrl" : "/register"
+        "registerUrl" : "/register",
+        "baseTypesUrl" : "/basetypes",
+        "subTypesUrl" : "/subtypes"
     },
     "baseUrls" : {
         "auth" : "https://barbara-waugh-anaphylactically.ngrok-free.dev/auth",
