@@ -6,19 +6,16 @@ interface ArrowProps {
   offset: { x: number; y: number }
 }
 
-const NODE_WIDTH = 240
-const NODE_HEIGHT = 200
-
 // Get all 4 edge midpoints of a node
 const getEdges = (node: NodeType, offset: { x: number; y: number }) => {
   const x = node.x + offset.x
   const y = node.y + offset.y
 
   return {
-    top:    { x: x + NODE_WIDTH / 2,  y: y, weight: 1 },
-    bottom: { x: x + NODE_WIDTH / 2,  y: y + NODE_HEIGHT, weight: 1 },
-    left:   { x: x,                   y: y + NODE_HEIGHT / 2, weight: 1.3 },
-    right:  { x: x + NODE_WIDTH,      y: y + NODE_HEIGHT / 2, weight: 1.3 },
+    top:    { x: x + node.width / 2,  y: y, weight: 1 },
+    bottom: { x: x + node.width / 2,  y: y + node.height, weight: 1 },
+    left:   { x: x,                   y: y + node.height / 2, weight: 1.3 },
+    right:  { x: x + node.width,      y: y + node.height / 2, weight: 1.3 },
   }
 }
 

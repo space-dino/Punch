@@ -69,7 +69,7 @@ const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
           })}
         </div>
 
-        <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.subTypes.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
+        <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{props.Entity.relations.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>
       </div>
         
       <div className='entity-row__fields'>

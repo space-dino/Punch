@@ -1,11 +1,15 @@
 import { EntityBase } from '../EntityBase';
 
 export class RelationInstance {
-    relationType: string;
-    targetEntity: EntityBase;
+    type: string;
+    tenantId: string;
+    fieldValues: Record<string, any>;
+    target: EntityBase;
 
-    constructor(relationType: string, targetEntity: EntityBase) {
-        this.relationType = relationType;
-        this.targetEntity = targetEntity;
+    constructor(type: string, tenantId: string, fieldValues: Record<string, any>, target: EntityBase) {
+        this.type = type;
+        this.tenantId = tenantId;
+        this.fieldValues = fieldValues;
+        this.target = target;
     }
 }

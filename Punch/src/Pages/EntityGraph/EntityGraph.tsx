@@ -17,9 +17,10 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
   const radius = 300;
 
   const baseTypeSchema : EntityTypeSchema | undefined = baseTypes.find((type) => type.label === entity.baseType.typeSchemaLabel);
-  
-  const childNodes: NodeType[] = entity.subTypes.map((subtype, i) => {
-    let angle = (2 * Math.PI * i) / entity.subTypes.length - Math.PI / 2 + 45 * Math.PI / 180;
+  const childsAmount = entity.subTypes.length + entity.relations.length;
+
+  const subtypes: NodeType[] = entity.subTypes.map((subtype, i) => {
+    let angle = (2 * Math.PI * i) / childsAmount - Math.PI / 2 + 45 * Math.PI / 180;
     const subTypeSchema : EntityTypeSchema | undefined = types.find((type) => type.label === subtype.typeSchemaLabel);
 
     return {
@@ -28,12 +29,34 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       data: subtype,
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
+      width: 240,
+      height: 200,
+    }
+  })
+
+  const relations: NodeType[] = entity.relations.map((relation, i) => {
+    let angle = (2 * Math.PI * (i + entity.subTypes.length)) / childsAmount - Math.PI / 2 + 45 * Math.PI / 180;
+
+    return {
+      id: relation.type + relation.target.entityId,
+      label: relation.type + ' ' + relation.target.baseType.typeSchemaLabel,
+      data: relation,
+      x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
+      y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
+      width: 160,
+      height: 160,
     }
   })
 
   return [
-    { id: 'main', label: entity.baseType.typeSchemaLabel + baseTypeSchema?.icon, data: entity.baseType, x: cx - nodeCenterOffset.x, y: cy - nodeCenterOffset.y },
-    ...childNodes,
+    { id: 'main',
+      label: entity.baseType.typeSchemaLabel + baseTypeSchema?.icon,
+      data: entity.baseType,
+      x: cx - nodeCenterOffset.x,
+      y: cy - nodeCenterOffset.y,
+      width: 240,
+      height: 200 },
+    ...subtypes, ...relations
   ]
 }
 
@@ -91,6 +114,13 @@ const EntityGraph = () => {
     setNodeStart({ mx: e.clientX, my: e.clientY, nx: node.x, ny: node.y })
   };
 
+  const nodeDimensions = (node : NodeType) => {
+    return {
+      'width' : node.width - 20,
+      'height' : node.height - 20
+    }
+  }
+
   if (!selectedEntity) return <div className='entity-graph'>No entity selected</div>
 
   return (
@@ -124,6 +154,7 @@ const EntityGraph = () => {
           offset={offset}
           isDragging={draggingNode === node.id}
           onMouseDown={onNodeMouseDown}
+          style={nodeDimensions(node)}
         />
       ))}
     </div>

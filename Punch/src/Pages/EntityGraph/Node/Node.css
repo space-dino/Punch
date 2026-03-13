@@ -37,7 +37,7 @@
 
 .node__content {
   display: grid;
-  grid-template-columns: 30% 60%;  align-items: center;
+  grid-template-columns: max(30%, 70px) 65%;  align-items: center;
   gap: 0 8px;
   grid-auto-rows: minmax(25px, auto);
 }
