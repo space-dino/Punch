@@ -4,15 +4,15 @@
     align-items: flex-start;
     width: 100%;
     gap: 20px;
-    transition: background-color 0.25s;
+    transition: background-color 0.15s;
 
     position: relative;
+    padding-top: -4px;
+    padding-bottom: 4px;
 }
 
 .entity-row:not(:last-child) {
     border-bottom: 1px solid var(--table-line-color);
-    margin-top: -4px;
-    padding-bottom: 4px;
 }
 
 .entity-row__fields {

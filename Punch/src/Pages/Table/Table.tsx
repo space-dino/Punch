@@ -50,9 +50,9 @@ const Table: React.FC<TableProps> = () => {
 
   return (
     <>
-      <ButtonsBar />
 
       <div className='table-actions-bar'>
+        <ButtonsBar />
         <input className='search-bar' placeholder='Search...' />
       </div>
 

@@ -1,11 +1,14 @@
 .buttons-bar {
     position: absolute;
     right: var(--page-border-padding);
-    top: var(--page-border-padding);
     display: flex;
     flex-direction: column;
 }
 
 .buttons-bar button {
-    margin: 10px;
+    height: 35px;
+    width: 35px;
+
+    line-height: 0px;
+    padding: 0;
 }

@@ -31,12 +31,16 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
+    position: relative;
 }
 
 .new-entity-row button {
-    height: 25px;
-    width: 25px;
+    position: absolute;
+    right: 0;
+    height: 35px;
+    width: 35px;
 
     line-height: 0px;
     padding: 0;
+    margin-right: 20px;
 }
