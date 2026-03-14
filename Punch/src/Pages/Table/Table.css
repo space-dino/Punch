@@ -32,11 +32,12 @@
     justify-content: center;
     padding: 5px;
     position: relative;
+    margin-right: 60px;
 }
 
 .new-entity-row button {
     position: absolute;
-    right: 0;
+    right: -60px;
     height: 35px;
     width: 35px;
 

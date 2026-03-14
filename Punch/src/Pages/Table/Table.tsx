@@ -48,6 +48,10 @@ const Table: React.FC<TableProps> = () => {
       .catch(console.error)
   }
 
+  const draftFilled: boolean = Object.entries(draft.baseType.fieldValues)
+  .filter(([key]) => !configuration.tableFilter.includes(key))
+  .some(([, value]) => value !== '' && value !== undefined)
+
   return (
     <>
 
@@ -69,7 +73,10 @@ const Table: React.FC<TableProps> = () => {
           })}
         </select>}
         <EntityRow Entity={draft} onDraftChange={setDraft} />
-        <button onClick={handleAddDraft}>+</button>
+        <button onClick={handleAddDraft}
+          disabled={!draftFilled}>
+            +
+        </button>
       </div>
 
       <div className='table'>
