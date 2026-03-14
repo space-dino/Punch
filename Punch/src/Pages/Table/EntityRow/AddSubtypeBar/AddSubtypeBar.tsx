@@ -17,7 +17,7 @@ const AddSubtypeBar: React.FC<AddSubtypeBarProps> = (props : AddSubtypeBarProps)
         value={selectedSubtype !== '' ? selectedSubtype : types[0]?.label}
         onChange={(e) => setSelectedSubtype(e.target.value)}>
         {types.map((type) => (
-          <option key={type.label} value={type.label}>{type.label}</option>
+          <option key={type.label} value={type.label}>{type.icon + type.label}</option>
         ))}
       </select>
     </div>

@@ -24,12 +24,12 @@ const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
       )}
 
       <div className={`subtype-icons-row ${isOpen ? 'open' : 'closed'}`}>
-        <button
+        {!isDraft && <button
           className={`open-button ${subTypesSchemas.length > 0 ? 'open' : 'add'}`}
           onClick={onToggleOpen}
-        >
+          >
           {subTypesSchemas.length > 0 ? '^' : '+'}
-        </button>
+        </button>}
         {subTypesSchemas.map((subtype) => (
           <p key={subtype.label}>{subtype.icon}</p>
         ))}
