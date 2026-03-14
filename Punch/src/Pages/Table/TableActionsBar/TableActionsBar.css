@@ -1,0 +1,22 @@
+.table-actions-bar button {
+    position: absolute;
+    right: var(--page-border-padding);
+
+    height: 35px;
+    width: 35px;
+
+    padding: 0;
+    line-height: 0;
+}
+
+.table-actions-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-actions-bar .multiselect {
+    position: absolute;
+    right: 0;
+}

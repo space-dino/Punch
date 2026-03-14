@@ -10,9 +10,10 @@ import { useEntityRow } from './useEntityRow'
 interface EntityRowProps {
   Entity: EntityWithRelations;
   onDraftChange?: (updated: EntityWithRelations) => void;
+  onSelectChange?: (selected: boolean, id: string) => void;
 }
 
-const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
+const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectChange }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { types } = useTypes();
@@ -35,7 +36,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
         isOpen={isOpen}
         isDraft={!!onDraftChange}
         subTypesSchemas={subTypesSchemas}
-        onToggleCheck={() => setIsChecked(!isChecked)}
+        onToggleCheck={() => {setIsChecked(!isChecked) ; onSelectChange?.(!isChecked, Entity.entityId)}}
         onToggleOpen={() => setIsOpen(!isOpen)}
       />
 

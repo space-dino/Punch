@@ -14,7 +14,7 @@
     color: var(--input-toolbar-color);
 }
 
-.subtype-icons-row .open-button.open {
+.subtype-icons-row .open-button {
     rotate: 90deg;
 }
 
@@ -23,7 +23,18 @@
 }
 
 .subtype-icons-row .open-button.add {
-    color: var(--input-toolbar-color)
+    color: var(--input-toolbar-color);
+    opacity: 0;
+
+    transition: opacity 0.25s, rotate 0.25s, color 0.25s;
+}
+
+.entity-row:hover .open-button.add {
+    opacity: 1;
+}
+
+.entity-row .open-button.add:hover {
+    color: var(--input-color);
 }
 
 .subtype-icons-row {

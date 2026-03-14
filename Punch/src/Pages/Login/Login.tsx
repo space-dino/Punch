@@ -47,6 +47,9 @@ const Login = () => {
 
   useEffect(() => {
     setLogin(undefined);
+
+    postJSON(configuration.baseUrls.auth, configuration.urls.logoutUrl, {})
+      .catch(console.error)
   }, []);
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
