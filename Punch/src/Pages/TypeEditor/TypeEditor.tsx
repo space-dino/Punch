@@ -87,14 +87,14 @@ const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
   return (
     <div className='type-editor'>
         <div className='type-editor__header'>
-            <TextBox label='Type name' value={selectedType?.label} onChange={(e) => setTypeName(e)}/>
+            <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)}/>
         </div>
-        {selectedType?.baseLabel && <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
+        <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
             {baseTypes.map((baseType) => {
                 return <option>{baseType.label}</option>
             })}
-        </select>}
-        {selectedType?.baseLabel && Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || []).map(([key, field]) => (
+        </select>
+        {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || []).map(([key, field]) => (
             <PairChooser
                 key={key}
                 label='Base Property Name'
