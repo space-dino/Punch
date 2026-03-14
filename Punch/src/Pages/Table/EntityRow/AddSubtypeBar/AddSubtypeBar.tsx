@@ -1,18 +1,21 @@
-import { EntityTypeSchema } from '../../../../DTOs/entity/entityType/EntityTypeSchema'
+import { useState } from 'react';
 import './AddSubtypeBar.css'
+import { useTypes } from '../../../../context/TypesContext';
 
 interface AddSubtypeBarProps {
-  types: EntityTypeSchema[];
-  selectedType: string;
-  onSelectType: (label: string) => void;
-  onAdd: () => void;
+    onAdd: (selection : string) => void;
 }
 
-const AddSubtypeBar: React.FC<AddSubtypeBarProps> = ({ types, selectedType, onSelectType, onAdd }) => {
+const AddSubtypeBar: React.FC<AddSubtypeBarProps> = (props : AddSubtypeBarProps) => {
+  const [selectedSubtype, setSelectedSubtype] = useState<string>('');
+  const { types } = useTypes();
+
   return (
     <div className='add-new-subtype-bar'>
-      <button className='add-subtype-button' onClick={onAdd}>+</button>
-      <select value={selectedType} onChange={(e) => onSelectType(e.target.value)}>
+      <button className='add-subtype-button' onClick={() => props.onAdd(selectedSubtype)}>+</button>
+      <select
+        value={selectedSubtype !== '' ? selectedSubtype : types[0]?.label}
+        onChange={(e) => setSelectedSubtype(e.target.value)}>
         {types.map((type) => (
           <option key={type.label} value={type.label}>{type.label}</option>
         ))}

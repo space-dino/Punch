@@ -23,7 +23,7 @@ const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
         <input type='checkbox' checked={isChecked} onChange={onToggleCheck} />
       )}
 
-      <div className={`subtype-icons-row ${isOpen ? 'open' : ''}`}>
+      <div className={`subtype-icons-row ${isOpen ? 'open' : 'closed'}`}>
         <button
           className={`open-button ${subTypesSchemas.length > 0 ? 'open' : 'add'}`}
           onClick={onToggleOpen}

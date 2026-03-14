@@ -15,7 +15,6 @@ interface EntityRowProps {
 const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedSubtype, setSelectedSubtype] = useState<string>('');
   const { types } = useTypes();
 
   const {
@@ -57,10 +56,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
           ))}
 
           <AddSubtypeBar
-            types={types}
-            selectedType={selectedSubtype || types[0]?.label}
-            onSelectType={setSelectedSubtype}
-            onAdd={() => addSubtype(selectedSubtype || types[0]?.label, setIsOpen)}
+            onAdd={(selection) => addSubtype(selection || types[0]?.label, setIsOpen)}
           />
         </div>
       </div>
@@ -69,9 +65,3 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
 }
 
 export default EntityRow
-
-/// CONTINUE HERE _____ -----
-/// FIRST split up file by claud instructions
-/// THEN add choose subtype draft type useState
-/// THEN send subtype edit messages
-/// THEN think

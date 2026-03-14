@@ -4,4 +4,8 @@
     width: 100%;
     justify-content: center;
     height: 20px;
+
+}
+.add-new-subtype-bar button, .add-new-subtype-bar select{
+    color: var(--input-toolbar-color);
 }
