@@ -96,6 +96,21 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
       .catch(console.error)
   }
 
+  const deleteSubtype = (typeLabel: string) => {
+    setEntities(prev => prev.map(e =>
+      e.entityId === Entity.entityId
+        ? new EntityWithRelations(e.entityId, e.baseType, e.subTypes.filter(sub => sub.typeSchemaLabel !== typeLabel), e.relations)
+        : e
+    ))
+
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel, {}, 'DELETE')
+      .then(({ status, body }) => {
+        alert('status:' + status)
+        console.log('body:', body)
+      })
+      .catch(console.error)
+  }
+
   return {
     baseTypeSchema,
     subTypesSchemas,
@@ -103,5 +118,6 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     schedulePropertyChangeSend,
     handleSubTypePropertyChange,
     addSubtype,
+    deleteSubtype,
   }
 }
