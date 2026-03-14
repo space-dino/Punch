@@ -4,16 +4,16 @@ import { EntityTypeSchema } from "./DTOs/entity/entityType/EntityTypeSchema";
 import { Field } from "./DTOs/entity/entityType/field/Field";
 
 export const DEFAULT_TYPES: EntityTypeSchema[] = [
-    new EntityTypeSchema('Student', '🙈', 'Person',[
+    new EntityTypeSchema('Student', 'Person', '🙈',[
         new Field('School', 'string'),
         new Field('Year', 'number'),
         new Field('Grade', 'number'),
     ]),
-    new EntityTypeSchema('Teacher', '🦆', 'Person',[
+    new EntityTypeSchema('Teacher', 'Person', '🦆',[
         new Field('School', 'string'),
         new Field('Subject', 'number'),
     ]),
-    new EntityTypeSchema('Course', '🍇', 'Education', [
+    new EntityTypeSchema('Course', 'Education', '🍇', [
         new Field('Subject', 'string'),
         new Field('Year', 'number'),
     ]),

@@ -74,7 +74,7 @@ const Table: React.FC<TableProps> = () => {
 
       <div className='table'>
         {(entities.length > 0)
-          ? entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} />)
+          ? entities.map((entity) => <EntityRow key={entity.entityId + entity.subTypes.length} Entity={entity} />)
           : 'No Data Here );'
         }
       </div>

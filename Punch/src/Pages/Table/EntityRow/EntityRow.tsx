@@ -24,6 +24,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
     schedulePropertyChangeSend,
     handleSubTypePropertyChange,
     addSubtype,
+    deleteSubtype
   } = useEntityRow(Entity, onDraftChange);
 
   return (
@@ -52,7 +53,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
               EntityType={subtype}
               EntityTypeSchema={subTypesSchemas.find((s) => s.label === subtype.typeSchemaLabel)}
               onChange={(key, newValue) => handleSubTypePropertyChange(subtype.typeSchemaLabel, key, newValue)}
-              isDeletable={true}
+              onDelete={deleteSubtype}
             />
           ))}
 

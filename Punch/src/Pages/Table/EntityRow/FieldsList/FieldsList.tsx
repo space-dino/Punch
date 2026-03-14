@@ -6,13 +6,13 @@ import type { EntityTypeSchema } from '../../../../DTOs/entity/entityType/Entity
 import configuration from '../../../../configuration.json'
 
 interface FieldsListProps {
-  EntityType: EntityTypeInstance
-  EntityTypeSchema?: EntityTypeSchema
-  onChange?: (key: string, newValue: string) => void
-  isDeletable?: boolean;
+  EntityType: EntityTypeInstance;
+  EntityTypeSchema?: EntityTypeSchema;
+  onChange?: (key: string, newValue: string) => void;
+  onDelete?: (typeLabel: string) => void;
 }
 
-const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange, isDeletable }) => {
+const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange, onDelete }) => {
   const [focusedField, setFocusedField] = useState<string | null>(null)
 
   const focusRef = (el: HTMLInputElement | null, key: string) => {
@@ -25,7 +25,7 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
 
   return (
     <div className='fields-list'>
-      {isDeletable && <button className='delete-button'>X</button>}
+      {onDelete !== undefined && <button className='delete-button' onClick={() => onDelete(EntityTypeSchema?.label ?? '')}>X</button>}
       
       <p>{EntityTypeSchema?.icon}</p>
       <div className='fields'>

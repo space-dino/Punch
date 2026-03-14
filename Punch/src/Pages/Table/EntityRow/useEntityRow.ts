@@ -89,10 +89,10 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     setIsOpen(true);
 
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId, subtype)
-      .then(({ status, body }) => {
-        alert('status:' + status);
-        console.log('body:', body);
-      })
+      // .then(({ status, body }) => {
+      //   alert('status:' + status);
+      //   console.log('body:', body);
+      // })
       .catch(console.error)
   }
 
@@ -104,10 +104,10 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     ))
 
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel, {}, 'DELETE')
-      .then(({ status, body }) => {
-        alert('status:' + status)
-        console.log('body:', body)
-      })
+      // .then(({ status, body }) => {
+      //   alert('status:' + status)
+      //   console.log('body:', body)
+      // })
       .catch(console.error)
   }
 
