@@ -1,159 +1,77 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import './EntityRow.css'
-import { EntityWithRelations } from '../../../DTOs/entity/EntityWithRelations';
-import { NavLink } from 'react-router';
-import configuration from '../../../configuration.json';
-import { useTypes } from '../../../context/TypesContext';
-import type { EntityTypeSchema } from '../../../DTOs/entity/entityType/EntityTypeSchema';
-import FieldsList from './FieldsList/FieldsList';
-import { EntityTypeInstance } from '../../../DTOs/entity/entityType/EntityTypeInstance';
-import { useEntities } from '../../../context/EntitiesContext';
-import { postJSON } from '../../../api';
-import { UpdatedEntity } from '../../../DTOs/entity/UpdatedEntity';
+import { EntityWithRelations } from '../../../DTOs/entity/EntityWithRelations'
+import { useTypes } from '../../../context/TypesContext'
+import FieldsList from './FieldsList/FieldsList'
+import EntityRowHeader from './EntityRowHeader/EntityRowHeader'
+import AddSubtypeBar from './AddSubtypeBar/AddSubtypeBar'
+import { useEntityRow } from './useEntityRow'
 
-interface EntitytRowProps {
-  Entity : EntityWithRelations;
+interface EntityRowProps {
+  Entity: EntityWithRelations;
   onDraftChange?: (updated: EntityWithRelations) => void;
 }
 
-const EntityRow : React.FC<EntitytRowProps> = (props : EntitytRowProps) => {
+const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { types, baseTypes } = useTypes();
-  const { setEntities } = useEntities();
+  const [selectedSubtype, setSelectedSubtype] = useState<string>('');
+  const { types } = useTypes();
 
-  const baseTypeSchema : EntityTypeSchema | undefined = baseTypes.find((type) => type.label === props.Entity.baseType.typeSchemaLabel);
-  const subTypesSchemas: EntityTypeSchema[] = types.filter((type) => 
-    props.Entity.subTypes.some((subType) => subType.typeSchemaLabel === type.label)
-  );
-
- const handlePropertyChange = (key: string, newValue: string) => {
-    if (props.onDraftChange) {
-      props.onDraftChange(new EntityWithRelations(
-        props.Entity.entityId,
-        new EntityTypeInstance(props.Entity.baseType.typeSchemaLabel, { ...props.Entity.baseType.fieldValues, [key]: newValue }),
-        props.Entity.subTypes,
-        props.Entity.relations
-      ))
-    } else {
-      setEntities(prev => prev.map(e =>
-        e.entityId === props.Entity.entityId
-          ? new EntityWithRelations(
-              e.entityId,
-              new EntityTypeInstance(e.baseType.typeSchemaLabel, { ...e.baseType.fieldValues, [key]: newValue }),
-              e.subTypes,
-              e.relations
-            )
-          : e
-      ))
-    }
-  }
-
-  const sendPropertyChange = (key: string, newValue: string) => {
-    const baseEntity = new UpdatedEntity({key, newValue});
-    baseEntity !== undefined ? postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + "/" + props.Entity.entityId, baseEntity, 'PUT')
-      .then(({ status, body }) => {
-        alert('status:' + status);
-        console.log('body:', body);
-      })
-      .catch(console.error) : {}
-  }
-
-  const debounceTimer = useRef<Record<string, number>>({});
-  const latestPendingValues = useRef<Record<string, string>>({});
-
-  const schedulePropertyChangeSend = (key: string, newValue: string, delay = 500) => {
-    latestPendingValues.current[key] = newValue;
-
-    if (debounceTimer.current[key]) {
-      window.clearTimeout(debounceTimer.current[key]);
-    }
-
-    debounceTimer.current[key] = window.setTimeout(() => {
-      const pendingValue = latestPendingValues.current[key];
-      delete debounceTimer.current[key];
-      delete latestPendingValues.current[key];
-      sendPropertyChange(key, pendingValue);
-    }, delay);
-  }
-
-  const addSubtype = () => {
-    setEntities(prev => prev.map(e =>
-      e.entityId === props.Entity.entityId
-        ? new EntityWithRelations(
-            e.entityId,
-            e.baseType,
-            [...e.subTypes, new EntityTypeInstance("Student", {})],
-            e.relations
-          )
-        : e
-    ))
-    setIsOpen(true);
-  }
-
-  const handleSubTypePropertyChange = (typeSchemaLabel: string, key: string, newValue: string) => {
-    setEntities(prev => prev.map(e =>
-      e.entityId === props.Entity.entityId
-        ? new EntityWithRelations(
-            e.entityId,
-            e.baseType,
-            e.subTypes.map(sub =>
-              sub.typeSchemaLabel === typeSchemaLabel
-                ? new EntityTypeInstance(sub.typeSchemaLabel, { ...sub.fieldValues, [key]: newValue })
-                : sub
-            ),
-            e.relations
-          )
-        : e
-    ))
-  }
+  const {
+    baseTypeSchema,
+    subTypesSchemas,
+    handlePropertyChange,
+    schedulePropertyChangeSend,
+    handleSubTypePropertyChange,
+    addSubtype,
+  } = useEntityRow(Entity, onDraftChange);
 
   return (
     <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
-      <div className='entity-row__header'>
-        {!props.onDraftChange && <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)}></input>}
+      <EntityRowHeader
+        Entity={Entity}
+        isChecked={isChecked}
+        isOpen={isOpen}
+        isDraft={!!onDraftChange}
+        subTypesSchemas={subTypesSchemas}
+        onToggleCheck={() => setIsChecked(!isChecked)}
+        onToggleOpen={() => setIsOpen(!isOpen)}
+      />
 
-        <div className={`subtype-icons-row ${isOpen ? 'open' : ''}`}>
-          <button className={`open-button ${subTypesSchemas.length > 0 ? 'open' : 'add'}`} onClick={() => setIsOpen(!isOpen)}>{subTypesSchemas.length > 0 ? '^' : '+'}</button>
-          
-          {subTypesSchemas.map((subtype) => {
-            return <p>{subtype.icon}</p>
-          })}
-        </div>
-
-        {!props.onDraftChange && <NavLink to={`${configuration.urls.entitiesUrl}/${props.Entity.entityId}`}>{ props.Entity.relations.length > 0 ? '<🔗>' : '<⭕>'}</NavLink>}
-      </div>
-        
       <div className='entity-row__fields'>
         <FieldsList
-          EntityType={props.Entity.baseType}
+          EntityType={Entity.baseType}
           EntityTypeSchema={baseTypeSchema}
-          onChange={(key, newValue) => { handlePropertyChange(key, newValue); schedulePropertyChangeSend(key, newValue); }}
+          onChange={(key, newValue) => { handlePropertyChange(key, newValue); schedulePropertyChangeSend(key, newValue) }}
         />
 
         <div className={`entity-row__content${!isOpen ? '--disabled' : ''}`}>
-          {props.Entity.subTypes.map((subtype) => (
+          {Entity.subTypes.map((subtype) => (
             <FieldsList
               key={subtype.typeSchemaLabel}
               EntityType={subtype}
-              EntityTypeSchema={subTypesSchemas.find((schema) => schema.label === subtype.typeSchemaLabel)}
+              EntityTypeSchema={subTypesSchemas.find((s) => s.label === subtype.typeSchemaLabel)}
               onChange={(key, newValue) => handleSubTypePropertyChange(subtype.typeSchemaLabel, key, newValue)}
             />
           ))}
 
-          <div className='add-new-subtype-bar'>
-            <button className='add-subtype-button' onClick={addSubtype}>+</button>
-            {<select className='basetype-select' value={types[0].label}>
-              {types.map((type) => {
-                  return <option>{type.label}</option>
-              })}
-            </select>}
-          </div>
+          <AddSubtypeBar
+            types={types}
+            selectedType={selectedSubtype || types[0]?.label}
+            onSelectType={setSelectedSubtype}
+            onAdd={() => addSubtype(selectedSubtype || types[0]?.label, setIsOpen)}
+          />
         </div>
-
       </div>
     </div>
   )
 }
 
-export default EntityRow;
+export default EntityRow
+
+/// CONTINUE HERE _____ -----
+/// FIRST split up file by claud instructions
+/// THEN add choose subtype draft type useState
+/// THEN send subtype edit messages
+/// THEN think

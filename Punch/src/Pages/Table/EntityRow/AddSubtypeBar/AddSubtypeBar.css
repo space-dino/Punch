@@ -1,0 +1,7 @@
+.add-new-subtype-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    height: 20px;
+}
