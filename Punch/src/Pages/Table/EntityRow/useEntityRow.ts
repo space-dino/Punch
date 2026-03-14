@@ -79,12 +79,21 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
   }
 
   const addSubtype = (typeLabel: string, setIsOpen: (open: boolean) => void) => {
+    const subtype = new EntityTypeInstance(typeLabel, {});
+    
     setEntities(prev => prev.map(e =>
       e.entityId === Entity.entityId
-        ? new EntityWithRelations(e.entityId, e.baseType, [...e.subTypes, new EntityTypeInstance(typeLabel, {})], e.relations)
+        ? new EntityWithRelations(e.entityId, e.baseType, [...e.subTypes, subtype], e.relations)
         : e
     ));
     setIsOpen(true);
+
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId, subtype)
+      .then(({ status, body }) => {
+        alert('status:' + status);
+        console.log('body:', body);
+      })
+      .catch(console.error)
   }
 
   return {
