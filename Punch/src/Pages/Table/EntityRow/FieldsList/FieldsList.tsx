@@ -9,9 +9,10 @@ interface FieldsListProps {
   EntityType: EntityTypeInstance
   EntityTypeSchema?: EntityTypeSchema
   onChange?: (key: string, newValue: string) => void
+  isDeletable?: boolean;
 }
 
-const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange }) => {
+const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, onChange, isDeletable }) => {
   const [focusedField, setFocusedField] = useState<string | null>(null)
 
   const focusRef = (el: HTMLInputElement | null, key: string) => {
@@ -24,6 +25,8 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
 
   return (
     <div className='fields-list'>
+      {isDeletable && <button className='delete-button'>X</button>}
+      
       <p>{EntityTypeSchema?.icon}</p>
       <div className='fields'>
         {Object.entries(EntityType.fieldValues)

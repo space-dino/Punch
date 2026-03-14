@@ -45,3 +45,19 @@
     z-index: 5;
     pointer-events: all;
 }
+
+.fields-list .delete-button {
+    transition: color 0.25s, opacity 0.25s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fields-list:hover .delete-button {
+    color: var(--input-toolbar-color);
+    pointer-events: all;
+    opacity: 1;
+}
+
+.fields-list .delete-button:hover {
+    color: var(--inpur-color);
+}
