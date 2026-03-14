@@ -35,7 +35,7 @@ const Login = () => {
       
       postJSON(configuration.baseUrls.auth, configuration.urls.loginUrl, loginRequest)
       .then(({ status }) => {
-        if (status === 201) {
+        if (status === 201 || status === 200) {
           setLogin(loginRequest);
           navigate('/');
         } else {
@@ -66,7 +66,7 @@ const Login = () => {
 
     postJSON(configuration.baseUrls.auth, configuration.urls.registerUrl, register)
       .then(({ status }) => {
-        if (status === 201) {
+        if (status === 201 || status === 200) {
           login(data);
         }
       })

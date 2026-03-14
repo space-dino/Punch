@@ -48,14 +48,16 @@ const Table: React.FC<TableProps> = () => {
       .catch(console.error)
   }
 
+  const handleDeleteSelection = () => {
+    setEntities(prev => prev.filter(entity => !selected.includes(entity.entityId)));
+  }
+
   const onSelectionChange = (isSelected: boolean, id: string) => {
     setSelected(prev => 
       isSelected
         ? [...prev, id]
         : prev.filter(i => i !== id)
     );
-
-    alert(selected.length);
   }
 
   const draftFilled: boolean = Object.entries(draft.baseType.fieldValues)
@@ -64,7 +66,7 @@ const Table: React.FC<TableProps> = () => {
 
   return (
     <>
-      <TableActionsBar/>
+      <TableActionsBar selected={selected} onDelete={handleDeleteSelection}/>
 
       <div className='new-entity-row'>
         {<select className='basetype-select' value={draft.baseType.typeSchemaLabel} 
