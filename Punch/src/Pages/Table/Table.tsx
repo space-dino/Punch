@@ -49,6 +49,15 @@ const Table: React.FC<TableProps> = () => {
   }
 
   const handleDeleteSelection = () => {
+    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT,
+      entities.filter(entity => selected.includes(entity.entityId)),
+      'DELETE')
+    .then(({ status, body }) => {
+      alert('status:' + status);
+      console.log('body:', body);
+    })
+    .catch(console.error)
+    
     setEntities(prev => prev.filter(entity => !selected.includes(entity.entityId)));
   }
 
