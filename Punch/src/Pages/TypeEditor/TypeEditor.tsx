@@ -12,7 +12,7 @@ interface TypeEditorProps {
 }
 
 const TypeEditor: React.FC<TypeEditorProps> = () => {
-  const { baseTypes } = useTypes()
+  const { types, baseTypes } = useTypes()
 
   const {
     draft, setDraft,
@@ -31,13 +31,14 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
         <div className='type-editor__header'>
             <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)}/>
         </div>
-        <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
+        {selectedType?.baseLabel && <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
             {baseTypes.map((baseType) => {
                 return <option>{baseType.label}</option>
             })}
-        </select>
+        </select>}
         <IconPicker icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
-        {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || []).map(([key, field]) => (
+        {selectedType?.baseLabel === undefined && <p>Base Type</p>}
+        {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || baseTypes.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
             <PairChooser
                 key={key}
                 label='Base Property Name'
@@ -46,12 +47,12 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
             />
         ))}
         <div className='separator'></div>
-        {Object.entries(selectedType !== undefined ? selectedType.typeFields : []).map(([key, field]) => (
+        {/* {Object.entries(selectedType !== undefined ? selectedType.typeFields : []).map(([key, field]) => ( */}
+        {Object.entries(types.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
             <PairChooser 
                 key={key}
                 label='Property Name'
                 field={field}
-                disabled={selectedType?.baseLabel ? false : true}
                 onChange={(newField) => handlePropertyChange(field.name, newField)}
                 onRemove={() => removeField(field.name)}
             />
