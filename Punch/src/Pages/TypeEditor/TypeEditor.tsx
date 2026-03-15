@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { Field } from '../../DTOs/entity/entityType/field/Field';
 import TextBox from '../../Components/TextBox/TextBox';
 import { useTypeEditor } from './useTypeEditor';
+import IconPicker from '../../Components/IconPicker/IconPicker';
 
 interface TypeEditorProps {
 }
@@ -34,6 +35,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
                 return <option>{baseType.label}</option>
             })}
         </select>
+        <IconPicker/>
         {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || []).map(([key, field]) => (
             <PairChooser
                 key={key}
