@@ -39,6 +39,6 @@
         "📢", "🚀", "⚙️", "🔧", "🛠️", "🌍", "🗺️", "🏆",
         "📈", "💡", "🔍", "📡", "🎨", "🧩", "🪆", "🎲"
     ],
-    "debugMode" : "false",
+    "debugMode" : "true",
     "default_tenant" : "tenant_google"
 }

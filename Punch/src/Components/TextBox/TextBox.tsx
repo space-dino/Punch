@@ -14,9 +14,10 @@ interface TextBoxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>,
   inputRef?: (el: HTMLInputElement | null) => void
   onChange?: (newValue: string) => void
   dataType?: DataType
+  alphanumericOnly?: boolean
 }
 
-const TextBox: React.FC<TextBoxProps> = ({ label, inputRef, onChange, dataType, ...rest }) => {
+const TextBox: React.FC<TextBoxProps> = ({ label, inputRef, onChange, dataType, alphanumericOnly, ...rest }) => {
   const typeAttrs = dataType ? dataTypeAttributes[dataType] : {}
 
   return (
@@ -25,7 +26,12 @@ const TextBox: React.FC<TextBoxProps> = ({ label, inputRef, onChange, dataType, 
         ref={inputRef}
         className='text-box-input'
         placeholder={label}
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={(e) => {
+          const value = alphanumericOnly
+            ? e.target.value.replace(/[^a-zA-Z0-9_]/g, '')
+            : e.target.value
+          onChange?.(value)
+        }}
         {...typeAttrs}   // apply type/pattern from dataType
         {...rest}        // explicit props override dataType defaults
       />

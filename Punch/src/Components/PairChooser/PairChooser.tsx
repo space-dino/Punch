@@ -28,6 +28,7 @@ const PairChooser: React.FC<PairChooserProps> = (props) => {
         value={props.field.name}
         onChange={(newValue) => props.onChange?.(new Field(newValue, props.field.type))}
         onKeyDown={(e) => { if (e.key === 'Enter') commit() }}
+        alphanumericOnly
       />
       <select
         disabled={props.disabled}
