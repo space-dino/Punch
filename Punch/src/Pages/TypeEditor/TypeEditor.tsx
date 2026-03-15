@@ -37,26 +37,30 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
             })}
         </select>}
         <IconPicker icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
-        {selectedType?.baseLabel === undefined && <p>Base Type</p>}
-        {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || baseTypes.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
-            <PairChooser
-                key={key}
-                label='Base Property Name'
-                field={field}
-                disabled={true}
-            />
-        ))}
+        {selectedType?.baseLabel === '' && <p>Base Type</p>}
+        <div className='type-fields'>
+            {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || baseTypes.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
+                <PairChooser
+                    key={key}
+                    label='Base Property Name'
+                    field={field}
+                    disabled={true}
+                />
+            ))}
+        </div>
         <div className='separator'></div>
-        {Object.entries(types.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
-            <PairChooser 
-                key={key}
-                label='Property Name'
-                field={field}
-                onChange={(newField) => handlePropertyChange(field.name, newField)}
-                onRemove={() => removeField(field.name)}
-            />
-        ))}
-        <div className='new-field-container'>
+        <div className='type-fields'>
+            {Object.entries(types.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
+                <PairChooser 
+                    key={key}
+                    label='Property Name'
+                    field={field}
+                    onChange={(newField) => handlePropertyChange(field.name, newField)}
+                    onRemove={() => removeField(field.name)}
+                />
+            ))}
+        </div>
+        {selectedType?.baseLabel !== '' && <div className='new-field-container'>
             <PairChooser
                 key='new'
                 label='New Property Name'
@@ -68,7 +72,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
             />
             <button className={`new-field-button${draft.name.trim() === '' ? '--disabled' : ''}`}
                 onClick={addNewField}>+</button>
-        </div>
+        </div>}
     </div>
   )
 }
