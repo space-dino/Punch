@@ -8,7 +8,8 @@
         "baseSchemasUrl" : "/baseSchemas",
         "registerUrl" : "/register",
         "baseTypesUrl" : "/basetypes",
-        "subTypesUrl" : "/subtypes"
+        "subTypesUrl" : "/subtypes",
+        "searchUrl" : "/search"
     },
     "baseUrls" : {
         "auth" : "https://barbara-waugh-anaphylactically.ngrok-free.dev/auth",

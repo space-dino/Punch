@@ -9,6 +9,7 @@ import { getJSON, postJSON } from '../../api'
 import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
 import { useTypes } from '../../context/TypesContext'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import type { SearchResult } from '../../DTOs/SearchResult'
 
 interface TableProps {
 }
@@ -32,6 +33,7 @@ const Table: React.FC<TableProps> = () => {
   const [query, setQuery] = useState<string>('')
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
+  const [filtered, setFiltered] = useState<EntityWithRelations[]>([]);
 
   useEffect(() => {
     getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment)
@@ -46,6 +48,16 @@ const Table: React.FC<TableProps> = () => {
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId + '/' + selectedEnvironment, draft.baseType, 'POST')
       .catch(console.error)
   }
+
+  useEffect(() => {
+    if (query !== '') {
+      getJSON<SearchResult[]>(configuration.baseUrls.data, configuration.urls.searchUrl + '?tenantId=' + selectedEnvironment + '&q=' + query)
+      .then((data) => setFiltered(data.sort((a, b) => b.score - a.score).map(result => result.entity)))
+        .catch(console.error);
+    } else {
+      setFiltered([]);
+    }
+  }, [query])
 
   const handleDeleteSelection = () => {
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.environmentsUrl + '/' + selectedEnvironment,
@@ -99,9 +111,9 @@ const Table: React.FC<TableProps> = () => {
 
       <div className='table'>
         {(entities.length > 0)
-          ? (query === '' ?
+          ? (filtered?.length < 1 ?
             entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
-            : []
+            : filtered.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
           )
           : 'No Data Here );'
         }

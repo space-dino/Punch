@@ -37,7 +37,7 @@ const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
 
       {!isDraft && (
         <NavLink to={`${configuration.urls.entitiesUrl}/${Entity.entityId}`}>
-          {Entity.relations.length > 0 ? '<🔗>' : '<⭕>'}
+          {Entity.relations?.length > 0 ? '<🔗>' : '<⭕>'}
         </NavLink>
       )}
     </div>
