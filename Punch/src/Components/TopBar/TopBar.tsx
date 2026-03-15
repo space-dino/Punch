@@ -20,12 +20,12 @@ const TopBar = () => {
   return (
     <div className='dropdowns-bar'>
     <IconDropdown label={login?.username ?? 'UNAUTHORIZED'} icon='🐒'
-        options={environments.map(
-         { label: 'Sign Out', url: configuration.urls.loginUrl}}/>
-    <IconDropdown label='Env1' icon='🦍'
         options={[
         {label: 'Sign Out', url: configuration.urls.environmentsUrl}
         ]}/>
+    <IconDropdown label='Env1' icon='🦍'
+        options={environments?.map(environment =>
+         ({label: environment, url: ''}))}/>
     </div>
   )
 }
