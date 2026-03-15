@@ -29,6 +29,7 @@ const Table: React.FC<TableProps> = () => {
   const { baseTypes } = useTypes();
   const [selected, setSelected] = useState<string[]>([]);
   const { selectedEnvironment } = useEnvironments();
+  const [query, setQuery] = useState<string>('')
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
 
@@ -70,7 +71,12 @@ const Table: React.FC<TableProps> = () => {
 
   return (
     <>
-      <TableActionsBar selected={selected} onDelete={handleDeleteSelection}/>
+      <TableActionsBar
+        selected={selected}
+        onDelete={handleDeleteSelection}
+        query={query}
+        onQueryChange={setQuery}
+      />
 
       <div className='new-entity-row'>
         {<select className='basetype-select' value={draft.baseType.typeSchemaLabel} 
@@ -93,7 +99,10 @@ const Table: React.FC<TableProps> = () => {
 
       <div className='table'>
         {(entities.length > 0)
-          ? entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
+          ? (query === '' ?
+            entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
+            : []
+          )
           : 'No Data Here );'
         }
       </div>

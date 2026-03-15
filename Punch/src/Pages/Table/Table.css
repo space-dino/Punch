@@ -4,7 +4,7 @@
     align-items: center;
     background: var(--radial-gradient-shadow);
 
-    max-height: 25em;
+    max-height: 22em;
     max-width: 70em;
     padding: 20px;
 
@@ -12,8 +12,6 @@
     overflow-y: auto;
     margin-right: 50px;
 }
-
-
 
 .new-entity-row {
     display: flex;
