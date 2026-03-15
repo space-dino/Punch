@@ -1,8 +1,10 @@
 import { createContext, useContext, useState } from 'react'
 
 interface EnvironmentsContextType {
-  environments: string[]
-  setEnvironments: React.Dispatch<React.SetStateAction<string[]>>
+  environments: string[];
+  setEnvironments: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedEnvironment: string; 
+  setSelectedEnvironment: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EnvironmentsContext = createContext<EnvironmentsContextType | null>(null)
@@ -13,9 +15,10 @@ interface EnvironmentsProviderProps {
 
 export function EnvironmentsProvider({ children }: EnvironmentsProviderProps) {
   const [environments, setEnvironments] = useState<string[]>([])
+  const [selectedEnvironment, setSelectedEnvironment] = useState<string>('')
 
   return (
-    <EnvironmentsContext.Provider value={{ environments, setEnvironments }}>
+    <EnvironmentsContext.Provider value={{ environments, setEnvironments, selectedEnvironment, setSelectedEnvironment }}>
       {children}
     </EnvironmentsContext.Provider>
   )

@@ -9,7 +9,7 @@ import { useEnvironments } from '../../context/EnvironmentsContext'
 const TopBar = () => {
   const { login } = useLogin();
 
-  const { environments, setEnvironments } = useEnvironments();
+  const { environments, setEnvironments, selectedEnvironment, setSelectedEnvironment } = useEnvironments();
 
   useEffect(() => {
     getJSON<string[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl)
@@ -22,12 +22,12 @@ const TopBar = () => {
   return (
     <div className='dropdowns-bar'>
     <IconDropdown label={login?.username ?? 'UNAUTHORIZED'} icon='🐒'
-        options={[
+        linkOptions={[
         {label: 'Sign Out', url: configuration.urls.loginUrl}
         ]}/>
-    <IconDropdown label='Env1' icon='🦍'
-        options={environments?.map(environment =>
-         ({label: environment, url: configuration.urls.loginUrl}))}/>
+    <IconDropdown label={selectedEnvironment} icon='🦍'
+        actionOptions={environments?.map(environment =>
+         ({label: environment, action: () => setSelectedEnvironment(environment)}))}/>
     </div>
   )
 }

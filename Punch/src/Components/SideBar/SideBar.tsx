@@ -5,6 +5,7 @@ import type { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSc
 import { NavLink } from 'react-router';
 import configuration from '../../configuration.json';
 import { getJSON } from '../../api';
+import { useEnvironments } from '../../context/EnvironmentsContext';
 
 interface SideBarProps {
 }
@@ -12,9 +13,10 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   const [open, setOpen] = useState(true);
   const { types, setTypes, baseTypes, setBaseTypes } = useTypes();
+  const { selectedEnvironment } = useEnvironments();
 
   useEffect(() => {
-    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+    getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.environmentsUrl + '/' + selectedEnvironment)
       .then((data) => setTypes(data))
       .catch(console.error);
     getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.baseSchemasUrl)

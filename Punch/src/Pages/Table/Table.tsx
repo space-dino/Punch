@@ -8,6 +8,7 @@ import configuration from '../../configuration.json'
 import { getJSON, postJSON } from '../../api'
 import { EntityTypeInstance } from '../../DTOs/entity/entityType/EntityTypeInstance'
 import { useTypes } from '../../context/TypesContext'
+import { useEnvironments } from '../../context/EnvironmentsContext'
 
 interface TableProps {
 }
@@ -27,11 +28,12 @@ const Table: React.FC<TableProps> = () => {
   const { entities, setEntities } = useEntities();
   const { baseTypes } = useTypes();
   const [selected, setSelected] = useState<string[]>([]);
+  const { selectedEnvironment } = useEnvironments();
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
 
   useEffect(() => {
-    getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT)
+    getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment)
       .then((data) => setEntities(data))
       .catch(console.error)
   }, [])
@@ -40,12 +42,12 @@ const Table: React.FC<TableProps> = () => {
     setEntities(prev => [...prev, draft]);
     setDraft(defaultDraft());
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId + configuration.DEBUG_TENANT, draft.baseType, 'POST')
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId + '/' + selectedEnvironment, draft.baseType, 'POST')
       .catch(console.error)
   }
 
   const handleDeleteSelection = () => {
-    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT + configuration.DEBUG_TENANT,
+    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment,
       entities.filter(entity => selected.includes(entity.entityId)),
       'DELETE')
     .then(({ status, body }) => {

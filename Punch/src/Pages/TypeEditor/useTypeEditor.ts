@@ -5,10 +5,12 @@ import { EntityTypeSchema } from "../../DTOs/entity/entityType/EntityTypeSchema"
 import { Field } from "../../DTOs/entity/entityType/field/Field";
 import { postJSON } from "../../api";
 import configuration from "../../configuration.json"
+import { useEnvironments } from "../../context/EnvironmentsContext";
 
 export const useTypeEditor = () => {
     const { types, setTypes, baseTypes } = useTypes();
     const navigate = useNavigate();
+    const { selectedEnvironment } = useEnvironments();
 
     const [draft, setDraft] = useState<Field>(new Field('', 'String'));
     const [typeName, setTypeName] = useState('');
@@ -63,7 +65,7 @@ export const useTypeEditor = () => {
             setTypes(prev => [...prev, newType]);
             navigate(`./${typeName}`);
 
-            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + configuration.DEBUG_TENANT, newType, 'POST')
+            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, newType, 'POST')
                 .catch(console.error)
         }
 

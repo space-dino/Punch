@@ -24,6 +24,5 @@
         "entity_id",
         "org_id"
     ],
-    "debugMode" : "false",
-    "DEBUG_TENANT" : "/tenant_google"
+    "debugMode" : "false"
 }

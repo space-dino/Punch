@@ -7,10 +7,12 @@ import { EntityTypeSchema } from '../../../DTOs/entity/entityType/EntityTypeSche
 import { UpdatedEntity } from '../../../DTOs/entity/UpdatedEntity'
 import { postJSON } from '../../../api'
 import configuration from '../../../configuration.json'
+import { useEnvironments } from '../../../context/EnvironmentsContext'
 
 export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updated: EntityWithRelations) => void) => {
   const { types, baseTypes } = useTypes();
   const { setEntities } = useEntities();
+  const { selectedEnvironment } = useEnvironments();
 
   const baseTypeSchema: EntityTypeSchema | undefined = baseTypes.find(
     (type) => type.label === Entity.baseType.typeSchemaLabel
@@ -46,7 +48,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
 
   const sendPropertyChange = (key: string, newValue: string) => {
     const updatedEntity = new UpdatedEntity({ key, newValue });
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId + configuration.DEBUG_TENANT, updatedEntity, 'PUT')
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId + '/' + selectedEnvironment, updatedEntity, 'PUT')
       .catch(console.error);
   }
 
@@ -88,7 +90,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     ));
     setIsOpen(true);
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId + configuration.DEBUG_TENANT, subtype)
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId + '/' + selectedEnvironment, subtype)
       .catch(console.error)
   }
 
@@ -99,7 +101,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
         : e
     ))
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel + configuration.DEBUG_TENANT, {}, 'DELETE')
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel + '/' + selectedEnvironment, {}, 'DELETE')
       .catch(console.error)
   }
 

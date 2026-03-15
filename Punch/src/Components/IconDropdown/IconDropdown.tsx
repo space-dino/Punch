@@ -5,7 +5,8 @@ import { NavLink } from 'react-router';
 interface IconDropdownProps {
   label : string;
   icon : string;
-  options : {label: string, url: string}[];
+  linkOptions? : {label: string, url: string}[];
+  actionOptions? : {label: string, action: () => void}[];
 }
 
 const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => {
@@ -18,8 +19,11 @@ const IconDropdown: React.FC<IconDropdownProps> = (props: IconDropdownProps) => 
       </div>
 
       <div className='icon-dropdown__content'>
-        {props.options.map((option : {label: string, url: string}) => (
+        {props.linkOptions?.map((option : {label: string, url: string}) => (
           <NavLink to={option.url}>{option.label}</NavLink>
+        ))}
+        {props.actionOptions?.map((option : {label: string, action: () => void}) => (
+          <button onClick={option.action}>{option.label}</button>
         ))}
       </div>
     </div>
