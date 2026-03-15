@@ -16,10 +16,11 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
     draft, setDraft,
     typeName, setTypeName,
     selectedType,
-    setSelectedBaseType,
+    selectedBaseType,
     deleteType,
     handleIconChange,
     handlePropertyChange,
+    handleBaseTypeChange,
     removeField,
     addNewField,
     } = useTypeEditor();
@@ -29,11 +30,17 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
         <div className='type-editor__header'>
             <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)}/>
         </div>
-        {selectedType?.baseLabel !== '' && <select className='basetype-select' value={selectedType?.baseLabel} onChange={(e) => {setSelectedBaseType(e.target.value)}}>
-            {baseTypes.map((baseType) => {
-                return <option>{baseType.label}</option>
-            })}
-        </select>}
+        {selectedType?.baseLabel !== '' && (
+            <select
+                className='basetype-select'
+                value={selectedType?.baseLabel ?? selectedBaseType}
+                onChange={handleBaseTypeChange}
+            >
+                {baseTypes.map((baseType) => (
+                <option key={baseType.label} value={baseType.label}>{baseType.label}</option>
+                ))}
+            </select>
+        )}
         <IconPicker disabled={selectedType?.baseLabel === ''} icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
         {selectedType?.baseLabel === '' && <p>Base Type</p>}
 
