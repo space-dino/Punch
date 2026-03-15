@@ -33,6 +33,8 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
         {selectedType?.baseLabel === '' && <p>Base Type</p>}
 
         <TypeFields/>
+
+        {selectedType?.baseLabel !== '' && <button>Delete Type</button>}
     </div>
   )
 }
