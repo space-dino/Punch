@@ -1,18 +1,22 @@
 import './TypeFields.css'
 import PairChooser from '../../../Components/PairChooser/PairChooser'
-import { useTypeEditor } from '../useTypeEditor';
 import { useTypes } from '../../../context/TypesContext';
+import type { EntityTypeSchema } from '../../../DTOs/entity/entityType/EntityTypeSchema';
+import type { Field } from '../../../DTOs/entity/entityType/field/Field';
 
-const TypeFields = () => {
-    const { types, baseTypes } = useTypes()
+interface TypeFieldsProps {
+  selectedType: EntityTypeSchema | undefined;
+  draft: Field;
+  setDraft: (field: Field) => void;
+  handlePropertyChange: (key: string, field: Field) => void;
+  removeField: (key: string) => void;
+  addNewField: () => void;
+}
 
-    const {
-    draft, setDraft,
-    selectedType,
-    handlePropertyChange,
-    removeField,
-    addNewField,
-    } = useTypeEditor();
+const TypeFields: React.FC<TypeFieldsProps> = ({
+  selectedType, draft, setDraft, handlePropertyChange, removeField, addNewField
+}) => {
+  const { types, baseTypes } = useTypes();
 
   return (
     <>

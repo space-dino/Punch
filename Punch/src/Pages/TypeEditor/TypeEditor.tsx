@@ -12,13 +12,17 @@ interface TypeEditorProps {
 const TypeEditor: React.FC<TypeEditorProps> = () => {
   const { baseTypes } = useTypes()
 
-  const {
+    const {
+    draft, setDraft,
     typeName, setTypeName,
     selectedType,
     setSelectedBaseType,
     deleteType,
     handleIconChange,
-  } = useTypeEditor();
+    handlePropertyChange,
+    removeField,
+    addNewField,
+    } = useTypeEditor();
 
   return (
     <div className='type-editor'>
@@ -33,7 +37,14 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
         <IconPicker disabled={selectedType?.baseLabel === ''} icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
         {selectedType?.baseLabel === '' && <p>Base Type</p>}
 
-        <TypeFields/>
+        <TypeFields
+            selectedType={selectedType}
+            draft={draft}
+            setDraft={setDraft}
+            handlePropertyChange={handlePropertyChange}
+            removeField={removeField}
+            addNewField={addNewField}
+        />
 
         {selectedType?.baseLabel !== '' && <button>Delete Type</button>}
     </div>

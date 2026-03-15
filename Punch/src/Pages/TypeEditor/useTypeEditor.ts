@@ -75,7 +75,7 @@ export const useTypeEditor = () => {
             setTypes(prev => [...prev, newType]);
             navigate(`./${typeName}`);
 
-            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, newType)
+            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, newType, 'POST')
                 .catch(console.error)
         }
 
