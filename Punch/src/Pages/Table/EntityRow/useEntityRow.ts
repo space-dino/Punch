@@ -78,6 +78,8 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
           )
         : e
     ));
+
+    sendPropertyChange(key, newValue);
   }
 
   const addSubtype = (typeLabel: string, setIsOpen: (open: boolean) => void) => {
