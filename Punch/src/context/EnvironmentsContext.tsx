@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import configuration from '../configuration.json'
 
 interface EnvironmentsContextType {
   environments: string[];
@@ -15,7 +16,7 @@ interface EnvironmentsProviderProps {
 
 export function EnvironmentsProvider({ children }: EnvironmentsProviderProps) {
   const [environments, setEnvironments] = useState<string[]>([])
-  const [selectedEnvironment, setSelectedEnvironment] = useState<string>('')
+  const [selectedEnvironment, setSelectedEnvironment] = useState<string>(configuration.default_tenant)
 
   return (
     <EnvironmentsContext.Provider value={{ environments, setEnvironments, selectedEnvironment, setSelectedEnvironment }}>

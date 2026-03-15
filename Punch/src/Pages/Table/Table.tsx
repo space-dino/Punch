@@ -36,7 +36,7 @@ const Table: React.FC<TableProps> = () => {
     getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment)
       .then((data) => setEntities(data))
       .catch(console.error)
-  }, [])
+  }, [selectedEnvironment])
 
   const handleAddDraft = () => {
     setEntities(prev => [...prev, draft]);
@@ -47,13 +47,10 @@ const Table: React.FC<TableProps> = () => {
   }
 
   const handleDeleteSelection = () => {
-    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment,
-      entities.filter(entity => selected.includes(entity.entityId)),
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.environmentsUrl + '/' + selectedEnvironment,
+      entities.filter(entity => selected.includes(entity.entityId))
+        .map(entity => entity.entityId),
       'DELETE')
-    .then(({ status, body }) => {
-      alert('status:' + status);
-      console.log('body:', body);
-    })
     .catch(console.error)
     
     setEntities(prev => prev.filter(entity => !selected.includes(entity.entityId)));

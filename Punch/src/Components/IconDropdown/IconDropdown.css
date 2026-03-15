@@ -80,6 +80,12 @@
     font-weight: 500;
 }
 
+.icon-dropdown__content button {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .icon-dropdown .icon {
     transition: rotate 0.25s ease;
     rotate: 0deg;
