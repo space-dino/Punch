@@ -44,7 +44,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectCh
         <FieldsList
           EntityType={Entity.baseType}
           EntityTypeSchema={baseTypeSchema}
-          onChange={(key, newValue) => { handlePropertyChange(key, newValue); if(onDraftChange === undefined) { schedulePropertyChangeSend(key, newValue)} }}
+          onChange={(key, newValue) => { handlePropertyChange(key, newValue); if(onDraftChange === undefined) { schedulePropertyChangeSend(key, newValue, Entity.baseType.typeSchemaLabel)} }}
         />
 
         <div className={`entity-row__content${!isOpen ? '--disabled' : ''}`}>

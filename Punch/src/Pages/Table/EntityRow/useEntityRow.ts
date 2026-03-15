@@ -46,20 +46,20 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     }
   }
 
-  const sendPropertyChange = (key: string, newValue: string) => {
+  const sendPropertyChange = (key: string, newValue: string, typeLabel: string) => {
     const updatedEntity = new UpdatedEntity({ key, newValue });
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId + '/' + selectedEnvironment, updatedEntity, 'PUT')
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId + '/' + typeLabel + '/' + selectedEnvironment, updatedEntity, 'PUT')
       .catch(console.error);
   }
 
-  const schedulePropertyChangeSend = (key: string, newValue: string, delay = 500) => {
+  const schedulePropertyChangeSend = (key: string, newValue: string, typeLabel: string, delay = 500) => {
     latestPendingValues.current[key] = newValue
     if (debounceTimer.current[key]) window.clearTimeout(debounceTimer.current[key])
     debounceTimer.current[key] = window.setTimeout(() => {
       const pendingValue = latestPendingValues.current[key]
       delete debounceTimer.current[key]
       delete latestPendingValues.current[key]
-      sendPropertyChange(key, pendingValue)
+      sendPropertyChange(key, pendingValue, typeLabel)
     }, delay);
   }
 
@@ -79,7 +79,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
         : e
     ));
 
-    schedulePropertyChangeSend(key, newValue);
+    schedulePropertyChangeSend(key, newValue, typeSchemaLabel);
   }
 
   const addSubtype = (typeLabel: string, setIsOpen: (open: boolean) => void) => {
