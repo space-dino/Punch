@@ -100,6 +100,8 @@ export const useTypeEditor = () => {
     const deleteType = () => {
         postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedType?.label + '/' + selectedEnvironment, {}, 'DELETE')
             .catch(console.error)
+
+        navigate(configuration.urls.typeSchemasUrl);
         
         setTypes(prev => prev.filter(
             type => type.label !== selectedType?.label

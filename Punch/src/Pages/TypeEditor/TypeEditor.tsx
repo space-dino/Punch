@@ -10,7 +10,7 @@ interface TypeEditorProps {
 }
 
 const TypeEditor: React.FC<TypeEditorProps> = () => {
-  const { baseTypes } = useTypes()
+    const { baseTypes } = useTypes()
 
     const {
     draft, setDraft,
@@ -46,7 +46,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
             addNewField={addNewField}
         />
 
-        {selectedType?.baseLabel !== '' && <button>Delete Type</button>}
+        {selectedType?.baseLabel !== '' && selectedType && <button onClick={deleteType}>Delete Type</button>}
     </div>
   )
 }
