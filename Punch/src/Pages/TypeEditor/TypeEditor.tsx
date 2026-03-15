@@ -28,7 +28,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
   return (
     <div className='type-editor'>
         <div className='type-editor__header'>
-            <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)}/>
+            <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)} alphanumericOnly/>
         </div>
         {selectedType?.baseLabel !== '' && (
             <select
