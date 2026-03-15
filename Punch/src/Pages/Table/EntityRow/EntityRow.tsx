@@ -60,6 +60,7 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectCh
 
           <AddSubtypeBar
             onAdd={(selection) => addSubtype(selection || types[0]?.label, setIsOpen)}
+            Entity={Entity}
           />
         </div>
       </div>
