@@ -70,6 +70,8 @@ export const useTypeEditor = () => {
             ));
         } else {
             // creating new type — add it to types with the new field
+            if (typeName === '') return;
+
             const newType = new EntityTypeSchema(typeName, selectedBaseType, '➕', [draft]);
 
             setTypes(prev => [...prev, newType]);
