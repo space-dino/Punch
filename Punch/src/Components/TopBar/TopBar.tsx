@@ -27,7 +27,10 @@ const TopBar = () => {
         ]}/>
     <IconDropdown label={selectedEnvironment} icon='🦍'
         actionOptions={environments?.map(environment =>
-         ({label: environment, action: () => setSelectedEnvironment(environment)}))}/>
+         ({label: environment, action: () => setSelectedEnvironment(environment)}))}
+        linkOptions={[
+          {label: 'Add New', url: configuration.urls.environmentsUrl}
+        ]}/>
     </div>
   )
 }

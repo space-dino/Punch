@@ -18,8 +18,10 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
   const focusRef = (el: HTMLInputElement | null, key: string) => {
     if (el && focusedField === key) {
       el.focus()
-      // move cursor to end
-      el.setSelectionRange(el.value.length, el.value.length)
+      // setSelectionRange only works on text-like inputs
+      if (el.type === 'text' || el.type === 'email' || el.type === 'password' || el.type === 'search') {
+        el.setSelectionRange(el.value.length, el.value.length)
+      }
     }
   }
 
@@ -36,6 +38,7 @@ const FieldsList: React.FC<FieldsListProps> = ({ EntityType, EntityTypeSchema, o
               key={key}
               label={key}
               value={value}
+              dataType={EntityTypeSchema?.typeFields.find(field => field.name === key)?.type}
               inputRef={(el) => focusRef(el, key)}
               onFocus={() => setFocusedField(key)}
               onBlur={() => setFocusedField(null)}
