@@ -1,13 +1,14 @@
-import React from 'react'
 import IconDropdown from '../IconDropdown/IconDropdown'
 import configuration from '../../configuration.json'
 import { useLogin } from '../../context/LoginContext';
 import { useEffect } from 'react'
 import { getJSON } from '../../api'
 import { useEnvironments } from '../../context/EnvironmentsContext'
+import { useNavigate } from 'react-router';
 
 const TopBar = () => {
   const { login } = useLogin();
+  const navigate = useNavigate();
 
   const { environments, setEnvironments, selectedEnvironment, setSelectedEnvironment } = useEnvironments();
 
@@ -27,7 +28,7 @@ const TopBar = () => {
         ]}/>
     <IconDropdown label={selectedEnvironment} icon='🦍'
         actionOptions={environments?.map(environment =>
-         ({label: environment, action: () => setSelectedEnvironment(environment)}))}
+         ({label: environment, action: () => { setSelectedEnvironment(environment); navigate('/') } }))}
         linkOptions={[
           {label: 'Add New', url: configuration.urls.environmentsUrl}
         ]}/>
