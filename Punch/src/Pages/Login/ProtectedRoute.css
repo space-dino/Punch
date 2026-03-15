@@ -1,0 +1,5 @@
+.home-button {
+    position: absolute;
+    right: var(--page-border-padding);
+    top: var(--page-border-padding);
+}

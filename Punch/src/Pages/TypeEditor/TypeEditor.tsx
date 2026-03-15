@@ -2,87 +2,27 @@ import React, { useState } from 'react'
 import './TypeEditor.css'
 import PairChooser from '../../Components/PairChooser/PairChooser'
 import { useTypes } from '../../context/TypesContext';
-import { EntityTypeSchema } from '../../DTOs/entity/entityType/EntityTypeSchema';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { Field } from '../../DTOs/entity/entityType/field/Field';
 import TextBox from '../../Components/TextBox/TextBox';
+import { useTypeEditor } from './useTypeEditor';
 
 interface TypeEditorProps {
 }
 
-const TypeEditor : React.FC<TypeEditorProps> = (props : TypeEditorProps) => {
-    const { types, setTypes, baseTypes } = useTypes();
-    const navigate = useNavigate();
+const TypeEditor: React.FC<TypeEditorProps> = () => {
+  const { baseTypes } = useTypes()
 
-    const [draft, setDraft] = useState<Field>(new Field('', 'string'));
-    const [typeName, setTypeName] = useState('');
-
-    const [selectedBaseType, setSelectedBaseType] = useState<string>(baseTypes[0].label);
-    const params = useParams<{ id: string }>();
-    const selectedType = types.find(e => e.label === params.id) ?? baseTypes.find(e => e.label === params.id);
-
-    const handlePropertyChange = (key: string, newField: Field) => {
-        if (selectedType !== undefined) {
-            setTypes(prev => prev.map(e =>
-                e.label === selectedType.label
-                ? new EntityTypeSchema(
-                    e.label,
-                    e.baseLabel,
-                    e.icon,
-                    e.typeFields.map(field => field.name === key ? newField : field)
-                    )
-                : e
-            ))
-        }
-    }
-
-    const handleBaseTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        if (selectedType !== undefined) {
-            setTypes(prev => prev.map(t =>
-            t.label === selectedType.label
-                ? new EntityTypeSchema(t.label, e.target.value, t.icon, t.typeFields)
-                : t
-            ))
-        } else {
-            setSelectedBaseType(e.target.value)
-        }
-    }
-
-    const addNewField = () => {
-        const isDuplicate = selectedType?.typeFields.find(f => f.name === draft.name) !== undefined;
-
-        if (draft.name.trim() === '' || isDuplicate) return;
-
-        if (selectedType !== undefined) {
-            // editing existing type
-            setTypes(prev => prev.map(e =>
-            e.label === selectedType.label
-                ? new EntityTypeSchema(e.label, e.baseLabel, e.icon, [...e.typeFields, draft])
-                : e
-            ));
-        } else {
-            // creating new type — add it to types with the new field
-            setTypes(prev => [...prev, new EntityTypeSchema(typeName, selectedBaseType, 'new', [draft])]);
-            navigate(`./${typeName}`);
-        }
-
-        setDraft(new Field('', 'string'));
-    };
-
-    const removeField = (key: string) => {
-        if (selectedType !== undefined) {
-            setTypes(prev => prev.map(e =>
-                e.label === selectedType.label
-                ? new EntityTypeSchema(
-                    e.label,
-                    e.baseLabel,
-                    e.icon,
-                    e.typeFields.filter(f => f.name !== key)
-                    )
-                : e
-            ))
-        }
-    }
+  const {
+    draft, setDraft,
+    typeName, setTypeName,
+    selectedType,
+    setSelectedBaseType,
+    handlePropertyChange,
+    handleBaseTypeChange,
+    removeField,
+    addNewField,
+  } = useTypeEditor();
 
   return (
     <div className='type-editor'>

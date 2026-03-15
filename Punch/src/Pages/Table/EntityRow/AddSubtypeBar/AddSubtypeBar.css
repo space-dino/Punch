@@ -6,7 +6,8 @@
     height: 20px;
     opacity: 0.2;
     transition: opacity 0.25s;
-    margin-top: 10px;
+    margin-top: 3px;
+    margin-bottom: 10px;
 }
 .add-new-subtype-bar button, .add-new-subtype-bar select{
     color: var(--input-toolbar-color);

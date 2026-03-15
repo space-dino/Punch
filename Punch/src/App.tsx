@@ -1,7 +1,7 @@
 import './App.css'
 import './GradientShift.css'
 import Table from './Pages/Table/Table'
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router'
+import { BrowserRouter, Route, Routes } from 'react-router'
 import TypeEditor from './Pages/TypeEditor/TypeEditor'
 import { TypesProvider } from './context/TypesContext'
 import { DEFAULT_TYPES, DEFAULT_ENTITIES } from './dataConfig'

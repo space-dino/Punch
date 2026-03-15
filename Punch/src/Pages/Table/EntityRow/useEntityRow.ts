@@ -45,8 +45,8 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
   }
 
   const sendPropertyChange = (key: string, newValue: string) => {
-    const baseEntity = new UpdatedEntity({ key, newValue });
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId, baseEntity, 'PUT')
+    const updatedEntity = new UpdatedEntity({ key, newValue });
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + '/' + Entity.entityId + configuration.DEBUG_TENANT, updatedEntity, 'PUT')
       .catch(console.error);
   }
 
@@ -88,11 +88,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
     ));
     setIsOpen(true);
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId, subtype)
-      // .then(({ status, body }) => {
-      //   alert('status:' + status);
-      //   console.log('body:', body);
-      // })
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl +  "/" + Entity.entityId + configuration.DEBUG_TENANT, subtype)
       .catch(console.error)
   }
 
@@ -103,11 +99,7 @@ export const useEntityRow = (Entity: EntityWithRelations, onDraftChange?: (updat
         : e
     ))
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel, {}, 'DELETE')
-      // .then(({ status, body }) => {
-      //   alert('status:' + status)
-      //   console.log('body:', body)
-      // })
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.subTypesUrl + '/' + Entity.entityId + '/' + typeLabel + configuration.DEBUG_TENANT, {}, 'DELETE')
       .catch(console.error)
   }
 

@@ -36,7 +36,7 @@
     transition: opacity 0.2s ease, transform 0.2s ease, width 0.25s ease;
 
     width: 100%;
-    padding: 0;
+    padding-top: 20px;
     margin-top: 12px;
     
     display: flex;
@@ -84,4 +84,8 @@
 
 .side-bar-icons p {
     font-size: 20px;
+}
+
+.side-bar .open-button {
+    margin: 10px;
 }

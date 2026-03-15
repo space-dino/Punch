@@ -1,4 +1,4 @@
-export type DataType = 'string' | 'number' | 'boolean' | 'date';
+export type DataType = 'String' | 'Number' | 'Boolean' | 'Date';
 
 export class Field {
     name: string;

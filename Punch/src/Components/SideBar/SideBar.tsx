@@ -24,7 +24,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
 
   return (
     <div className={`side-bar ${open ? 'side-bar--open' : 'side-bar--closed'}`}>
-      <button onClick={() => setOpen(prev => !prev)}>
+      <button className='open-button' onClick={() => setOpen(prev => !prev)}>
         {open ? '←' : '→'}
       </button>
 

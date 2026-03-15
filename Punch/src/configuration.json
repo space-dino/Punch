@@ -15,15 +15,15 @@
         "data" : "https://barbara-waugh-anaphylactically.ngrok-free.dev"
     },
     "dataTypes" : [
-        "string",
-        "number",
-        "date",
-        "boolean"
+        "String",
+        "Number",
+        "Date",
+        "Boolean"
     ],
     "tableFilter" : [
         "entity_id",
         "org_id"
     ],
-    "debugMode" : "true",
+    "debugMode" : "false",
     "DEBUG_TENANT" : "/tenant_google"
 }

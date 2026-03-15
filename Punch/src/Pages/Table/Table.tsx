@@ -21,7 +21,7 @@ const defaultDraft = () => {
     [],
     []
   )
-}
+};
 
 const Table: React.FC<TableProps> = () => {
   const { entities, setEntities } = useEntities();
@@ -40,16 +40,12 @@ const Table: React.FC<TableProps> = () => {
     setEntities(prev => [...prev, draft]);
     setDraft(defaultDraft());
 
-    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId, draft.baseType, 'POST')
-      .then(({ status, body }) => {
-        alert('status:' + status);
-        console.log('body:', body);
-      })
+    postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.baseTypesUrl +  "/" + draft.entityId + configuration.DEBUG_TENANT, draft.baseType, 'POST')
       .catch(console.error)
   }
 
   const handleDeleteSelection = () => {
-    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT,
+    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + configuration.DEBUG_TENANT + configuration.DEBUG_TENANT,
       entities.filter(entity => selected.includes(entity.entityId)),
       'DELETE')
     .then(({ status, body }) => {

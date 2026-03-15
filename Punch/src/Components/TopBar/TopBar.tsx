@@ -13,7 +13,9 @@ const TopBar = () => {
 
   useEffect(() => {
     getJSON<string[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl)
-      .then((data) => setEnvironments(data))
+      .then((data) => {
+        if (Array.isArray(data)) setEnvironments(data)
+      })
       .catch(console.error)
   }, [])
 
@@ -21,11 +23,11 @@ const TopBar = () => {
     <div className='dropdowns-bar'>
     <IconDropdown label={login?.username ?? 'UNAUTHORIZED'} icon='🐒'
         options={[
-        {label: 'Sign Out', url: configuration.urls.environmentsUrl}
+        {label: 'Sign Out', url: configuration.urls.loginUrl}
         ]}/>
     <IconDropdown label='Env1' icon='🦍'
         options={environments?.map(environment =>
-         ({label: environment, url: ''}))}/>
+         ({label: environment, url: configuration.urls.loginUrl}))}/>
     </div>
   )
 }
