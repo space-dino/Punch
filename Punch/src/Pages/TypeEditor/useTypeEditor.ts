@@ -34,6 +34,16 @@ export const useTypeEditor = () => {
         }
     }
 
+    const handleIconChange = (newIcon: string) => {
+        if (selectedType !== undefined) {
+            setTypes(prev => prev.map(e =>
+            e.label === selectedType.label
+                ? new EntityTypeSchema(e.label, e.baseLabel, newIcon, e.typeFields)
+                : e
+            ))
+        }
+    }
+
     const handleBaseTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (selectedType !== undefined) {
             setTypes(prev => prev.map(t =>
@@ -99,6 +109,7 @@ export const useTypeEditor = () => {
     // handlers
     handlePropertyChange,
     handleBaseTypeChange,
+    handleIconChange,
     removeField,
     addNewField,
     }

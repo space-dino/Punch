@@ -13,7 +13,7 @@
     background-color: var(--field-color);
     top: 30px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 8px;
 
     padding: 4px;
@@ -21,6 +21,11 @@
 
     z-index: 1001;
     transition: opacity 0.25s;
+
+    max-height: 156px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .icon-picker.open .icon-picker__content {
