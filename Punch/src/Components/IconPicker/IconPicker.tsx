@@ -5,6 +5,7 @@ import configuration from '../../configuration.json'
 interface IconPickerProps {
     icon: string;
     onIconChange: (newIcon: string) => void;
+    disabled: boolean;
 }
 
 const IconPicker : React.FC<IconPickerProps> = (props : IconPickerProps) => {
@@ -12,7 +13,7 @@ const IconPicker : React.FC<IconPickerProps> = (props : IconPickerProps) => {
 
   return (
     <div className={`icon-picker ${isOpen ? 'open' : ''}`}>
-        <button className='icon-picker-toggle' onClick={() => setIsOpen(!isOpen)}>^</button>
+        {!props.disabled && <button className='icon-picker-toggle' onClick={() => setIsOpen(!isOpen)}>^</button>}
         <p>{props.icon}</p>
 
         <div className='icon-picker__content'>

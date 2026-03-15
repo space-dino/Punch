@@ -36,7 +36,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
                 return <option>{baseType.label}</option>
             })}
         </select>}
-        <IconPicker icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
+        <IconPicker disabled={selectedType?.baseLabel === ''} icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
         {selectedType?.baseLabel === '' && <p>Base Type</p>}
         <div className='type-fields'>
             {Object.entries(baseTypes.find((t) => t.label === selectedType?.baseLabel)?.typeFields || baseTypes.find((t) => t.label === selectedType?.label)?.typeFields || []).map(([key, field]) => (
