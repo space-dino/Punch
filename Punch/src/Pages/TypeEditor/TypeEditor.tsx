@@ -53,7 +53,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
             addNewField={addNewField}
         />
 
-        {selectedType?.baseLabel !== '' && selectedType && <button onClick={deleteType}>Delete Type</button>}
+        {selectedType?.baseLabel !== '' && selectedType && <button className='delete-type-button' onClick={deleteType}>Delete Type</button>}
     </div>
   )
 }

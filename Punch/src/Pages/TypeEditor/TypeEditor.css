@@ -1,6 +1,6 @@
 .type-editor {
     padding: 0px;
-
+    position: relative;
     width: 400px;
 
     display: flex;
@@ -23,4 +23,27 @@
 
 .type-editor__header {
     padding: 20px;
+}
+
+.delete-type-button {
+    position: absolute;
+
+    top: 30px;
+    left: 0px;
+
+    text-align: center;
+    font-size: 12px;
+
+    padding: 0;
+    width: 45px;
+    height: 45px;
+
+    color: var(--input-color);
+    opacity: 0.3;
+    transition: opacity 0.25s;
+}
+
+.delete-type-button:hover {
+    color: var(--error-color);
+    opacity: 1;
 }
