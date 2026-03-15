@@ -16,6 +16,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
     typeName, setTypeName,
     selectedType,
     setSelectedBaseType,
+    deleteType,
     handleIconChange,
   } = useTypeEditor();
 

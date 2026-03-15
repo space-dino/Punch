@@ -75,7 +75,7 @@ export const useTypeEditor = () => {
             setTypes(prev => [...prev, newType]);
             navigate(`./${typeName}`);
 
-            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, newType, 'POST')
+            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, newType)
                 .catch(console.error)
         }
 
@@ -97,12 +97,22 @@ export const useTypeEditor = () => {
         }
     }
 
+    const deleteType = () => {
+        postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedType?.label + '/' + selectedEnvironment, {}, 'DELETE')
+            .catch(console.error)
+        
+        setTypes(prev => prev.filter(
+            type => type.label !== selectedType?.label
+        ));
+    }
+
     return {
     // state
     draft,
     setDraft,
     typeName,
     setTypeName,
+    deleteType,
     selectedType,
     selectedBaseType,
     setSelectedBaseType,
