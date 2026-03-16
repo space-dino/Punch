@@ -12,10 +12,11 @@
 .table-actions-bar {
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     margin-top: 3em;
     gap: 8px;
+    margin-bottom: 20px;
 }
 
 .table-actions-bar .multiselect {
@@ -28,6 +29,19 @@
     padding: 2px;
     background-color: var(--field-color);
     box-shadow: var(--search-bar-shadow-color) 0 0 10px;
+    transition: all 0.15s ease;
+}
+
+.table-actions-bar .search-button:disabled {
+    opacity: 0.5;
+}
+
+.table-actions-bar .type-filter {
+    font-size: 15px;
+    padding: 4px;
+    background-color: var(--field-color);
+    box-shadow: var(--search-bar-shadow-color) 0 0 10px;
+    border-radius: 8px;
 }
 
 .search-bar {
@@ -42,7 +56,6 @@
     background-color: var(--field-color);
     text-align: center;
     color: var(--input-color);
-    margin-bottom: 10px;
 
     box-shadow: var(--search-bar-shadow-color) 0 0 10px;
 }

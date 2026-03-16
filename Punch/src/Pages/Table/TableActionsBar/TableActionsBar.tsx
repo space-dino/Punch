@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './TableActionsBar.css'
-import type { EntityTypeSchema } from '../../../DTOs/entity/entityType/EntityTypeSchema';
 
 interface TableActionsBarProps {
   selected: string[];
@@ -36,7 +35,7 @@ const TableActionsBar = ({ onToggleSearch, isSearching, onSearchTrigger, selecte
     <div className={`table-actions-bar ${(inputValue !== '' || selectedTypeFilter !== '') ? 'search' : ''}`}>
       <button className='delete-button' disabled={selected.length < 1} onClick={onDelete}>x</button>
       <select
-        className='basetype-select'
+        className='type-filter'
         value={selectedTypeFilter}
         onChange={(e) => onTypeFilterChange(e.target.value)}
       >
@@ -52,10 +51,15 @@ const TableActionsBar = ({ onToggleSearch, isSearching, onSearchTrigger, selecte
         className='search-bar'
         placeholder='Search...'
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => { setInputValue(e.target.value) ; if (isSearching) handleSubmit()} }
         onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
       />
-      <button className='search-button' onClick={handleClick}>{isSearching ? '❌' : '🔍'}</button>
+      <button
+        className='search-button'
+        onClick={handleClick}
+        disabled={!isSearching && inputValue === '' && selectedTypeFilter === ''}>
+          {isSearching ? '❌' : '🔍'}
+      </button>
     </div>
   )
 }
