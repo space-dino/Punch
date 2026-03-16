@@ -27,13 +27,14 @@ const defaultDraft = () => {
 
 const Table: React.FC<TableProps> = () => {
   const { entities, setEntities } = useEntities();
-  const { baseTypes } = useTypes();
+  const { types, baseTypes } = useTypes();
   const [selected, setSelected] = useState<string[]>([]);
   const { selectedEnvironment, setSelectedEnvironment, environments } = useEnvironments();
   const [query, setQuery] = useState<string>('')
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
   const [filtered, setFiltered] = useState<EntityWithRelations[]>([]);
+  const [selectedTypeSearchFilter, setSelectedTypeSearchFilter] = useState<string>('');
 
   useEffect(() => {
     getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment)
@@ -50,14 +51,14 @@ const Table: React.FC<TableProps> = () => {
   }
 
   useEffect(() => {
-    if (query !== '') {
-      getJSON<SearchResult[]>(configuration.baseUrls.data, configuration.urls.searchUrl + '?tenantId=' + selectedEnvironment + '&q=' + query)
+    if (query !== '' || selectedTypeSearchFilter !== '') {
+      getJSON<SearchResult[]>(configuration.baseUrls.data, configuration.urls.searchUrl + '?tenantId=' + selectedEnvironment + '&q=' + query + '&type=' + selectedTypeSearchFilter)
       .then((data) => setFiltered(data.sort((a, b) => b.score - a.score).map(result => result.entity)))
         .catch(console.error);
     } else {
       setFiltered([]);
     }
-  }, [query])
+  }, [query, selectedTypeSearchFilter])
 
   const handleDeleteSelection = () => {
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.environmentsUrl + '/' + selectedEnvironment,
@@ -87,6 +88,8 @@ const Table: React.FC<TableProps> = () => {
     setSelectedEnvironment(environments.length > 0 ? environments[0] : '');
   }
 
+  const displayedEntities = filtered.length > 0 ? filtered : entities
+
   return (
     <>
       <TableActionsBar
@@ -94,6 +97,10 @@ const Table: React.FC<TableProps> = () => {
         onDelete={handleDeleteSelection}
         query={query}
         onQueryChange={setQuery}
+        typeLabels={Array.from(types, type => type.label)}
+        baseTypeLabels={Array.from(baseTypes, type => type.label)}
+        selectedTypeFilter={selectedTypeSearchFilter}
+        onTypeFilterChange={setSelectedTypeSearchFilter}
       />
 
       <div className='new-entity-row'>
@@ -116,11 +123,17 @@ const Table: React.FC<TableProps> = () => {
       </div>
 
       <div className='table'>
-        {(entities.length > 0)
-          ? (filtered?.length < 1 ?
-            entities.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
-            : filtered.map((entity) => <EntityRow key={entity.entityId} Entity={entity} onSelectChange={onSelectionChange}/>)
-          )
+        {displayedEntities.length > 0
+          ? displayedEntities.map((entity) => (
+              <EntityRow
+                key={entity.entityId}
+                Entity={entity}
+                onSelectChange={onSelectionChange}
+                isRelated={
+                  entities.some(other => other.relations.some(relation => relation.target.entityId === entity.entityId))
+                }
+              />
+            ))
           : 'No Data Here );'
         }
       </div>

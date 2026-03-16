@@ -6,17 +6,20 @@ import FieldsList from './FieldsList/FieldsList'
 import EntityRowHeader from './EntityRowHeader/EntityRowHeader'
 import AddSubtypeBar from './AddSubtypeBar/AddSubtypeBar'
 import { useEntityRow } from './useEntityRow'
+import { useEnvironments } from '../../../context/EnvironmentsContext'
 
 interface EntityRowProps {
   Entity: EntityWithRelations;
   onDraftChange?: (updated: EntityWithRelations) => void;
   onSelectChange?: (selected: boolean, id: string) => void;
+  isRelated?: boolean;
 }
 
-const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectChange }) => {
+const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectChange, isRelated }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { types } = useTypes();
+  const { selectedEnvironment } = useEnvironments()
 
   const {
     baseTypeSchema,
@@ -38,6 +41,10 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectCh
         subTypesSchemas={subTypesSchemas}
         onToggleCheck={() => {setIsChecked(!isChecked) ; onSelectChange?.(!isChecked, Entity.entityId)}}
         onToggleOpen={() => setIsOpen(!isOpen)}
+        isTenantRelated={subTypesSchemas.some(subtype => types.includes(subtype)) ||
+          (Entity.relations && Entity.relations.some(relation => relation.tenantId === selectedEnvironment)) ||
+          (isRelated ?? true)
+        }
       />
 
       <div className='entity-row__fields'>

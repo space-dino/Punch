@@ -12,15 +12,19 @@ interface EntityRowHeaderProps {
   subTypesSchemas: EntityTypeSchema[];
   onToggleCheck: () => void;
   onToggleOpen: () => void;
+  isTenantRelated: boolean;
 }
 
 const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
-  Entity, isChecked, isOpen, isDraft, subTypesSchemas, onToggleCheck, onToggleOpen
+  Entity, isChecked, isOpen, isDraft, subTypesSchemas, onToggleCheck, onToggleOpen, isTenantRelated
 }) => {
   return (
     <div className='entity-row__header'>
       {!isDraft && (
-        <input type='checkbox' checked={isChecked} onChange={onToggleCheck} />
+        <>
+          <input type='checkbox' checked={isChecked} onChange={onToggleCheck} />
+          <p>{!isTenantRelated ? "*" : ""}</p>
+        </>
       )}
 
       <div className={`subtype-icons-row ${isOpen ? 'open' : 'closed'}`}>
