@@ -13,17 +13,18 @@ interface EntityRowHeaderProps {
   onToggleCheck: () => void;
   onToggleOpen: () => void;
   isTenantRelated: boolean;
+  isSearching: boolean;
 }
 
 const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
-  Entity, isChecked, isOpen, isDraft, subTypesSchemas, onToggleCheck, onToggleOpen, isTenantRelated
+  isSearching, Entity, isChecked, isOpen, isDraft, subTypesSchemas, onToggleCheck, onToggleOpen, isTenantRelated
 }) => {
   return (
     <div className='entity-row__header'>
       {!isDraft && (
         <>
           <input type='checkbox' checked={isChecked} onChange={onToggleCheck} />
-          <p>{!isTenantRelated ? "*" : ""}</p>
+          <p>{(!isTenantRelated && !isSearching) ? "*" : ""}</p>
         </>
       )}
 
@@ -39,7 +40,7 @@ const EntityRowHeader: React.FC<EntityRowHeaderProps> = ({
         ))}
       </div>
 
-      {!isDraft && (
+      {!isSearching && !isDraft && (
         <NavLink to={`${configuration.urls.entitiesUrl}/${Entity.entityId}`}>
           {Entity.relations?.length > 0 ? '<🔗>' : '<⭕>'}
         </NavLink>

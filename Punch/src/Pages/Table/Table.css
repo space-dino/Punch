@@ -55,3 +55,8 @@
     color: var(--error-color);
     opacity: 1;
 }
+
+.search-results-label {
+    padding: 0;
+    margin: 0;
+}

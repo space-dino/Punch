@@ -33,8 +33,11 @@ const Table: React.FC<TableProps> = () => {
   const [query, setQuery] = useState<string>('')
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
+
   const [filtered, setFiltered] = useState<EntityWithRelations[]>([]);
   const [selectedTypeSearchFilter, setSelectedTypeSearchFilter] = useState<string>('');
+  const [searchTrigger, setSearchTrigger] = useState(0)
+  const [isSearching, setIsSearching] = useState<boolean>(false)
 
   useEffect(() => {
     getJSON<EntityWithRelations[]>(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment)
@@ -51,14 +54,14 @@ const Table: React.FC<TableProps> = () => {
   }
 
   useEffect(() => {
-    if (query !== '' || selectedTypeSearchFilter !== '') {
+    if (isSearching) {
       getJSON<SearchResult[]>(configuration.baseUrls.data, configuration.urls.searchUrl + '?tenantId=' + selectedEnvironment + '&q=' + query + '&type=' + selectedTypeSearchFilter)
       .then((data) => setFiltered(data.sort((a, b) => b.score - a.score).map(result => result.entity)))
         .catch(console.error);
     } else {
       setFiltered([]);
     }
-  }, [query, selectedTypeSearchFilter])
+  }, [query, selectedTypeSearchFilter, searchTrigger])
 
   const handleDeleteSelection = () => {
     postJSON(configuration.baseUrls.data, configuration.urls.entitiesUrl + configuration.urls.environmentsUrl + '/' + selectedEnvironment,
@@ -88,7 +91,7 @@ const Table: React.FC<TableProps> = () => {
     setSelectedEnvironment(environments.length > 0 ? environments[0] : '');
   }
 
-  const displayedEntities = filtered.length > 0 ? filtered : entities
+  const displayedEntities = isSearching ? filtered : entities
 
   return (
     <>
@@ -101,6 +104,9 @@ const Table: React.FC<TableProps> = () => {
         baseTypeLabels={Array.from(baseTypes, type => type.label)}
         selectedTypeFilter={selectedTypeSearchFilter}
         onTypeFilterChange={setSelectedTypeSearchFilter}
+        onSearchTrigger={() => setSearchTrigger(prev => prev + 1)}
+        isSearching={isSearching}
+        onToggleSearch={setIsSearching}
       />
 
       <div className='new-entity-row'>
@@ -122,6 +128,8 @@ const Table: React.FC<TableProps> = () => {
         </button>
       </div>
 
+      {isSearching && <h3 className='search-results-label'>Search Results:</h3>}
+
       <div className='table'>
         {displayedEntities.length > 0
           ? displayedEntities.map((entity) => (
@@ -132,6 +140,7 @@ const Table: React.FC<TableProps> = () => {
                 isRelated={
                   entities.some(other => other.relations.some(relation => relation.target.entityId === entity.entityId))
                 }
+                isSearching={isSearching}
               />
             ))
           : 'No Data Here );'

@@ -13,9 +13,10 @@ interface EntityRowProps {
   onDraftChange?: (updated: EntityWithRelations) => void;
   onSelectChange?: (selected: boolean, id: string) => void;
   isRelated?: boolean;
+  isSearching?: boolean;
 }
 
-const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectChange, isRelated }) => {
+const EntityRow: React.FC<EntityRowProps> = ({ isSearching, Entity, onDraftChange, onSelectChange, isRelated }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { types } = useTypes();
@@ -41,10 +42,11 @@ const EntityRow: React.FC<EntityRowProps> = ({ Entity, onDraftChange, onSelectCh
         subTypesSchemas={subTypesSchemas}
         onToggleCheck={() => {setIsChecked(!isChecked) ; onSelectChange?.(!isChecked, Entity.entityId)}}
         onToggleOpen={() => setIsOpen(!isOpen)}
-        isTenantRelated={subTypesSchemas.some(subtype => types.includes(subtype)) ||
+        isTenantRelated={(subTypesSchemas.some(subtype => types.includes(subtype)) ||
           (Entity.relations && Entity.relations.some(relation => relation.tenantId === selectedEnvironment)) ||
-          (isRelated ?? true)
+          (isRelated ?? true))
         }
+        isSearching={isSearching ?? false}
       />
 
       <div className='entity-row__fields'>

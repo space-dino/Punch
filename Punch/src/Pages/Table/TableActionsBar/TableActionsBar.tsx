@@ -11,17 +11,29 @@ interface TableActionsBarProps {
   baseTypeLabels: string[];
   selectedTypeFilter: string;
   onTypeFilterChange: (type: string) => void;
+  onSearchTrigger: () => void;
+  isSearching: boolean;
+  onToggleSearch: (isSearching: boolean) => void;
 }
 
-const TableActionsBar = ({ selected, query, onQueryChange, onDelete, typeLabels, baseTypeLabels, selectedTypeFilter, onTypeFilterChange }: TableActionsBarProps) => {
+const TableActionsBar = ({ onToggleSearch, isSearching, onSearchTrigger, selected, query, onQueryChange, onDelete, typeLabels, baseTypeLabels, selectedTypeFilter, onTypeFilterChange }: TableActionsBarProps) => {
   const [inputValue, setInputValue] = useState<string>(query)
 
   const handleSubmit = () => {
     onQueryChange(inputValue)
+    onSearchTrigger()
+  }
+
+  const handleClick = () => {
+    if(!isSearching) {
+      handleSubmit();
+    }
+
+    onToggleSearch(!isSearching);
   }
 
   return (
-    <div className='table-actions-bar'>
+    <div className={`table-actions-bar ${(inputValue !== '' || selectedTypeFilter !== '') ? 'search' : ''}`}>
       <button className='delete-button' disabled={selected.length < 1} onClick={onDelete}>x</button>
       <select
         className='basetype-select'
@@ -43,7 +55,7 @@ const TableActionsBar = ({ selected, query, onQueryChange, onDelete, typeLabels,
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
       />
-      <button className='search-button' onClick={handleSubmit}>🔍</button>
+      <button className='search-button' onClick={handleClick}>{isSearching ? '❌' : '🔍'}</button>
     </div>
   )
 }
