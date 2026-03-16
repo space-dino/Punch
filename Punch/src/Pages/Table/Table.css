@@ -38,4 +38,20 @@
 
     bottom: var(--page-border-padding);
     left: var(--page-border-padding);
+
+    text-align: center;
+    font-size: 12px;
+
+    padding: 0;
+    width: 90px;
+    height: 45px;
+
+    color: var(--input-color);
+    opacity: 0.3;
+    transition: opacity 0.25s;
+}
+
+.delete-tenant:hover {
+    color: var(--error-color);
+    opacity: 1;
 }

@@ -128,7 +128,7 @@ const Table: React.FC<TableProps> = () => {
       <button
         className='delete-tenant'
         onClick={deleteTenant}
-      >Delete Tenant</button>
+      >Delete Environment</button>
     </>
   )
 }
