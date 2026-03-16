@@ -20,28 +20,47 @@ export const useTypeEditor = () => {
     const selectedType = types.find(e => e.label === params.id) ?? baseTypes.find(e => e.label === params.id);
 
     const handlePropertyChange = (key: string, newField: Field) => {
-        if (selectedType !== undefined) {
-            setTypes(prev => prev.map(e =>
-                e.label === selectedType.label
-                ? new EntityTypeSchema(
-                    e.label,
-                    e.baseLabel,
-                    e.icon,
-                    e.typeFields.map(field => field.name === key ? newField : field)
-                    )
-                : e
-            ))
-        }
+        if (selectedType === undefined) return
+
+        const updatedType = new EntityTypeSchema(
+            selectedType.label,
+            selectedType.baseLabel,
+            selectedType.icon,
+            selectedType.typeFields.map(field => field.name === key ? newField : field)
+        )
+
+        setTypes(prev => prev.map(e =>
+            e.label === selectedType.label ? updatedType : e
+        ))
+
+        postJSON(
+            configuration.baseUrls.data,
+            configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment,
+            updatedType,
+            'PUT'
+        ).catch(console.error)
     }
 
     const handleIconChange = (newIcon: string) => {
-        if (selectedType !== undefined) {
-            setTypes(prev => prev.map(e =>
-            e.label === selectedType.label
-                ? new EntityTypeSchema(e.label, e.baseLabel, newIcon, e.typeFields)
-                : e
-            ))
-        }
+        if (selectedType === undefined) return
+
+        const updatedType = new EntityTypeSchema(
+            selectedType.label,
+            selectedType.baseLabel,
+            newIcon,
+            selectedType.typeFields
+        )
+
+        setTypes(prev => prev.map(e =>
+            e.label === selectedType.label ? updatedType : e
+        ))
+
+        postJSON(
+            configuration.baseUrls.data,
+            configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment,
+            updatedType,
+            'PUT'
+        ).catch(console.error)
     }
 
     const handleBaseTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

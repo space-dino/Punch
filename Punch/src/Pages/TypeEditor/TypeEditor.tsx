@@ -28,8 +28,9 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
   return (
     <div className='type-editor'>
         <div className='type-editor__header'>
-            <TextBox label='Type name' value={selectedType?.label ?? typeName} onChange={(e) => setTypeName(e)} alphanumericOnly/>
+            {!selectedType && <TextBox label='Type name' value={typeName} onChange={(e) => setTypeName(e)} alphanumericOnly/>}
         </div>
+        {selectedType && <h2>{selectedType.label}</h2>}
         {selectedType?.baseLabel !== '' && (
             <select
                 className='basetype-select'
@@ -41,7 +42,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
                 ))}
             </select>
         )}
-        <IconPicker disabled={selectedType?.baseLabel === ''} icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>
+        {selectedType && <IconPicker disabled={selectedType?.baseLabel === ''} icon={selectedType?.icon ?? ''} onIconChange={handleIconChange}/>}
         {selectedType?.baseLabel === '' && <p>Base Type</p>}
 
         <TypeFields
