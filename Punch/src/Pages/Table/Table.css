@@ -32,3 +32,10 @@
     padding: 0;
     margin-right: 20px;
 }
+
+.delete-tenant {
+    position: absolute;
+
+    bottom: var(--page-border-padding);
+    left: var(--page-border-padding);
+}

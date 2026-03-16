@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './Node.css'
 import type { Node as NodeType } from './Node.types'
 import configuration from '../../../configuration.json'
+import RelationEditor from './RelationEditor/RelationEditor'
 
 interface NodeProps {
   node: NodeType
@@ -42,6 +43,10 @@ const Node: React.FC<NodeProps> = ({ node, offset, isDragging, onMouseDown, styl
         .map(([key, value]) => (
           <p className='filtered' key={key}>{key}: <b>{String(value)}</b></p>
       ))}
+
+      {node.id === 'main' &&
+        <RelationEditor/>
+      }
     </div>
   )
 }

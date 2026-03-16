@@ -12,8 +12,8 @@
 .table-actions-bar {
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
     margin-top: 3em;
     gap: 8px;
 }

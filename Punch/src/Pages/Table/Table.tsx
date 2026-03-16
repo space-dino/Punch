@@ -81,6 +81,11 @@ const Table: React.FC<TableProps> = () => {
   .filter(([key]) => !configuration.tableFilter.includes(key))
   .some(([, value]) => value !== '' && value !== undefined)
 
+  const deleteTenant = () => {
+    postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment, {}, 'DELETE')
+    .catch(console.error)
+  }
+
   return (
     <>
       <TableActionsBar
@@ -118,6 +123,11 @@ const Table: React.FC<TableProps> = () => {
           : 'No Data Here );'
         }
       </div>
+
+      <button
+        className='delete-tenant'
+        onClick={deleteTenant}
+      >Delete Tenant</button>
     </>
   )
 }
