@@ -29,6 +29,8 @@ const RelationEditor = (props: RelationEditorProps) => {
         postJSON(
             configuration.baseUrls.data, configuration.urls.environmentsUrl + "/" + selectedEnvironment, newRelation)
             .catch(console.error)
+
+        setIsOpen(false);
     }
 
   return (
