@@ -13,11 +13,36 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 3em;
+    gap: 8px;
 }
 
 .table-actions-bar .multiselect {
     position: absolute;
     right: 0;
+}
+
+.table-actions-bar .search-button {
+    font-size: 20px;
+    padding: 2px;
+    background-color: var(--field-color);
+    box-shadow: var(--search-bar-shadow-color) 0 0 10px;
+}
+
+.search-bar {
+    width: 700px;
+    text-align: center;
+    text-justify: center;
+    padding: 5px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: solid transparent 1px;
+    outline: none;
+    background-color: var(--field-color);
+    text-align: center;
+    color: var(--input-color);
+    margin-bottom: 10px;
+
+    box-shadow: var(--search-bar-shadow-color) 0 0 10px;
 }

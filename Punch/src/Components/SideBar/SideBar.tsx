@@ -22,7 +22,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     getJSON<EntityTypeSchema[]>(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.baseSchemasUrl)
       .then((data) => setBaseTypes(data))
       .catch(console.error);
-  }, []);
+  }, [selectedEnvironment]);
 
   return (
     <div className={`side-bar ${open ? 'side-bar--open' : 'side-bar--closed'}`}>

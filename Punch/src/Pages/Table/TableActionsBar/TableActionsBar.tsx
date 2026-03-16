@@ -25,7 +25,7 @@ const TableActionsBar = ({ selected, query, onQueryChange, onDelete }: TableActi
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
       />
-      <button onClick={handleSubmit}>Search</button>
+      <button className='search-button' onClick={handleSubmit}>🔍</button>
     </div>
   )
 }

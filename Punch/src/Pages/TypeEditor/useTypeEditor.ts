@@ -68,6 +68,9 @@ export const useTypeEditor = () => {
                 ? new EntityTypeSchema(e.label, e.baseLabel, e.icon, [...e.typeFields, draft])
                 : e
             ));
+
+            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, selectedType, 'PUT')
+                .catch(console.error)
         } else {
             // creating new type — add it to types with the new field
             if (typeName === '') return;
