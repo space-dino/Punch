@@ -26,7 +26,7 @@ const TopBar = () => {
         linkOptions={[
         {label: 'Sign Out', url: configuration.urls.loginUrl}
         ]}/>
-    <IconDropdown label={selectedEnvironment} icon='🦍'
+    <IconDropdown label={selectedEnvironment !== '' ? selectedEnvironment : 'No Environment Selected'} icon='🦍'
         actionOptions={environments?.map(environment =>
          ({label: environment, action: () => { setSelectedEnvironment(environment); navigate('/') } }))}
         linkOptions={[

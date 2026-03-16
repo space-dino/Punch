@@ -81,15 +81,23 @@ export const useTypeEditor = () => {
         if (draft.name.trim() === '' || isDuplicate) return;
 
         if (selectedType !== undefined) {
-            // editing existing type
-            setTypes(prev => prev.map(e =>
-            e.label === selectedType.label
-                ? new EntityTypeSchema(e.label, e.baseLabel, e.icon, [...e.typeFields, draft])
-                : e
-            ));
+            const updatedType = new EntityTypeSchema(
+            selectedType.label,
+            selectedType.baseLabel,
+            selectedType.icon,
+            [...selectedType.typeFields, draft]
+            )
 
-            postJSON(configuration.baseUrls.data, configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment, selectedType, 'PUT')
-                .catch(console.error)
+            setTypes(prev => prev.map(e =>
+            e.label === selectedType.label ? updatedType : e
+            ))
+
+            postJSON(
+            configuration.baseUrls.data,
+            configuration.urls.typeSchemasUrl + configuration.urls.subTypesUrl + '/' + selectedEnvironment,
+            updatedType,
+            'PUT'
+            ).catch(console.error)
         } else {
             // creating new type — add it to types with the new field
             if (typeName === '') return;
