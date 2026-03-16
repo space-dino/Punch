@@ -4,6 +4,7 @@
         "environmentsUrl" : "/environments",
         "entitiesUrl" : "/entities",
         "loginUrl" : "/login",
+        "guestLoginUrl" : "/guest-login",
         "logoutUrl" : "/logout",
         "baseSchemasUrl" : "/baseSchemas",
         "registerUrl" : "/register",

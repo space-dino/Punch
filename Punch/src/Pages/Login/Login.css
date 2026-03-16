@@ -17,6 +17,23 @@
     width: 50%;
 }
 
+.login-guest-button {
+    position: absolute;
+
+    bottom: 25%;
+    left: 25%;
+    width: 50%;
+
+    transition: opacity 0.25s;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.login-guest-button.disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .login {
     padding: 20px;
     height: 350px;

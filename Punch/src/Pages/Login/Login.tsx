@@ -76,6 +76,17 @@ const Login = () => {
     }
   };
 
+  const handleGuest = () => {
+      postJSON(configuration.baseUrls.auth, configuration.urls.guestLoginUrl, {})
+        .then(({ status }) => {
+          if (status === 201 || status === 200) {
+            setLogin(new LoginRequest("Guest", "Guest"));
+            navigate('/');
+          } 
+        })
+        .catch(console.error)
+  };
+
   return (
     <div className='login'>
       <HorizontalSelect
@@ -115,6 +126,7 @@ const Login = () => {
             {mode === 'Register' ? 'Passwords do not match' : (wrong ? 'Wrong Password Or Username' : '')}
           </p>
         <button className='login-submit-button' type='submit' disabled={(!passwordsMatch && mode === 'Register')}>{mode}</button>
+        <button onClick={handleGuest} className={`login-guest-button ${mode === 'Register' ? 'disabled' : ''}`}>Login as Guest</button>
       </form>
     </div>
   );
