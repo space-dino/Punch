@@ -141,6 +141,7 @@ const Table: React.FC<TableProps> = () => {
                   entities.some(other => other.relations.some(relation => relation.target.entityId === entity.entityId))
                 }
                 isSearching={isSearching}
+                isSelected={selected.some(id => entity.entityId === id)}
               />
             ))
           : 'No Data Here );'

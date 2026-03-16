@@ -14,10 +14,10 @@ interface EntityRowProps {
   onSelectChange?: (selected: boolean, id: string) => void;
   isRelated?: boolean;
   isSearching?: boolean;
+  isSelected?: boolean;
 }
 
-const EntityRow: React.FC<EntityRowProps> = ({ isSearching, Entity, onDraftChange, onSelectChange, isRelated }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const EntityRow: React.FC<EntityRowProps> = ({ isSelected, isSearching, Entity, onDraftChange, onSelectChange, isRelated }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { types } = useTypes();
   const { selectedEnvironment } = useEnvironments()
@@ -33,14 +33,14 @@ const EntityRow: React.FC<EntityRowProps> = ({ isSearching, Entity, onDraftChang
   } = useEntityRow(Entity, onDraftChange);
 
   return (
-    <div className={`entity-row ${isChecked ? 'selected' : ''}`}>
+    <div className={`entity-row ${isSelected ? 'selected' : ''}`}>
       <EntityRowHeader
         Entity={Entity}
-        isChecked={isChecked}
+        isChecked={isSelected ?? false}
         isOpen={isOpen}
         isDraft={!!onDraftChange}
         subTypesSchemas={subTypesSchemas}
-        onToggleCheck={() => {setIsChecked(!isChecked) ; onSelectChange?.(!isChecked, Entity.entityId)}}
+        onToggleCheck={() => {onSelectChange?.(!isSelected, Entity.entityId)}}
         onToggleOpen={() => setIsOpen(!isOpen)}
         isTenantRelated={(subTypesSchemas.some(subtype => types.includes(subtype)) ||
           (Entity.relations && Entity.relations.some(relation => relation.tenantId === selectedEnvironment)) ||
