@@ -21,6 +21,7 @@ const EnvironmentEditor : React.FC<EnvironmentEditorProps> = (props : Environmen
         <TextBox
           label='Environment Name'
           value={newEnvironment}
+          alphanumericOnly
           onChange={(e) => setNewEnvironment(e)}/>
         <button
           disabled={environments.includes(newEnvironment)}

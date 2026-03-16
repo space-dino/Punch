@@ -20,7 +20,7 @@ const AddSubtypeBar: React.FC<AddSubtypeBarProps> = (props : AddSubtypeBarProps)
         onChange={(e) => setSelectedSubtype(e.target.value)}>
         {types
           .filter(type => type.baseLabel === props.Entity.baseType.typeSchemaLabel)
-          .filter(type => !props.Entity.subTypes.find(existingSubtype => existingSubtype.typeSchemaLabel === type.baseLabel))
+          .filter(type => !props.Entity.subTypes.find(existingSubtype => existingSubtype.typeSchemaLabel === type.label))
           .map((type) => (
           <option key={type.label} value={type.label}>{type.icon + type.label}</option>
         ))}

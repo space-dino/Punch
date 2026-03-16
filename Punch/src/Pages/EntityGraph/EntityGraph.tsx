@@ -30,7 +30,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       x: cx + radius * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
       width: 240,
-      height: 200,
+      height: 240,
     }
   })
 
@@ -58,7 +58,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       x: cx + radius * 1.5 * Math.cos(angle) - nodeCenterOffset.x,
       y: cy + radius * 1.5 * Math.sin(angle) - nodeCenterOffset.y,
       width: 240,
-      height: 200,
+      height: 240,
       relationId: relation.type
     }
   })
