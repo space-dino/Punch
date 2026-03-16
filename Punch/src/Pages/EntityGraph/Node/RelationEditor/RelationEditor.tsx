@@ -7,7 +7,7 @@ import { useEnvironments } from '../../../../context/EnvironmentsContext';
 import { UpdatedRelation } from '../../../../DTOs/entity/Updates/UpdatedRelation';
 
 interface RelationEditorProps {
-    nodeId: string;
+    entityId: string;
 }
 
 const RelationEditor = (props: RelationEditorProps) => {
@@ -22,7 +22,7 @@ const RelationEditor = (props: RelationEditorProps) => {
             relationType,
             {},
             selectedEntity,
-            props.nodeId,
+            props.entityId,
             1
         );
 

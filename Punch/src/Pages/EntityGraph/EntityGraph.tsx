@@ -31,6 +31,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       y: cy + radius * Math.sin(angle) - nodeCenterOffset.y,
       width: 240,
       height: 240,
+      entityId: entity.entityId
     }
   })
 
@@ -45,6 +46,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       y: cy + radius * 0.8 * Math.sin(angle) - nodeCenterOffset.y,
       width: 160,
       height: 100,
+      entityId: entity.entityId
     }
   })
 
@@ -59,7 +61,8 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       y: cy + radius * 1.5 * Math.sin(angle) - nodeCenterOffset.y,
       width: 240,
       height: 240,
-      relationId: relation.type
+      relationId: relation.type,
+      entityId: relation.target.entityId
     }
   })
 
@@ -70,7 +73,8 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       x: cx - nodeCenterOffset.x,
       y: cy - nodeCenterOffset.y,
       width: 320,
-      height: 240 },
+      height: 240,
+      entityId: entity.entityId },
     ...subtypes, ...relationTargets
   ]
 }

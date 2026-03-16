@@ -10,4 +10,5 @@ export interface Node {
   width: number;
   height: number;
   relationId?: string;
+  entityId: string;
 }
