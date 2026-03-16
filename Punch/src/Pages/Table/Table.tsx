@@ -29,7 +29,7 @@ const Table: React.FC<TableProps> = () => {
   const { entities, setEntities } = useEntities();
   const { types, baseTypes } = useTypes();
   const [selected, setSelected] = useState<string[]>([]);
-  const { selectedEnvironment, setSelectedEnvironment, environments } = useEnvironments();
+  const { setEnvironments, selectedEnvironment, setSelectedEnvironment, environments } = useEnvironments();
   const [query, setQuery] = useState<string>('')
 
   const [draft, setDraft] = useState<EntityWithRelations>(defaultDraft());
@@ -88,6 +88,7 @@ const Table: React.FC<TableProps> = () => {
   const deleteTenant = () => {
     postJSON(configuration.baseUrls.data, configuration.urls.environmentsUrl + '/' + selectedEnvironment, {}, 'DELETE')
     .catch(console.error)
+    setEnvironments(prev => prev.filter(environment => environment !== selectedEnvironment))
     setSelectedEnvironment(environments.length > 0 ? environments[0] : '');
   }
 

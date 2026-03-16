@@ -1,0 +1,10 @@
+.new-environment-input-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.new-environment-input-container .label {
+    font-style: italic;
+    width: 200px;
+}

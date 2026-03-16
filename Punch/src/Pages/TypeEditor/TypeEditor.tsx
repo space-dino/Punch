@@ -36,6 +36,7 @@ const TypeEditor: React.FC<TypeEditorProps> = () => {
                 className='basetype-select'
                 value={selectedType?.baseLabel ?? selectedBaseType}
                 onChange={handleBaseTypeChange}
+                disabled={selectedType !== undefined ? true : false}
             >
                 {baseTypes.map((baseType) => (
                 <option key={baseType.label} value={baseType.label}>{baseType.label}</option>

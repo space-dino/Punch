@@ -37,6 +37,4 @@ const TopBar = () => {
   )
 }
 
-//CONTINUE HERE ____ envs in bar
-
 export default TopBar

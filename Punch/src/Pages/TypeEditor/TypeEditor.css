@@ -39,7 +39,7 @@
     height: 45px;
 
     color: var(--input-color);
-    opacity: 0.3;
+    opacity: 0.8;
     transition: opacity 0.25s;
 }
 
