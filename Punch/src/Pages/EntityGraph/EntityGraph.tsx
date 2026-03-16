@@ -69,7 +69,7 @@ const buildNodes = (entity: EntityWithRelations, baseTypes: EntityTypeSchema[], 
       data: entity.baseType,
       x: cx - nodeCenterOffset.x,
       y: cy - nodeCenterOffset.y,
-      width: 240,
+      width: 320,
       height: 240 },
     ...subtypes, ...relationTargets
   ]
