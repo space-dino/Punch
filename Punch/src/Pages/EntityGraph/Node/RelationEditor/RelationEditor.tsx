@@ -5,6 +5,9 @@ import configuration from '../../../../configuration.json'
 import { postJSON } from '../../../../api';
 import { useEnvironments } from '../../../../context/EnvironmentsContext';
 import { UpdatedRelation } from '../../../../DTOs/entity/Updates/UpdatedRelation';
+import { useNavigate } from 'react-router';
+import { EntityWithRelations } from '../../../../DTOs/entity/EntityWithRelations';
+import { RelationInstance } from '../../../../DTOs/entity/relations/RelationInstance';
 
 interface RelationEditorProps {
     entityId: string;
@@ -12,7 +15,7 @@ interface RelationEditorProps {
 
 const RelationEditor = (props: RelationEditorProps) => {
     const [ isOpen, setIsOpen ] = useState<boolean>();
-    const { entities } = useEntities();
+    const { entities, setEntities } = useEntities();
     const { selectedEnvironment } = useEnvironments();
     const [ relationType, setRelationType ] = useState<string>('');
     const [ selectedEntity, setSelectedEntity ] = useState<string>('')
@@ -29,8 +32,24 @@ const RelationEditor = (props: RelationEditorProps) => {
         postJSON(
             configuration.baseUrls.data, configuration.urls.environmentsUrl + "/" + selectedEnvironment, newRelation)
             .catch(console.error)
-
-        setIsOpen(false);
+            .then(() => {
+            const targetEntity = entities.find(e => e.entityId === selectedEntity)
+            if (!targetEntity) return
+            
+            setEntities(prev => prev.map(e =>
+                e.entityId === props.entityId
+                ? new EntityWithRelations(
+                    e.entityId,
+                    e.baseType,
+                    e.subTypes,
+                    [...e.relations, new RelationInstance(relationType, selectedEnvironment, {}, targetEntity)]
+                    )
+                : e
+            ))
+            setIsOpen(false)
+            setRelationType('')
+            setSelectedEntity('')
+        })
     }
 
   return (
