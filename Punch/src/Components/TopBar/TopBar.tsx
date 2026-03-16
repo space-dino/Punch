@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { getJSON } from '../../api'
 import { useEnvironments } from '../../context/EnvironmentsContext'
 import { useNavigate } from 'react-router';
+import './TopBar.css'
 
 const TopBar = () => {
   const { login } = useLogin();
