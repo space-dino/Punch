@@ -45,7 +45,7 @@ const Node: React.FC<NodeProps> = ({ node, offset, isDragging, onMouseDown, styl
       ))}
 
       {node.id === 'main' &&
-        <RelationEditor/>
+        <RelationEditor nodeId={node.id}/>
       }
     </div>
   )

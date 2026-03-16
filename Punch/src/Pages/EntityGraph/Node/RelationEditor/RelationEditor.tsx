@@ -1,13 +1,35 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './RelationEditor.css'
 import { useEntities } from '../../../../context/EntitiesContext';
 import configuration from '../../../../configuration.json'
+import { postJSON } from '../../../../api';
+import { useEnvironments } from '../../../../context/EnvironmentsContext';
+import { UpdatedRelation } from '../../../../DTOs/entity/Updates/UpdatedRelation';
 
-const RelationEditor = () => {
+interface RelationEditorProps {
+    nodeId: string;
+}
+
+const RelationEditor = (props: RelationEditorProps) => {
     const [ isOpen, setIsOpen ] = useState<boolean>();
     const { entities } = useEntities();
+    const { selectedEnvironment } = useEnvironments();
     const [ relationType, setRelationType ] = useState<string>('');
     const [ selectedEntity, setSelectedEntity ] = useState<string>('')
+
+    const addRelation = () => {
+        const newRelation = new UpdatedRelation(
+            relationType,
+            {},
+            selectedEntity,
+            props.nodeId,
+            1
+        );
+
+        postJSON(
+            configuration.baseUrls.data, configuration.urls.environmentsUrl + "/" + selectedEnvironment, newRelation)
+            .catch(console.error)
+    }
 
   return (
     <>
@@ -35,7 +57,7 @@ const RelationEditor = () => {
                 ))}
             </div>
 
-            <button disabled={relationType === '' || selectedEntity === ''}>Add</button>
+            <button disabled={relationType === '' || selectedEntity === ''} onClick={addRelation}>Add</button>
         </div>
     </>
   )
